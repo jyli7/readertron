@@ -11,6 +11,11 @@
 	- You can add a note to that post.
 5. Each user gets his own view of the system, obviously.
 6. API to create a post-share from URL, user (session?), and HTML content.
+7. E-mail notifications.
+8. Comment creation via e-mail replies.
+9. One-click Instapaper integration.
+10. "n <note>" integration via the API.
+11. Print individual post.
 
 ## MODELS
 
