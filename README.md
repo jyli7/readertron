@@ -44,6 +44,6 @@ Comment
 	- user_id
 	- post_share_id
 	- content (text)
-UserFeedSubscription
+Subscription
 	- user_id
 	- feed_id

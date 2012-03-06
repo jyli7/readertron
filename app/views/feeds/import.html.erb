@@ -1,0 +1,14 @@
+<h1>Import feeds - <%= current_user.email %></h1>
+
+<ol>
+	<li>Sign in to Google Reader.</li>
+	<li>Click the little gear dropdown in the top right-hand corner of the page, and choose "Reader settings."</li>
+	<li>Go to the <strong>Import/Export</strong> tab.</li>
+	<li>Click the "download" link next to <strong>Your subscriptions</strong> in the <strong>OPML</strong> column.</li>
+	<li>Upload the file you just downloaded, called <strong>google-reader-subscriptions.xml</strong>, using the uploader below.</li>
+</ol>
+
+<%= form_tag("/feeds/import_upload", :method => "post", :multipart => true) do %>
+  <%= file_field_tag(:opml) %>
+  <%= submit_tag("Submit") %>
+<% end %>
