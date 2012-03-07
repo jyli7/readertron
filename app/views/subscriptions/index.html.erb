@@ -1,5 +1,6 @@
-<h1>Import feeds - <%= current_user.email %></h1>
+<h1>Subscriptions for <%= current_user.email %></h1>
 
+<h2>To add more subscriptions</h2>
 <ol>
 	<li>Sign in to Google Reader.</li>
 	<li>Click the little gear dropdown in the top right-hand corner of the page, and choose "Reader settings."</li>
@@ -8,7 +9,21 @@
 	<li>Upload the file you just downloaded, called <strong>google-reader-subscriptions.xml</strong>, using the uploader below.</li>
 </ol>
 
-<%= form_tag("/feeds/import_upload", :method => "post", :multipart => true) do %>
+<%= form_tag("/subscriptions/upload", :method => "post", :multipart => true) do %>
   <%= file_field_tag(:opml) %>
   <%= submit_tag("Submit") %>
 <% end %>
+
+<h2>Current subscriptions</h2>
+<table>
+	<th>Feed URL</th>
+	<th>Feed Title</th>
+	<th>Last Updated</th>
+	<% current_user.feeds.order("last_modified DESC").each do |feed| %>
+	<tr>
+		<td><%= feed.feed_url %></td>
+		<td><%= feed.title %></td>
+		<td><%= feed.last_modified ? time_ago_in_words(feed.last_modified) + " ago" : nil %></td>
+	</tr>
+	<% end %>
+</table>
