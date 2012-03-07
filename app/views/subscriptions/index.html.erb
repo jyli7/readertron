@@ -26,12 +26,11 @@
 	<th>Feed URL</th>
 	<th>Feed Title</th>
 	<th>Last Updated</th>
-	<% current_user.subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").order("feeds.last_modified DESC").each do |subscription| %>
+	<% @subscriptions.each do |subscription| %>
 	<tr>
-		<td><%= subscription.feed.feed_url %></td>
+		<td><a href="/subscriptions/destroy/<%= subscription.id %>" onclick="return confirm('Are you sure?')">[x]</a> <%= subscription.feed.feed_url %></td>
 		<td><%= subscription.feed.title %></td>
 		<td><%= subscription.feed.last_modified ? time_ago_in_words(subscription.feed.last_modified) + " ago" : nil %></td>
-		<td><a href="/subscriptions/destroy/<%= subscription.id %>" onclick="return confirm('Are you sure?')">[x]</a></td>
 	</tr>
 	<% end %>
 </table>
