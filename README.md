@@ -1,8 +1,21 @@
+1. Central job for fetching feeds, to be run every 10 minutes.
+	a. Fetch and parse feeds.
+	b. Hydrate feeds that need hydrating.
+	c. Retry queue?
+2. Reader interface.
+	a. Two-pane view, left hand side with subscriptions, right with viewer.
+		(At first, one subscription at a time, using an URL param like "/reader/?feed_id=13")
+		i. Read and unread.
+			A. Marking as read as you read.
+			B. Marking as unread.
+		ii. Keyboard shortcuts.
+		iii. Scrolling.
+			A. Snap to top of view on click.
+			B. Infinite scroll pulls in new posts.
+	c. AJAX-ify the pane.
+
 ## FEATURES
 
-0. Each user gets his own view of the system.
-1. RSS feeds: you give an URL, it subscribes you to a feed.
-2. RSS feeds: you import a dump from Google Reader and it subscribes you to all of those feeds.
 * Admin interface.
 3. Reading: an interface mostly like Reader.
 	- an "all posts" view
@@ -17,6 +30,7 @@
 9. One-click Instapaper integration.
 10. "n <note>" integration via the API.
 11. Print individual post.
+11.5 Subscribing bookmarklet?
 12. Gamifying:
 	- surfacing long comments
 	- ability to rank comments? (+1 for "best of")
