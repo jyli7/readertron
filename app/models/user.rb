@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   has_many :feeds, :through => :subscriptions
   
+  def subscribe(feed_url)
+    subscriptions.create(feed: Feed.seed(feed_url))
+  end
+  
   def bulk_subscribe(opml)
     Feed.all_for_opml(opml).each do |feed|
       subscriptions.create(feed: feed)

@@ -1,6 +1,13 @@
 <h1>Subscriptions for <%= current_user.email %></h1>
 
 <h2>To add more subscriptions</h2>
+<h3>One at a time:</h3>
+<%= form_tag("/subscriptions/create", :method => "post") do %>
+  <%= text_field_tag(:feed_url) %>
+  <%= submit_tag("Submit") %>
+<% end %>
+
+<h3>In bulk:</h3>
 <ol>
 	<li>Sign in to Google Reader.</li>
 	<li>Click the little gear dropdown in the top right-hand corner of the page, and choose "Reader settings."</li>
@@ -19,11 +26,12 @@
 	<th>Feed URL</th>
 	<th>Feed Title</th>
 	<th>Last Updated</th>
-	<% current_user.feeds.order("last_modified DESC").each do |feed| %>
+	<% current_user.subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").order("feeds.last_modified DESC").each do |subscription| %>
 	<tr>
-		<td><%= feed.feed_url %></td>
-		<td><%= feed.title %></td>
-		<td><%= feed.last_modified ? time_ago_in_words(feed.last_modified) + " ago" : nil %></td>
+		<td><%= subscription.feed.feed_url %></td>
+		<td><%= subscription.feed.title %></td>
+		<td><%= subscription.feed.last_modified ? time_ago_in_words(subscription.feed.last_modified) + " ago" : nil %></td>
+		<td><a href="/subscriptions/destroy/<%= subscription.id %>" onclick="return confirm('Are you sure?')">[x]</a></td>
 	</tr>
 	<% end %>
 </table>
