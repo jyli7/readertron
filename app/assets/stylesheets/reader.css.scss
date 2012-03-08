@@ -1,0 +1,107 @@
+html, body {
+	font-size: 90%;
+}
+
+html, body, input {
+	font-family: arial, sans-serif;
+}
+
+#current-entry .card {
+	border-left-color: #4D90F0
+};
+
+.card-content {
+	padding: 5px;
+}
+
+.entry .entry-body {
+	width: 650px;
+}
+
+.card { 
+	border: 1px solid #DDD;
+	box-shadow: 0 0 4px #e3e5eb;
+}
+
+.entry {
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+.entry .entry-date {
+	float: right;
+}
+
+.entry-container a {
+	color: #15C;
+}
+
+.card h2 {
+	margin: 0;
+}
+
+.entry .entry-title {
+	font-size: 140%;
+	font-weight: bold;
+}
+
+.entry .entry-title a {
+	text-decoration: none;
+}
+
+.entry .entry-author {
+	color: #666;
+}
+
+.entry a.entry-source-title {
+	text-decoration: none;
+}
+
+.entry .entry-date {
+	color: #666;
+}
+
+.entry-body {
+	padding-top: 6px;
+}
+
+.entry .entry-actions {
+	padding: 6px 7px;
+	color: #444;
+}
+
+.card-common .card-actions {
+	background-color: #FAFAFA;
+	border-top: 1px solid #EBEBEB;
+	height: 30px;
+	color: #444;
+}
+
+.entry .entry-actions .link {
+	padding: 1px 0 1px 16px;
+	margin-right: 16px;
+	white-space: nowrap;
+	cursor: pointer;
+	color: #666;
+}
+
+.entry .entry-actions .star {
+	background: transparent url(/assets/stars.png) no-repeat;
+	background-position: -102px -1px;
+}
+
+.entry .entry-actions .email {
+	background: transparent url(/assets/stars.png) no-repeat;
+	background-position: -112px -224px;
+
+}
+
+.entry .entry-actions .read-state-not-kept-unread {
+	background: transparent url(/assets/stars.png) no-repeat;
+	background-position: -64px -128px;
+}
+
+.entry .entry-actions .read-state-kept-unread {
+	background: transparent url(/assets/stars.png) no-repeat;
+	background-position: -80px -160px;
+}
