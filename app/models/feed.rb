@@ -1,6 +1,9 @@
 class Feed < ActiveRecord::Base  
   has_many :subscriptions, :dependent => :destroy
   has_many :users, :through => :subscriptions
+  has_many :posts, :dependent => :destroy
+  
+  validates_presence_of :feed_url
 
   module OPML
     class Outline
@@ -22,8 +25,7 @@ class Feed < ActiveRecord::Base
   def self.all_for_opml(opml)
     feed_urls = OPML::Outline.parse(opml).map(&:xmlUrl).reject {|feed_url| find_by_feed_url(feed_url).present?}
     Feedzirra::Feed.fetch_and_parse(feed_urls).inject([]) do |feeds, feed|
-      feed_url, feed = feed
-      feeds << make_if_necessary(feed, feed_url)
+      feeds << make_if_necessary(feed[1], feed_url[0])
     end
   end
   
@@ -39,6 +41,33 @@ class Feed < ActiveRecord::Base
     end
   end
   
-  def update
+  def self.refresh
+    Feed.find_in_batches do |feeds|
+      Feedzirra::Feed.fetch_and_parse(feeds.map(&:feed_url)).each do |feed_url, feedzirra|
+        next if feedzirra.is_a?(Fixnum) || feedzirra.nil?
+        feed = Feed.find_by_feed_url(feed_url)
+        if feed && feed.last_modified
+          feedzirra.entries.each do |entry|
+            puts entry.title
+            if entry.published && feed.last_modified && (entry.published > feed.last_modified)
+              feed.posts.create(title: entry.title, url: entry.url, author: entry.author, content: (entry.content || entry.summary), published: entry.published)
+            else
+              break
+            end
+          end
+          feed.last_modified = feedzirra.last_modified
+          feed.save
+        elsif feed
+          if feedzirra.last_modified.present?
+            feedzirra.entries.each do |entry|
+              puts entry.title
+              feed.posts.create(title: entry.title, url: entry.url, author: entry.author, content: (entry.content || entry.summary), published: entry.published)
+            end
+            feed.last_modified = feedzirra.last_modified
+            feed.save
+          end
+        end
+      end
+    end
   end
 end
