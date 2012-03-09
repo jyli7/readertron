@@ -1,25 +1,27 @@
 - rename Post class to Entry
 - total unread count
+- all clicked links from within a post should open in _blank target.
+- a "read" style that looks all faded and gray
 
 2. Reader interface.
-	a. Infinite scroll pulls in new posts.
-	b. AJAX-ify the pane.
-	c. where that big SUBSCRIBE button was, put a COMPOSE POST button
-
-- feed folders
+	o. Only load 10 or so posts by default.
+	a. Infinite scroll pulls in new posts via AJAX.
+	b. Post sharing!
+	c. Sharing with note.
+	d. Commenting on a shared post.
+	e. where that big SUBSCRIBE button was, put a COMPOSE POST button. Highlight those posts in RED or something. Shows up in a person's Share feed.
 
 - clean up and refactor a bit
 
 ## FEATURES
 
 * Admin interface.
-4. Sharing a post.
-	- You can see the post-shares of everyone you follow.
-	- You can add a note to that post.
 6. API to create a post-share from URL, user (session?), and HTML content.
+
 7. E-mail notifications.
 8. Comment creation via e-mail replies.
 9. One-click Instapaper integration.
+9.5 One-click Evernote integration.
 10. "n <note>" integration via the API.
 11. Print individual post.
 11.5 Subscribing bookmarklet?

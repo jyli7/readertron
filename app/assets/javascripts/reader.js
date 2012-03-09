@@ -3,7 +3,6 @@ $(document).ready(function() {
 		if (!$(this).hasClass("current")) {
 			set_as_current_entry(this);
 		};
-		return false;
 	});
 	
 	$(document).bind('keydown', 'j', function(e) {

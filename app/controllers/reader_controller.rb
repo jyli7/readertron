@@ -3,7 +3,7 @@ class ReaderController < ApplicationController
   
   def index
     @subscriptions = current_user.subscriptions
-    @entries = current_user.feeds.find_by_id(params[:feed_id] || 13).posts.unread_for_user(current_user)
+    @entries = current_user.feeds.find_by_id(params[:feed_id] || 151).posts.unread_for_user(current_user)
   end
   
   def mark_as_read
