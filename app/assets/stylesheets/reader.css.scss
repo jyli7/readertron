@@ -25,6 +25,10 @@ html, body, input {
 	color: #333;
 }
 
+#subscriptions ul li.unread {
+	font-weight: bold;
+}
+
 #subscriptions ul li:hover {
 	background-color: #eee;
 }
@@ -57,7 +61,7 @@ html, body, input {
 
 #entries {
 	float: right;
-	width: 950px;
+	width: 900px;
 }
 
 .entry.current .card {

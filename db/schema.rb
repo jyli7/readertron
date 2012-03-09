@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308031558) do
+ActiveRecord::Schema.define(:version => 20120309023623) do
 
   create_table "feeds", :force => true do |t|
     t.string   "title"
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(:version => 20120308031558) do
   create_table "subscriptions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "feed_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "unread_count", :default => 0
+  end
+
+  create_table "unreads", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

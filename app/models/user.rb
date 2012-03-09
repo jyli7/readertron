@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   
   has_many :subscriptions
   has_many :feeds, :through => :subscriptions
+  has_many :unreads
   
   def subscribe(feed_url)
     subscriptions.create(feed: Feed.seed(feed_url))

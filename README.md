@@ -6,15 +6,9 @@
 		i. Read and unread.
 			A. Marking as read as you read.
 			B. Marking as unread.
-----> FOCUS ON THESE FIRST:
-		ii. Keyboard shortcuts.
-		iii. Scrolling.
-			A. Snap to top of view on click.
-			B. Infinite scroll pulls in new posts.
+			C. Infinite scroll pulls in new posts.
 	c. AJAX-ify the pane.
 	d. where that big SUBSCRIBE button was, put a COMPOSE POST button
-
-- date should be "n minutes ago" if super recent
 
 - feed folders
 
