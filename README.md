@@ -1,26 +1,26 @@
-1. Central job for fetching feeds, to be run every 10 minutes.
-	a. Fetch and parse feeds.
-	b. Hydrate feeds that need hydrating.
-	c. Retry queue?
+- rename Post class to Entry
+
 2. Reader interface.
 	a. Two-pane view, left hand side with subscriptions, right with viewer.
 		(At first, one subscription at a time, using an URL param like "/reader/?feed_id=13")
 		i. Read and unread.
 			A. Marking as read as you read.
 			B. Marking as unread.
+----> FOCUS ON THESE FIRST:
 		ii. Keyboard shortcuts.
 		iii. Scrolling.
 			A. Snap to top of view on click.
 			B. Infinite scroll pulls in new posts.
 	c. AJAX-ify the pane.
+	d. where that big SUBSCRIBE button was, put a COMPOSE POST button
+
+- date should be "n minutes ago" if super recent
+
+- feed folders
 
 ## FEATURES
 
 * Admin interface.
-3. Reading: an interface mostly like Reader.
-	- an "all posts" view
-	- viewing posts by each feed
-	- posts are highlighted and keyboard shortcuts are scoped to that post
 4. Sharing a post.
 	- You can see the post-shares of everyone you follow.
 	- You can add a note to that post.
@@ -38,6 +38,8 @@
 	- most shared from feed
 	- be especially fond of finds that come in via the bookmarklet
 	- producer vs. consumpto (ratio of stories shared to read)
+	- encourage original posts
+	- send e-mail to people with summary of what they've been missing, new content, etc.
 
 ## MODELS
 

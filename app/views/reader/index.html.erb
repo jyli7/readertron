@@ -1,5 +1,5 @@
 <div id="entries" class="cards">
-	<% @entries.each do |entry| %>
-		<%= render "entry", entry: entry %>
+	<% @entries.each_with_index do |entry, index| %>
+		<%= render "entry", entry: entry, index: index %>
 	<% end %>
 </div>

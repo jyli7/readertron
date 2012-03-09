@@ -64,6 +64,7 @@ class Feed < ActiveRecord::Base
               feed.posts.create(title: entry.title, url: entry.url, author: entry.author, content: (entry.content || entry.summary), published: entry.published)
             end
             feed.last_modified = feedzirra.last_modified
+            # TODO: Update the feed info itself, i.e., try to re-hydrate.
             feed.save
           end
         end

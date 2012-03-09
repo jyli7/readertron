@@ -6,12 +6,12 @@ html, body, input {
 	font-family: arial, sans-serif;
 }
 
-#current-entry .card {
+.entry.current .card {
 	border-left-color: #4D90F0
 };
 
 .card-content {
-	padding: 5px;
+	padding: 15px;
 }
 
 .entry .entry-body {
