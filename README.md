@@ -1,16 +1,14 @@
 - rename Post class to Entry
+- total unread count
 
 2. Reader interface.
-	a. Two-pane view, left hand side with subscriptions, right with viewer.
-		(At first, one subscription at a time, using an URL param like "/reader/?feed_id=13")
-		i. Read and unread.
-			A. Marking as read as you read.
-			B. Marking as unread.
-			C. Infinite scroll pulls in new posts.
-	c. AJAX-ify the pane.
-	d. where that big SUBSCRIBE button was, put a COMPOSE POST button
+	a. Infinite scroll pulls in new posts.
+	b. AJAX-ify the pane.
+	c. where that big SUBSCRIBE button was, put a COMPOSE POST button
 
 - feed folders
+
+- clean up and refactor a bit
 
 ## FEATURES
 
