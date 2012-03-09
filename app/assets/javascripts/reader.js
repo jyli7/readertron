@@ -18,6 +18,12 @@ $(document).ready(function() {
 		toggle_read_status(".entry.current"); return false;
 	});
 	
+	$(document).bind('keydown', 'v', function(e) {
+		if ($(".entry.current").length > 0) {
+			window.open($(".entry.current").find(".entry-title-link").attr("href"), '_newtab');
+		};
+	})
+	
 	$(".read-state").click(function() {
 		toggle_read_status($(this).closest(".entry"));
 		return false;
