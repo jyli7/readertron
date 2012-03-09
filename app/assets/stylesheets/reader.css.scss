@@ -7,8 +7,10 @@ html, body, input {
 }
 
 #subscriptions {
-	float: left;
-	position: fixed;
+	position: absolute;
+	width: 300px;
+	top: 10px;
+	left: 10px;
 	height: 800px;
 	overflow: scroll;
 }
@@ -60,7 +62,9 @@ html, body, input {
 }
 
 #entries {
-	float: right;
+	position: absolute;
+	left: 330px;
+	top: 10px;
 	width: 900px;
 }
 
