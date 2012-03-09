@@ -35,9 +35,11 @@ $(document).ready(function() {
 function set_as_current_entry(entry) {
 	$(".entry").removeClass("current");
 	$("#entry-" + index_for(entry)).addClass("current");
-	$.post("/reader/mark_as_read", {"post_id": $(entry).attr("post_id")}, function(ret) {
-		$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
-	});
+	if (!$(entry).find("span.read-state").hasClass("read-state-kept-unread")) {
+		$.post("/reader/mark_as_read", {"post_id": $(entry).attr("post_id")}, function(ret) {
+			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
+		});
+	};
 	snap_to_top(entry);
 };
 
