@@ -6,8 +6,62 @@ html, body, input {
 	font-family: arial, sans-serif;
 }
 
+#subscriptions {
+	float: left;
+	position: fixed;
+	height: 800px;
+	overflow: scroll;
+}
+
+#subscriptions ul {
+	list-style: none;
+	padding-left: 0px;
+}
+
+#subscriptions ul li {
+	border-left: 3px solid white;
+	padding: 5px;
+	cursor: pointer;
+	color: #333;
+}
+
+#subscriptions ul li:hover {
+	background-color: #eee;
+}
+
+#subscriptions ul li.selected {
+	border-left: 3px solid #DD4B39;
+	color: #D14836;
+}
+
+#subscriptions::-webkit-scrollbar {
+	height: 16px;
+	overflow: visible;
+	width: 16px;
+}
+
+#subscriptions::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, .2);
+	background-clip: padding-box;
+	border: solid transparent;
+	min-height: 28px;
+	padding: 100px 0 0;
+	box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+	border-width: 1px 1px 1px 6px;
+}
+
+#subscriptions::-webkit-scrollbar-button {
+	height: 0;
+	width: 0;
+}
+
+#entries {
+	float: right;
+	width: 950px;
+}
+
 .entry.current .card {
-	border-left-color: #4D90F0
+	border-left: 2px solid #4D90F0;
 };
 
 .card-content {
@@ -20,6 +74,7 @@ html, body, input {
 
 .card { 
 	border: 1px solid #DDD;
+	border-left: 2px solid #DDD;
 	box-shadow: 0 0 4px #e3e5eb;
 }
 

@@ -1,5 +1,17 @@
-<div id="entries" class="cards">
-	<% @entries.each_with_index do |entry, index| %>
-		<%= render "entry", entry: entry, index: index %>
-	<% end %>
+<div id="panes">
+	<div id="subscriptions" class="left">
+		<h3>Subscriptions</h3>
+		<ul>
+		<% @subscriptions.each do |subscription| %>
+			<% next if subscription.feed.title.blank? %>
+			<li id="subscription-<%= subscription.feed.id %>" class="<%= (subscription.feed.id == params[:feed_id].to_i) ? 'selected' : "" %>"><%= subscription.feed.title %></li>
+		<% end %>
+		</ul>
+	</div>
+
+	<div id="entries" class="cards right">
+		<% @entries.each_with_index do |entry, index| %>
+			<%= render "entry", entry: entry, index: index %>
+		<% end %>
+	</div>
 </div>
