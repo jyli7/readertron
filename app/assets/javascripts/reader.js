@@ -63,9 +63,15 @@ function toggle_read_status(selector) {
 	if ($span.hasClass("read-state-not-kept-unread")) {
 		$span.removeClass("read-state-not-kept-unread");
 		$span.addClass("read-state-kept-unread");
+		$.post("/reader/mark_as_unread", {"post_id": $(selector).attr("post_id")}, function(ret) {
+			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
+		});
 	} else if ($span.hasClass("read-state-kept-unread")) {
 		$span.removeClass("read-state-kept-unread");
 		$span.addClass("read-state-not-kept-unread");
+		$.post("/reader/mark_as_read", {"post_id": $(selector).attr("post_id")}, function(ret) {
+			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
+		});
 	};
 };
 
