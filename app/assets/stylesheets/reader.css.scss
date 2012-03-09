@@ -7,12 +7,13 @@ html, body, input {
 }
 
 #subscriptions {
-	position: absolute;
+	position: fixed;
 	width: 300px;
 	top: 10px;
 	left: 10px;
 	height: 800px;
-	overflow: scroll;
+	overflow: hidden;
+	overflow-x: hidden;
 }
 
 #subscriptions ul {

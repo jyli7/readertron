@@ -35,7 +35,15 @@ $(document).ready(function() {
 		$("#subscriptions li").removeClass("selected");
 		$(this).addClass("selected");
 		return false;
-	})
+	});
+	
+	$("#subscriptions").mouseover(function() {
+		$("#subscriptions").css('overflow-y', 'scroll');
+	});
+	
+	$("#subscriptions").mouseout(function() {
+		$("#subscriptions").css('overflow', 'hidden');
+	});
 });
 
 function set_as_current_entry(entry) {
