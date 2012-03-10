@@ -11,7 +11,6 @@
 			<h3>Subscriptions (<span id="total_unread_count"><%= current_user.total_unread_count %></span>)</h3>
 			<ul>
 			<% @regular_subscriptions.each do |subscription| %>
-				<% next if subscription.feed.title.blank? %>
 				<%= render "subscription", subscription: subscription %>
 			<% end %>
 			</ul>

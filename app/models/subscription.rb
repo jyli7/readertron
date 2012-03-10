@@ -5,7 +5,7 @@ class Subscription < ActiveRecord::Base
   after_create :generate_unreads
   
   def generate_unreads
-    feed.posts.each do |post|
+    feed.posts.order("published DESC").first(10).each do |post|
       user.unreads.create(post: post)
     end
   end

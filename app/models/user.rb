@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   before_destroy :kill_my_feed
   
   def subscribe(feed_url)
-    subscriptions.create(feed: Feed.seed(feed_url))
+    subscriptions.create(feed: Feed.find_or_create_by_feed_url(feed_url))
   end
   
   def bulk_subscribe(opml)
