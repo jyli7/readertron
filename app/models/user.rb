@@ -28,6 +28,20 @@ class User < ActiveRecord::Base
     subscriptions.sum(&:unread_count)
   end
   
+  def shared_unread_count
+    shared_subscriptions.sum(&:unread_count)
+  end
+  
+  def regular_subscriptions
+    # FIXME: Different db engine might not like this 't'.
+    subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 'f'")
+  end
+  
+  def shared_subscriptions
+    # FIXME: Different db engine might not like this 't'.
+    subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 't'")
+  end
+  
   def make_shared_feed
     Feed.create(title: email, feed_url: "#shared", shared: true)
   end

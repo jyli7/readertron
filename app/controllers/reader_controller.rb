@@ -2,8 +2,9 @@ class ReaderController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @subscriptions = current_user.subscriptions
-    @entries = current_user.feeds.find_by_id(params[:feed_id] || 151).posts.unread_for_user(current_user).limit(10)
+    @regular_subscriptions = current_user.regular_subscriptions
+    @shared_subscriptions = current_user.shared_subscriptions
+    @entries = (current_user.feeds.find_by_id(params[:feed_id]) || current_user.feeds.first).posts.unread_for_user(current_user).limit(10)
   end
   
   def mark_as_read
