@@ -40,7 +40,7 @@ class Feed < ActiveRecord::Base
           end
 
           feed.update_attributes(last_modified: feedzirra.last_modified)
-        end
+        end # TODO: If feed_urls don't match up, find the appropriate Feed object and reset with feedzirra.feed_url.
       end
     end
   end

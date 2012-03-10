@@ -5,13 +5,18 @@ class ReaderController < ApplicationController
     @regular_subscriptions = current_user.regular_subscriptions
     @shared_subscriptions = current_user.shared_subscriptions
     if !current_user.feeds.empty?
-      feed_id = params[:feed_id] || current_user.feeds.first.id
-      if (feed = Feed.find(feed_id)) && !feed.shared?
-        @entries = current_user.feeds.find_by_id(feed_id).posts.unread_for_user(current_user).limit(10)
-        @shares = []
+      feed_id = params[:feed_id]
+      if feed_id
+        if (feed = Feed.find(feed_id)) && !feed.shared?
+          @entries = current_user.feeds.find_by_id(feed_id).posts.unread_for_user(current_user).limit(10)
+          @shares = []
+        else
+          @entries = []
+          @shares = current_user.feeds.find_by_id(feed_id).posts.unread_for_user(current_user).limit(10)
+        end
       else
-        @entries = []
-        @shares = current_user.feeds.find_by_id(feed_id).posts.unread_for_user(current_user).limit(10)
+        @entries = current_user.feeds.collect {|f| f.posts.unread_for_user(current_user)}.flatten.sample(10).sort {|a, b| b.published <=> a.published }
+        @shares = []
       end
     else
       redirect_to controller: :subscriptions
