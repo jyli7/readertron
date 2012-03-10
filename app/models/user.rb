@@ -34,4 +34,8 @@ class User < ActiveRecord::Base
   def feed
     Feed.where("feed_url = '#shared' AND title = '#{email}'").first
   end
+  
+  def is_subscribed_to?(feed)
+    subscriptions.find_by_feed_id(feed.id).present?
+  end
 end

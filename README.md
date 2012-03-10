@@ -1,4 +1,6 @@
 - rename Post class to Entry
+- put title of current feed up top.
+- by default, subscribe you to everybody else's feed. Opt out on subscriptions page.
 
 2. Reader interface.
 	b. Post sharing!

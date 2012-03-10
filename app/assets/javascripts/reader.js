@@ -67,6 +67,7 @@ $(document).ready(function() {
 	
 	$(".cancel-share-with-note").click(function() {
 		toggle_email_status($(this).closest(".entry"));
+		return false;
 	});
 });
 

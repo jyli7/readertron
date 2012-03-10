@@ -1,5 +1,14 @@
 <h1>Subscriptions for <%= current_user.email %></h1>
 
+<h2>Shared item feeds</h2>
+<%= form_tag("/subscriptions/shared_feeds", :method => "post") do %>
+<% Feed.where(shared: true).where("id != #{current_user.feed.id}").each do |feed| %>
+	<%= hidden_field_tag("feeds[#{feed.id}]", 0) %>
+	<%= check_box_tag("feeds[#{feed.id}]", 1, current_user.is_subscribed_to?(feed)) %> <%= feed.title %><br/>
+<% end %>
+<br/><%= submit_tag("Save") %>
+<% end %>
+
 <h2>To add more subscriptions</h2>
 <h3>One at a time:</h3>
 <%= form_tag("/subscriptions/create", :method => "post") do %>
