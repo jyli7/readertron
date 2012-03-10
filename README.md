@@ -1,6 +1,4 @@
 - rename Post class to Entry
-- total unread count
-- all clicked links from within a post should open in _blank target.
 - a "read" style that looks all faded and gray
 
 2. Reader interface.

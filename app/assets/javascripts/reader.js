@@ -19,7 +19,7 @@ $(document).ready(function() {
 	
 	$(document).bind('keydown', 'v', function(e) {
 		if ($(".entry.current").length > 0) {
-			window.open($(".entry.current").find(".entry-title-link").attr("href"), '_newtab');
+			window.open($(".entry.current").find(".entry-title-link").attr("href"), '_blank');
 		};
 	})
 	
@@ -40,6 +40,11 @@ $(document).ready(function() {
 		height: "800px",
 		wheelStep: 5,
 		allowPageScroll: false
+	});
+	
+	$(".item-body a").click(function() {
+		window.open($(this).attr("href"), '_blank');
+		return false;
 	});
 });
 
