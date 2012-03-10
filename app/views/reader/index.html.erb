@@ -23,7 +23,9 @@
 			<%= render "entry", entry: entry, index: index %>
 		<% end %>
 		<% @shares.each_with_index do |share, index| %>
-			<%= render "share", entry: share, index: index %>
+			<% if share.shared? %>
+				<%= render "share", entry: share, index: index %>
+			<% end %>
 		<% end %>
 	</div>
 </div>

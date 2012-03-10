@@ -4,12 +4,13 @@ class ReaderController < ApplicationController
   def index
     @regular_subscriptions = current_user.regular_subscriptions
     @shared_subscriptions = current_user.shared_subscriptions
-    if (feed = Feed.find(params[:feed_id])) && !feed.shared?
-      @entries = current_user.feeds.find_by_id(params[:feed_id]).posts.unread_for_user(current_user).limit(10)
+    feed_id = params[:feed_id] || current_user.feeds.first.id
+    if (feed = Feed.find(feed_id)) && !feed.shared?
+      @entries = current_user.feeds.find_by_id(feed_id).posts.unread_for_user(current_user).limit(10)
       @shares = []
     else
       @entries = []
-      @shares = current_user.feeds.find_by_id(params[:feed_id]).posts.unread_for_user(current_user).limit(10)
+      @shares = current_user.feeds.find_by_id(feed_id).posts.unread_for_user(current_user).limit(10)
     end
   end
   
@@ -31,15 +32,13 @@ class ReaderController < ApplicationController
     post = Post.find(params[:post_id])
     unless (share = current_user.feed.posts.find_by_original_post_id(params[:post_id]))
       current_user.feed.posts.create(post.attributes.merge(shared: true, original_post_id: post.id))
-    else
-      share.update_attribute(:shared, true)
     end
     render text: "OK"
   end
   
   def post_unshare
     post = current_user.feed.posts.find_by_original_post_id(params[:post_id])
-    post.update_attribute(:shared, false)
+    post.try(:destroy)
     render text: "OK"
   end
   

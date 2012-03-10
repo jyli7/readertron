@@ -25,7 +25,7 @@ class Feed < ActiveRecord::Base
   def self.all_for_opml(opml)
     feed_urls = OPML::Outline.parse(opml).map(&:xmlUrl).reject {|feed_url| find_by_feed_url(feed_url).present?}
     Feedzirra::Feed.fetch_and_parse(feed_urls).inject([]) do |feeds, feed|
-      feeds << make_if_necessary(feed[1], feed_url[0])
+      feeds << make_if_necessary(feed[1], feed[0])
     end
   end
   

@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   belongs_to :feed
+  has_many :unreads, dependent: :destroy
   
   validates_uniqueness_of :url, unless: ->(post) { post.shared? }
   validates_presence_of :url
