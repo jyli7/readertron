@@ -20,4 +20,8 @@ class User < ActiveRecord::Base
       subscriptions.create(feed: feed)
     end
   end
+  
+  def total_unread_count
+    subscriptions.sum(&:unread_count)
+  end
 end

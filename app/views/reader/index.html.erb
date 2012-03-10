@@ -1,7 +1,7 @@
 <div id="panes">
 	<div class="left-pane">
 		<div id="subscriptions">
-			<h3>Subscriptions</h3>
+			<h3>Subscriptions (<span id="total_unread_count"><%= current_user.total_unread_count %></span>)</h3>
 			<ul>
 			<% @subscriptions.each do |subscription| %>
 				<% next if subscription.feed.title.blank? %>

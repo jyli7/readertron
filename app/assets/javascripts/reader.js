@@ -48,6 +48,7 @@ function set_as_current_entry(entry) {
 	if (!$(entry).find("span.read-state").hasClass("read-state-kept-unread")) {
 		$.post("/reader/mark_as_read", {"post_id": $(entry).attr("post_id")}, function(ret) {
 			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
+			decrement("#total_unread_count");
 		});
 	};
 	snap_to_top(entry);
@@ -77,16 +78,28 @@ function toggle_read_status(selector) {
 		$span.addClass("read-state-kept-unread");
 		$.post("/reader/mark_as_unread", {"post_id": $(selector).attr("post_id")}, function(ret) {
 			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
+			increment("#total_unread_count");
 		});
 	} else if ($span.hasClass("read-state-kept-unread")) {
 		$span.removeClass("read-state-kept-unread");
 		$span.addClass("read-state-not-kept-unread");
 		$.post("/reader/mark_as_read", {"post_id": $(selector).attr("post_id")}, function(ret) {
 			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
+			decrement("#total_unread_count");
 		});
 	};
 };
 
 function index_for(entry) {
 	return $(entry).attr("id").split("-")[1];
+};
+
+function increment(div) {
+	var current_count = parseInt($(div).text());
+	$(div).text(current_count + 1);
+};
+
+function decrement(div) {
+	var current_count = parseInt($(div).text());
+	$(div).text(current_count - 1);
 };
