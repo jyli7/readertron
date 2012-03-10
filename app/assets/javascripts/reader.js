@@ -38,17 +38,19 @@ $(document).ready(function() {
 	
 	$("#subscriptions").slimScroll({
 		height: "800px",
+		wheelStep: 5,
 		allowPageScroll: false
 	});
 });
 
 function set_as_current_entry(entry) {
 	$(".entry").removeClass("current");
-	$("#entry-" + index_for(entry)).addClass("current");
-	if (!$(entry).find("span.read-state").hasClass("read-state-kept-unread")) {
+	$(entry).addClass("current");
+	if (!$(entry).find("span.read-state").hasClass("read-state-kept-unread") && !$(entry).hasClass("dirty")) {
 		$.post("/reader/mark_as_read", {"post_id": $(entry).attr("post_id")}, function(ret) {
 			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
 			decrement("#total_unread_count");
+			$(entry).addClass("dirty");
 		});
 	};
 	snap_to_top(entry);
@@ -74,20 +76,19 @@ function next_post(offset) {
 function toggle_read_status(selector) {
 	$span = $(selector).find("span.read-state");
 	if ($span.hasClass("read-state-not-kept-unread")) {
-		$span.removeClass("read-state-not-kept-unread");
-		$span.addClass("read-state-kept-unread");
-		$.post("/reader/mark_as_unread", {"post_id": $(selector).attr("post_id")}, function(ret) {
-			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
-			increment("#total_unread_count");
-		});
+		read_mark(selector, "unread");
 	} else if ($span.hasClass("read-state-kept-unread")) {
-		$span.removeClass("read-state-kept-unread");
-		$span.addClass("read-state-not-kept-unread");
-		$.post("/reader/mark_as_read", {"post_id": $(selector).attr("post_id")}, function(ret) {
-			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
-			decrement("#total_unread_count");
-		});
+		read_mark(selector, "read")
 	};
+};
+
+function read_mark(selector, r_u) {
+	$span.removeClass(r_u == "read" ? "read-state-kept-unread" : "read-state-not-kept-unread");
+	$span.addClass(r_u == "read" ? "read-state-not-kept-unread" : "read-state-kept-unread");
+	$.post("/reader/mark_as_" + r_u, {"post_id": $(selector).attr("post_id")}, function(ret) {
+		$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
+		r_u == "read" ? decrement("#total_unread_count") : increment("#total_unread_count");
+	});
 };
 
 function index_for(entry) {
