@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :unreads
   
   after_create :make_shared_feed
+  after_create :subscribe_to_all_shared_feeds
   
   def subscribe(feed_url)
     subscriptions.create(feed: Feed.seed(feed_url))
@@ -37,5 +38,11 @@ class User < ActiveRecord::Base
   
   def is_subscribed_to?(feed)
     subscriptions.find_by_feed_id(feed.id).present?
+  end
+  
+  def subscribe_to_all_shared_feeds
+    Feed.where(shared: true).where("id != '#{feed.id}'").each do |feed|
+      subscriptions.create(feed: feed)
+    end
   end
 end
