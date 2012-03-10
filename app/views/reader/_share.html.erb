@@ -1,0 +1,45 @@
+<div class="entry" style="height: auto;" id="entry-<%= index %>" post_id="<%= entry.id %>">
+	<div class="card card-common">
+		<div class="card-content">
+			<div class="entry-container">
+				<div class="entry-main">
+					<div class="entry-date">
+						<%= pretty_date(entry.published) %>
+					</div>
+					<h2 class="entry-title">
+						<a class="entry-title-link" target="_blank" href="<%= entry.url %>"><%= entry.title %></a>
+					</h2>
+					<div class="entry-title-go-to">
+						<h2 class="entry-title"></h2>
+						<div class="entry-icons">
+							<div class="item-star star link unselectable empty">
+								<h2 class="entry-title"></h2>
+							</div>
+						</div>
+					</div>
+					<div class="entry-author">
+						<span class="entry-icons-placeholder"><span class="entry-source-title-parent">from <a class="entry-source-title" target="_blank" href="/#"><%= Post.find(entry.original_post_id).feed.title %></a></span><% if entry.author %> <span class="entry-author-parent">by <span class="entry-author-name"><%= entry.author %></span></span> <% end %></span>
+					</div>
+					<div class="entry-debug"></div>
+					<div class="entry-annotations"></div>
+					<div class="entry-body">
+						<div>
+							<div class="item-body">
+								<div>
+									<%= raw(entry.content) %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-actions card-bottom">
+			<div class="entry-actions">
+				<span class="read-state-not-kept-unread read-state link unselectable" title="Keep unread">Keep unread</span>
+				<wbr>
+			</div>
+		</div>
+	</div>
+</div>
