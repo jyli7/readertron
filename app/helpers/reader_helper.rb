@@ -19,10 +19,16 @@ module ReaderHelper
   end
   
   def star_class(post)
-    if Post.find_all_by_original_post_id(post.id).collect {|share| share.feed.title}.include?(current_user.email)
-      "star-active"
-    else
-      "star-inactive"
+    if (share = Post.find_all_by_original_post_id(post.id).select {|share| share.feed.title == current_user.email}.first.presence)
+      return "star-active" if share.note.blank?
     end
+    "star-inactive"
+  end
+  
+  def email_class(post)
+    if (share = Post.find_all_by_original_post_id(post.id).select {|share| share.feed.title == current_user.email}.first.presence)
+      return "email-active" if share.note.present?
+    end
+    "email-inactive"
   end
 end

@@ -70,6 +70,11 @@ $(document).ready(function() {
 		toggle_email_status($(this).closest(".entry"));
 		return false;
 	});
+	
+	$(".card-share-with-note input[type=submit]").click(function() {
+		share_with_note($(this).closest(".entry"));
+		return false;
+	});
 });
 
 function set_as_current_entry(entry) {
@@ -121,7 +126,7 @@ function read_mark(selector, r_u) {
 };
 
 function toggle_shared_status(selector) {
-	$span = $(selector).find("span.item-star");
+	var $span = $(selector).find("span.item-star");
 	if ($span.hasClass("star-active")) {
 		share_set(selector, "unshare");
 	} else if ($span.hasClass("star-inactive")) {
@@ -130,15 +135,16 @@ function toggle_shared_status(selector) {
 };
 
 function share_set(selector, s_s) {
+	var $span = $(selector).find("span.item-star");
 	$span.removeClass(s_s == "share" ? "star-inactive" : "star-active");
 	$span.addClass(s_s == "share" ? "star-active" : "star-inactive");
 	$.post("/reader/post_" + s_s, {"post_id": $(selector).attr("post_id")}, function(ret) {
-		// Do something.
+		// Do something?
 	});
 };
 
 function toggle_email_status(selector) {
-	$span = $(selector).find("span.email");
+	var $span = $(selector).find("span.email");
 	if ($span.hasClass("email-active")) {
 		email_set(selector, "unemail");
 	} else if ($span.hasClass("email-inactive")) {
@@ -147,14 +153,24 @@ function toggle_email_status(selector) {
 };
 
 function email_set(selector, r_u) {
+	var $span = $(selector).find("span.email");
 	$span.removeClass(r_u == "email" ? "email-inactive" : "email-active");
 	$span.addClass(r_u == "email" ? "email-active" : "email-inactive");
 	if (r_u == "email") {
-		$span.closest(".entry").find(".card-share-with-note").show();
-		$span.closest(".entry").find(".card-share-with-note").find("textarea").focus();
+		$(selector).find(".card-share-with-note").show();
+		$(selector).find(".card-share-with-note").find("textarea").focus();
 	} else {
-		$span.closest(".entry").find(".card-share-with-note").hide();
+		$(selector).find(".card-share-with-note").hide();
+		$.post("/reader/post_unshare", {"post_id": $(selector).attr("post_id")});
 	};
+};
+
+function share_with_note(entry) {
+	var note_content = $(entry).find("textarea[name=note_content]").val();
+	var post_id = $(entry).attr("post_id");
+	$.post("/reader/share_with_note", {"post_id": post_id, "note_content": note_content}, function(ret) {
+		$(entry).find(".card-share-with-note").hide();
+	});
 };
 
 function index_for(entry) {
