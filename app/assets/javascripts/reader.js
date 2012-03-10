@@ -21,6 +21,10 @@ $(document).ready(function() {
 		toggle_shared_status(".entry.current"); return false;
 	});
 	
+	$(document).bind('keydown', 'shift+s', function(e) {
+		toggle_email_status(".entry.current"); return false;
+	});
+	
 	$(document).bind('keydown', 'v', function(e) {
 		if ($(".entry.current").length > 0) {
 			window.open($(".entry.current").find(".entry-title-link").attr("href"), '_blank');
@@ -34,6 +38,11 @@ $(document).ready(function() {
 	
 	$(".item-star").click(function() {
 		toggle_shared_status($(this).closest(".entry"));
+		return false;
+	});
+	
+	$(".entry-actions .email").click(function() {
+		toggle_email_status($(this).closest(".entry"));
 		return false;
 	});
 	
@@ -54,6 +63,10 @@ $(document).ready(function() {
 	$(".item-body a").click(function() {
 		window.open($(this).attr("href"), '_blank');
 		return false;
+	});
+	
+	$(".cancel-share-with-note").click(function() {
+		toggle_email_status($(this).closest(".entry"));
 	});
 });
 
@@ -120,6 +133,26 @@ function share_set(selector, s_s) {
 	$.post("/reader/post_" + s_s, {"post_id": $(selector).attr("post_id")}, function(ret) {
 		// Do something.
 	});
+};
+
+function toggle_email_status(selector) {
+	$span = $(selector).find("span.email");
+	if ($span.hasClass("email-active")) {
+		email_set(selector, "unemail");
+	} else if ($span.hasClass("email-inactive")) {
+		email_set(selector, "email")
+	};
+};
+
+function email_set(selector, r_u) {
+	$span.removeClass(r_u == "email" ? "email-inactive" : "email-active");
+	$span.addClass(r_u == "email" ? "email-active" : "email-inactive");
+	if (r_u == "email") {
+		$span.closest(".entry").find(".card-share-with-note").show();
+		$span.closest(".entry").find(".card-share-with-note").find("textarea").focus();
+	} else {
+		$span.closest(".entry").find(".card-share-with-note").hide();
+	};
 };
 
 function index_for(entry) {

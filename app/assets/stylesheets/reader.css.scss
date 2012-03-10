@@ -159,10 +159,30 @@ html, body, input {
 	background-position: -64px -33px;
 }
 
-.entry .entry-actions .email {
+.entry .entry-actions .email-active {
 	background: transparent url(/assets/stars.png) no-repeat;
-	background-position: -112px -224px;
+	background-position: -48px -96px;
+}
 
+.entry .entry-actions .email .link {
+	margin-bottom: 10px;
+}
+
+.entry .entry-actions .email-inactive {
+	background: transparent url(/assets/stars.png) no-repeat;
+	background-position: -32px -64px;
+}
+
+.entry .card-share-with-note .after-actions {
+	margin-left: 40px;
+}
+
+.entry .card-share-with-note textarea {
+	width: 90%;
+	height: 50px;
+	margin-left: 40px;
+	font-family: courier;
+	font-size: 13px;
 }
 
 .entry .entry-actions .read-state-not-kept-unread {

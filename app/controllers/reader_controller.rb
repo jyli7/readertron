@@ -35,4 +35,8 @@ class ReaderController < ApplicationController
     post.update_attribute(:shared, false)
     render text: "OK"
   end
+  
+  def share_with_note
+    render text: "OK"
+  end
 end
