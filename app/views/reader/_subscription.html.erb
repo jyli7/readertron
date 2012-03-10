@@ -1,0 +1,4 @@
+<li id="subscription-<%= subscription.feed.id %>" class="<%= li_classes(subscription, params[:feed_id]) %>">
+	<%= subscription.feed.title %>
+	<span class="unread_count"> <%= unread_count(subscription) %></span>
+</li>

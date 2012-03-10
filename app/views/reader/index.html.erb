@@ -4,7 +4,7 @@
 		<ul>
 		<% @subscriptions.each do |subscription| %>
 			<% next if subscription.feed.title.blank? %>
-			<li id="subscription-<%= subscription.feed.id %>" class="<%= (subscription.feed.id == params[:feed_id].to_i) ? 'selected' : "" %> <%= subscription.unread_count > 0 ? "unread" : "" %>"><%= subscription.feed.title %> <span class="unread_count"> <% if subscription.unread_count > 0 %>(<%= subscription.unread_count %>)<% end %></span></li>
+			<%= render "subscription", subscription: subscription %>
 		<% end %>
 		</ul>
 	</div>
