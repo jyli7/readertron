@@ -109,6 +109,10 @@ html, body, input {
 	font-weight: bold;
 }
 
+.entry .card-bottom.unread {
+	background-color: #eefbff;
+}
+
 .entry .entry-title a {
 	text-decoration: none;
 }

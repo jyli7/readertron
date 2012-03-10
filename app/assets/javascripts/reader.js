@@ -80,6 +80,8 @@ $(document).ready(function() {
 function set_as_current_entry(entry) {
 	$(".entry").removeClass("current");
 	$(entry).addClass("current");
+	if ($(entry).find(".card-bottom").hasClass("unread") && !$(entry).find("span.read-state").hasClass("read-state-kept-unread"))
+		$(entry).find(".card-bottom").removeClass("unread").addClass("read");
 	if (!$(entry).find("span.read-state").hasClass("read-state-kept-unread") && !$(entry).hasClass("dirty")) {
 		$.post("/reader/mark_as_read", {"post_id": $(entry).attr("post_id")}, function(ret) {
 			$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
@@ -119,6 +121,8 @@ function toggle_read_status(selector) {
 function read_mark(selector, r_u) {
 	$span.removeClass(r_u == "read" ? "read-state-kept-unread" : "read-state-not-kept-unread");
 	$span.addClass(r_u == "read" ? "read-state-not-kept-unread" : "read-state-kept-unread");
+	$(selector).find(".card-bottom").removeClass(r_u == "read" ? "unread" : "read");
+	$(selector).find(".card-bottom").addClass(r_u == "read" ? "read" : "unread");
 	$.post("/reader/mark_as_" + r_u, {"post_id": $(selector).attr("post_id")}, function(ret) {
 		$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
 		r_u == "read" ? decrement("#total_unread_count") : increment("#total_unread_count");

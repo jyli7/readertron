@@ -35,7 +35,7 @@
 			</div>
 		</div>
 
-		<div class="card-actions card-bottom">
+		<div class="card-actions card-bottom <%= entry.unread_for_user?(current_user) ? "unread" : "" %>">
 			<div class="entry-actions">
 				<span class="item-star <%= star_class(entry) %> link unselectable" title="Add star"></span>
 				<wbr><wbr>
