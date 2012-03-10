@@ -17,4 +17,12 @@ module ReaderHelper
   def unread_count(subscription)
      subscription.unread_count > 0 ? "(#{subscription.unread_count})" : ""
   end
+  
+  def star_class(post)
+    if Post.find_all_by_original_post_id(post.id).collect {|share| share.feed.title}.include?(current_user.email)
+      "star-active"
+    else
+      "star-inactive"
+    end
+  end
 end
