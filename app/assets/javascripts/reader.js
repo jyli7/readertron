@@ -36,12 +36,9 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$("#subscriptions").mouseover(function() {
-		$("#subscriptions").css('overflow-y', 'scroll');
-	});
-	
-	$("#subscriptions").mouseout(function() {
-		$("#subscriptions").css('overflow', 'hidden');
+	$("#subscriptions").slimScroll({
+		height: "800px",
+		allowPageScroll: false
 	});
 });
 
