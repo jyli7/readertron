@@ -1,10 +1,10 @@
 - rename Post class to Entry
 - put title of current feed up top.
 - bulk subscribe not working second time around?
+- ajax hijack the share with note form.
+- being able to edit the note on a shared post.
 
 2. Reader interface.
-	b. Post sharing!
-	c. Sharing with note.
 	d. Commenting on a shared post.
 	e. where that big SUBSCRIBE button was, put a COMPOSE POST button. Highlight those posts in RED or something. Shows up in a person's Share feed.
 
