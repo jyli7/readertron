@@ -4,7 +4,13 @@ class ReaderController < ApplicationController
   def index
     @regular_subscriptions = current_user.regular_subscriptions
     @shared_subscriptions = current_user.shared_subscriptions
-    @entries = (current_user.feeds.find_by_id(params[:feed_id]) || current_user.feeds.first).posts.unread_for_user(current_user).limit(10)
+    if (feed = Feed.find(params[:feed_id])) && !feed.shared?
+      @entries = current_user.feeds.find_by_id(params[:feed_id]).posts.unread_for_user(current_user).limit(10)
+      @shares = []
+    else
+      @entries = []
+      @shares = current_user.feeds.find_by_id(params[:feed_id]).posts.unread_for_user(current_user).limit(10)
+    end
   end
   
   def mark_as_read

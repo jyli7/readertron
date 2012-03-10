@@ -22,5 +22,8 @@
 		<% @entries.each_with_index do |entry, index| %>
 			<%= render "entry", entry: entry, index: index %>
 		<% end %>
+		<% @shares.each_with_index do |share, index| %>
+			<%= render "share", entry: share, index: index %>
+		<% end %>
 	</div>
 </div>
