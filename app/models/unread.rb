@@ -8,6 +8,8 @@ class Unread < ActiveRecord::Base
   after_create :increment_subscription
   before_destroy :decrement_subscription
   
+  validates_uniqueness_of :user_id, :scope => :post_id
+  
   def increment_subscription
     sub = post.feed.subscriptions.find_by_user_id(user.id)
     sub.unread_count = sub.unread_count + 1
