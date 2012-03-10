@@ -4,7 +4,6 @@
 			<h3>Shared Items (<span id="shared_unread_count"><%= current_user.shared_unread_count %></span>)</h3>
 			<ul>
 				<% @shared_subscriptions.each do |subscription| %>
-					<% next if subscription.feed.title.blank? %>
 					<%= render "subscription", subscription: subscription %>
 				<% end %>
 			</ul>
@@ -19,12 +18,7 @@
 
 	<div id="entries" class="cards right">
 		<% @entries.each_with_index do |entry, index| %>
-			<%= render "entry", entry: entry, index: index %>
-		<% end %>
-		<% @shares.each_with_index do |share, index| %>
-			<% if share.shared? %>
-				<%= render "share", entry: share, index: index %>
-			<% end %>
+			<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>
 		<% end %>
 	</div>
 </div>

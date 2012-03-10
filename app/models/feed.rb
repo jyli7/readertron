@@ -17,9 +17,9 @@ class Feed < ActiveRecord::Base
         has_many :outlines, Outline
     end
   end
-
-  def self.seed(feed_url)
-    make_if_necessary(Feedzirra::Feed.fetch_and_parse(feed_url), feed_url)
+  
+  def self.unshared
+    where("shared = 'f'")
   end
   
   def self.all_for_opml(opml)

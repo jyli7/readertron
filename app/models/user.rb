@@ -25,6 +25,14 @@ class User < ActiveRecord::Base
     end
   end
   
+  def entries_for_feed_id(feed_id)
+    if (f = Feed.find_by_id(feed_id))
+      @entries = f.posts.partition {|p| p.unread_for_user?(self)}.flatten.first(10)
+    else
+      @entries = feeds.unshared.map {|f| f.posts.unread_for_user(self)}.flatten.sample(10)
+    end
+  end
+  
   def total_unread_count
     subscriptions.sum(&:unread_count)
   end

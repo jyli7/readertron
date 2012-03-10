@@ -1,5 +1,3 @@
-- rename post class to entry
-- put title of current feed up top.
 - seeing unread items.
 - commenting on a shared post.
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
