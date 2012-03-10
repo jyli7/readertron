@@ -6,7 +6,7 @@ class Unread < ActiveRecord::Base
   validates_presence_of :user
   
   after_create :increment_subscription
-  after_destroy :decrement_subscription
+  before_destroy :decrement_subscription
   
   def increment_subscription
     sub = post.feed.subscriptions.find_by_user_id(user.id)

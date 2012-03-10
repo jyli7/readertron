@@ -23,18 +23,23 @@ class Feed < ActiveRecord::Base
   end
   
   def self.all_for_opml(opml)
-    feed_urls = OPML::Outline.parse(opml).map(&:xmlUrl).reject {|feed_url| find_by_feed_url(feed_url).present?}
-    Feedzirra::Feed.fetch_and_parse(feed_urls).inject([]) do |feeds, feed|
-      feeds << make_if_necessary(feed[1], feed[0])
+    feeds = []
+    to_subscribe, to_fetch = OPML::Outline.parse(opml).map(&:xmlUrl).partition {|feed_url| find_by_feed_url(feed_url).present?}
+    to_subscribe.each do |feed_url|
+      feeds << find_by_feed_url(feed_url)
     end
+    Feedzirra::Feed.fetch_and_parse(to_fetch).each do |feed_url, feedzirra|
+      feeds << make_if_necessary(feedzirra, feed_url)
+    end
+    feeds
   end
   
-  def self.make_if_necessary(feed, feed_url)
-    if !feed.is_a?(Fixnum) && feed.present?
-      find_or_create_by_url(feed.url, 
-        feed_url: feed.feed_url,
-        title: feed.title.try(:strip), 
-        last_modified: feed.last_modified
+  def self.make_if_necessary(feedzirra, feed_url)
+    if !feedzirra.is_a?(Fixnum) && feedzirra.present?
+      find_or_create_by_url(feedzirra.url, 
+        feed_url: feedzirra.feed_url,
+        title: feedzirra.title.try(:strip), 
+        last_modified: feedzirra.last_modified
       )
     else
       find_or_create_by_feed_url(feed_url)

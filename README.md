@@ -1,6 +1,5 @@
 - rename Post class to Entry
 - put title of current feed up top.
-- bulk subscribe not working second time around?
 - ajax hijack the share with note form.
 - being able to edit the note on a shared post.
 
