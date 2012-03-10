@@ -43,6 +43,10 @@ class ReaderController < ApplicationController
   end
   
   def share_with_note
+   post = Post.find(params[:post_id])
+    unless (share = current_user.feed.posts.find_by_original_post_id(params[:post_id]))
+      current_user.feed.posts.create(post.attributes.merge(shared: true, original_post_id: post.id, note: params[:note_content]))
+    end
     render text: "OK"
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120310010347) do
+ActiveRecord::Schema.define(:version => 20120310043331) do
 
   create_table "feeds", :force => true do |t|
     t.string   "title"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20120310010347) do
     t.datetime "updated_at",                          :null => false
     t.boolean  "shared",           :default => false
     t.integer  "original_post_id"
+    t.text     "note"
   end
 
   create_table "subscriptions", :force => true do |t|

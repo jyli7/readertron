@@ -3,6 +3,11 @@
 		<div class="card-content">
 			<div class="entry-container">
 				<div class="entry-main">
+					<% if entry.note.present? %>
+					<div class="entry-note">
+						<strong><%= entry.feed.title %>:</strong> <%= entry.note %>
+					</div>
+					<% end %>
 					<div class="entry-date">
 						<%= pretty_date(entry.published) %>
 					</div>
