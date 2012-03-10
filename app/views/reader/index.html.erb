@@ -1,13 +1,14 @@
 <div id="panes">
 	<div class="left-pane">
 		<div id="subscriptions">
-			<h3>Shared Items (<span id="shared_unread_count"><%= current_user.shared_unread_count %></span>)</h3>
+			<h3><a href="?feed_id=mine">My Shared Items</a></h3>
+			<h3><a href="?feed_id=shared">Other Shared Items</a> (<span id="shared_unread_count"><%= current_user.shared_unread_count %></span>)</h3>
 			<ul>
 				<% @shared_subscriptions.each do |subscription| %>
 					<%= render "subscription", subscription: subscription %>
 				<% end %>
 			</ul>
-			<h3>Subscriptions (<span id="total_unread_count"><%= current_user.total_unread_count %></span>)</h3>
+			<h3><a href="/">All Items</a> (<span id="total_unread_count"><%= current_user.total_unread_count %></span>)</h3>
 			<ul>
 			<% @regular_subscriptions.each do |subscription| %>
 				<%= render "subscription", subscription: subscription %>

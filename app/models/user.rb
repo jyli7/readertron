@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
   def entries_for_feed_id(feed_id)
     if (f = Feed.find_by_id(feed_id))
       @entries = f.posts.partition {|p| p.unread_for_user?(self)}.flatten.first(10)
+    elsif feed_id == "shared"
+      @entries = feeds.shared.map {|f| f.posts.unread_for_user(self)}.flatten.sample(10)
+    elsif feed_id == "mine"
+      @entries = feed.posts.map {|s| Post.find(s.original_post_id)}.first(10)
     else
       @entries = feeds.unshared.map {|f| f.posts.unread_for_user(self)}.flatten.sample(10)
     end

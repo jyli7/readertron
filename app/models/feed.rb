@@ -18,6 +18,10 @@ class Feed < ActiveRecord::Base
     end
   end
   
+  def self.shared
+    where("shared = 't'")
+  end
+  
   def self.unshared
     where("shared = 'f'")
   end
