@@ -40,7 +40,7 @@
 			</div>
 		</div>
 
-		<div class="card-actions card-bottom">
+		<div class="card-actions card-bottom <%= entry.unread_for_user?(current_user) ? "unread" : "" %>">
 			<div class="entry-actions">
 				<span class="read-state-not-kept-unread read-state link unselectable" title="Keep unread">Keep unread</span>
 				<wbr>
