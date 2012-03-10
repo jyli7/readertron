@@ -7,12 +7,13 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
-  has_many :subscriptions
-  has_many :feeds, :through => :subscriptions
-  has_many :unreads
+  has_many :subscriptions, dependent: :destroy
+  has_many :feeds, :through => :subscriptions, dependent: :destroy
+  has_many :unreads, dependent: :destroy
   
-  after_create :make_shared_feed
+  after_create :make_shared_feed_and_subscribe_others_to_it
   after_create :subscribe_to_all_shared_feeds
+  before_destroy :kill_my_feed
   
   def subscribe(feed_url)
     subscriptions.create(feed: Feed.seed(feed_url))
@@ -42,12 +43,19 @@ class User < ActiveRecord::Base
     subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 't'")
   end
   
-  def make_shared_feed
-    Feed.create(title: email, feed_url: "#shared", shared: true)
+  def make_shared_feed_and_subscribe_others_to_it
+    feed = Feed.create(title: email, feed_url: "#shared", shared: true)
+    User.where("id != #{id}").each do |user|
+      user.subscriptions.create(feed: feed)
+    end
   end
   
   def feed
     Feed.where("feed_url = '#shared' AND title = '#{email}'").first
+  end
+  
+  def kill_my_feed
+    feed.destroy
   end
   
   def is_subscribed_to?(feed)
