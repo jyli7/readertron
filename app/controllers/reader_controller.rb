@@ -19,4 +19,20 @@ class ReaderController < ApplicationController
     end
     render json: {feed_id: post.feed.id, unread_count: post.feed.subscriptions.find_by_user_id(current_user.id).unread_count}.to_json
   end
+  
+  def post_share
+    post = Post.find(params[:post_id])
+    unless (share = current_user.feed.posts.find_by_original_post_id(params[:post_id]))
+      current_user.feed.posts.create(post.attributes.merge(shared: true, original_post_id: post.id))
+    else
+      share.update_attribute(:shared, true)
+    end
+    render text: "OK"
+  end
+  
+  def post_unshare
+    post = current_user.feed.posts.find_by_original_post_id(params[:post_id])
+    post.update_attribute(:shared, false)
+    render text: "OK"
+  end
 end

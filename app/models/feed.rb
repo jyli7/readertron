@@ -43,7 +43,7 @@ class Feed < ActiveRecord::Base
   
   def self.refresh
     Feed.find_in_batches do |feeds|
-      Feedzirra::Feed.fetch_and_parse(feeds.map(&:feed_url)).each do |feed_url, feedzirra|
+      Feedzirra::Feed.fetch_and_parse(feeds.reject {|f| f.shared?}.map(&:feed_url)).each do |feed_url, feedzirra|
         next if feedzirra.is_a?(Fixnum) || feedzirra.nil?
         feed = Feed.find_by_feed_url(feed_url)
         if feed && feed.last_modified

@@ -1,9 +1,6 @@
 - rename Post class to Entry
-- a "read" style that looks all faded and gray
 
 2. Reader interface.
-	o. Only load 10 or so posts by default.
-	a. Infinite scroll pulls in new posts via AJAX.
 	b. Post sharing!
 	c. Sharing with note.
 	d. Commenting on a shared post.

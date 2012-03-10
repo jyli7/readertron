@@ -11,15 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309023623) do
+ActiveRecord::Schema.define(:version => 20120310010347) do
 
   create_table "feeds", :force => true do |t|
     t.string   "title"
     t.string   "url"
     t.string   "feed_url"
     t.datetime "last_modified"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "shared",        :default => false
   end
 
   create_table "posts", :force => true do |t|
@@ -30,8 +31,10 @@ ActiveRecord::Schema.define(:version => 20120309023623) do
     t.text     "summary"
     t.text     "content"
     t.datetime "published"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "shared",           :default => false
+    t.integer  "original_post_id"
   end
 
   create_table "subscriptions", :force => true do |t|

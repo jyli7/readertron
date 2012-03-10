@@ -17,6 +17,10 @@ $(document).ready(function() {
 		toggle_read_status(".entry.current"); return false;
 	});
 	
+	$(document).bind('keydown', 's', function(e) {
+		toggle_shared_status(".entry.current"); return false;
+	});
+	
 	$(document).bind('keydown', 'v', function(e) {
 		if ($(".entry.current").length > 0) {
 			window.open($(".entry.current").find(".entry-title-link").attr("href"), '_blank');
@@ -25,6 +29,11 @@ $(document).ready(function() {
 	
 	$(".read-state").click(function() {
 		toggle_read_status($(this).closest(".entry"));
+		return false;
+	});
+	
+	$(".item-star").click(function() {
+		toggle_shared_status($(this).closest(".entry"));
 		return false;
 	});
 	
@@ -93,6 +102,23 @@ function read_mark(selector, r_u) {
 	$.post("/reader/mark_as_" + r_u, {"post_id": $(selector).attr("post_id")}, function(ret) {
 		$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
 		r_u == "read" ? decrement("#total_unread_count") : increment("#total_unread_count");
+	});
+};
+
+function toggle_shared_status(selector) {
+	$span = $(selector).find("span.item-star");
+	if ($span.hasClass("star-active")) {
+		share_set(selector, "unshare");
+	} else if ($span.hasClass("star-inactive")) {
+		share_set(selector, "share")
+	};
+};
+
+function share_set(selector, s_s) {
+	$span.removeClass(s_s == "share" ? "star-inactive" : "star-active");
+	$span.addClass(s_s == "share" ? "star-active" : "star-inactive");
+	$.post("/reader/post_" + s_s, {"post_id": $(selector).attr("post_id")}, function(ret) {
+		// Do something.
 	});
 };
 

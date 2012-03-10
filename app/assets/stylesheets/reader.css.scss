@@ -149,9 +149,14 @@ html, body, input {
 	color: #666;
 }
 
-.entry .entry-actions .star {
+.entry .entry-actions .star-inactive {
 	background: transparent url(/assets/stars.png) no-repeat;
 	background-position: -102px -1px;
+}
+
+.entry .entry-actions .star-active {
+	background: transparent url(/assets/stars.png) no-repeat;
+	background-position: -64px -33px;
 }
 
 .entry .entry-actions .email {

@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :feeds, :through => :subscriptions
   has_many :unreads
   
+  after_create :make_shared_feed
+  
   def subscribe(feed_url)
     subscriptions.create(feed: Feed.seed(feed_url))
   end
@@ -23,5 +25,13 @@ class User < ActiveRecord::Base
   
   def total_unread_count
     subscriptions.sum(&:unread_count)
+  end
+  
+  def make_shared_feed
+    Feed.create(title: email, feed_url: "#shared", shared: true)
+  end
+  
+  def feed
+    Feed.where("feed_url = '#shared' AND title = '#{email}'").first
   end
 end
