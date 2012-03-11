@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   has_many :feeds, :through => :subscriptions, dependent: :destroy
   has_many :unreads, dependent: :destroy
+  has_many :comments, dependent: :destroy
   
   after_create :make_shared_feed_and_subscribe_others_to_it
   after_create :subscribe_to_all_shared_feeds

@@ -1,4 +1,3 @@
-- seeing unread items.
 - commenting on a shared post.
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
 - clean up and refactor a bit
@@ -6,6 +5,7 @@
 - e-mail notifications.
 - comment creation via e-mail replies.
 - one-click instapaper integration.
+- de-duplicate shared posts and those posts in the regular feed.
 - one-click evernote integration.
 - admin interface.
 - "n <note>" integration via the api.
