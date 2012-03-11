@@ -204,3 +204,58 @@ html, body, input {
 	background-color: #D6EEF8;
 	margin-bottom: 10px;
 }
+
+.entry .comments {
+	width: 877px;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+	border-left: 2px solid #DDD;
+	box-shadow: 0 0 4px #e3e5eb;
+	padding: 10px;
+}
+
+.entry .comments .comments-top {
+	font-weight: bold;
+}
+
+.entry .comments a {
+	font-weight: normal;
+	color: #15C;
+}
+
+.entry .comments .comment {
+	margin-top: 5px;
+	padding-top: 5px;
+}
+
+.entry .comments .comment .comment-author {
+	font-weight: bold;
+}
+
+.entry .comments .comment .comment-timestamp {
+	color: #666;
+}
+
+.entry .comments .comment-add-form {
+	margin-top: 10px;
+}
+
+.entry .comments .add-comment-link {
+	background: transparent url(/assets/stars.png) no-repeat;
+	background-position: -96px -192px;
+	padding: 1px 0 1px 16px;
+	margin-right: 16px;
+	white-space: nowrap;	
+}
+
+.entry .comments textarea {
+	width: 90%;
+	height: 50px;
+	margin-left: 40px;
+	font-family: courier;
+	font-size: 13px;
+}
+
+.entry .comments .after-actions {
+	margin-left: 40px;
+}

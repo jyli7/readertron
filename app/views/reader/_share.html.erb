@@ -47,4 +47,25 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="card comments">
+		<div class="comments-top">
+			Comments (<span class="comments-count"><%= entry.comments.count %></span>)
+		</div>
+		<div class="comments-container">
+		<% entry.comments.each do |comment| %>
+			<%= render "comment", comment: comment %>
+		<% end %>
+		</div>
+		<div class="comment-add-form">
+			<a href="#" class="add-comment-link">Add Comment</a>
+			<%= form_tag("/reader/create_comment", :method => "post", :style => "display: none;") do %>
+			  <%= text_area_tag(:comment_content) %>
+			  <div class="after-actions">
+			    <%= submit_tag("Add Comment") %>
+			    <a href="#" class="cancel-comment-add">Cancel</a>
+			  </div>
+			<% end %>
+		</div>
+	</div>
 </div>

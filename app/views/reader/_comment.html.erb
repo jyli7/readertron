@@ -1,0 +1,3 @@
+<div class="comment" comment_id="<%= comment.id %>">
+	<div class="comment-body"><span class="comment-author"><%= comment.user.email %>:</span> <%= comment.content %> <span class="comment-timestamp"><%= comment_date(comment.updated_at) %></span> <span class="comment-actions"><a href="#" class="comment-edit-link">Edit</a> | <a href="#" class="comment-delete-link">Delete</a></span></div>
+</div>

@@ -42,4 +42,18 @@ class ReaderController < ApplicationController
     end
     render text: "OK"
   end
+  
+  def create_comment
+    post = Post.find(params[:post_id])
+    comment = post.comments.create(content: params[:comment_content], user: current_user)
+    render partial: "reader/comment", :locals => {comment: comment}
+  end
+  
+  def delete_comment
+    comment = Comment.find_by_id(params[:comment_id])
+    if comment && comment.user == current_user
+      comment.destroy
+    end
+    render text: "OK"
+  end
 end

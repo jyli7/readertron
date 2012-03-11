@@ -7,6 +7,14 @@ module ReaderHelper
     end
   end
   
+  def comment_date(date)
+    if date >= 1.month.ago
+      date.strftime("(#{time_ago_in_words(date)} ago)")
+    else
+      date.strftime("(%b #{date.day}, %Y %I:%M %p)")
+    end
+  end
+  
   def li_classes(subscription, feed_id)
     classes = []
     classes << "selected" if subscription.feed.id == feed_id.to_i

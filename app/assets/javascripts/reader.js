@@ -75,6 +75,33 @@ $(document).ready(function() {
 		share_with_note($(this).closest(".entry"));
 		return false;
 	});
+	
+	$(".comments .add-comment-link").click(function() {
+		var $entry = $(this).closest(".entry");
+		$entry.find(".comment-add-form form").show();
+		$(this).hide();
+		return false;
+	});
+	
+	$(".comments .cancel-comment-add").click(function() {
+		$(this).closest(".comment-add-form").find("form").hide();
+		$(this).closest(".comments").find(".add-comment-link").show();
+		return false;
+	});
+	
+	$(".comments .comment-add-form input[type=submit]").click(function() {
+		add_comment($(this).closest(".entry"));
+		return false;
+	});
+	
+	$(".comments .comment-delete-link").live("click", function() {
+		var $comment = $(this).closest(".comment");
+		$.post("/reader/delete_comment", {"comment_id": $comment.attr("comment_id")}, function(ret) {
+			decrement($comment.closest(".comments").find(".comments-count"));
+			$comment.remove();
+		});
+		return false;
+	});
 });
 
 function set_as_current_entry(entry) {
@@ -174,6 +201,17 @@ function share_with_note(entry) {
 	var post_id = $(entry).attr("post_id");
 	$.post("/reader/share_with_note", {"post_id": post_id, "note_content": note_content}, function(ret) {
 		$(entry).find(".card-share-with-note").hide();
+	});
+};
+
+function add_comment(entry) {
+	var comment_content = $(entry).find("textarea[name=comment_content]").val();
+	var post_id = $(entry).attr("post_id");
+	$.post("/reader/create_comment", {"post_id": post_id, "comment_content": comment_content}, function(ret) {
+		$(entry).find(".comment-add-form form").hide();
+		$(entry).find(".comments .add-comment-link").show();
+		increment($(entry).find(".comments-count"));
+		$(entry).find(".comments-container").append(ret);
 	});
 };
 
