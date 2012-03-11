@@ -8,7 +8,7 @@ html, body, input {
 
 .left-pane {
 	position: fixed;
-	width: 300px;
+	width: 265px;
 	top: 10px;
 	left: 10px;
 	height: 800px;
@@ -21,11 +21,21 @@ html, body, input {
 	padding-left: 0px;
 }
 
+#subscriptions a {
+	text-decoration: none;
+	color: #15C;
+}
+
+#subscriptions a:visited {
+	color: #15C;
+}
+
 #subscriptions ul li {
 	border-left: 3px solid white;
 	padding: 5px;
 	cursor: pointer;
 	color: #333;
+	font-size: 11.8px;
 }
 
 #subscriptions ul li.unread {
@@ -64,9 +74,9 @@ html, body, input {
 
 #entries {
 	position: absolute;
-	left: 330px;
+	left: 295px;
 	top: 10px;
-	width: 900px;
+	width: 935px;
 }
 
 .entry.current .card {
@@ -206,7 +216,7 @@ html, body, input {
 }
 
 .entry .comments {
-	width: 877px;
+	width: 912px;
 	border-right: 1px solid #DDD;
 	border-bottom: 1px solid #DDD;
 	border-left: 2px solid #DDD;
