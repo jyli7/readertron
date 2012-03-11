@@ -1,5 +1,5 @@
 class ReaderController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, except: :create_post
   
   def index
     @regular_subscriptions = current_user.regular_subscriptions
@@ -63,5 +63,18 @@ class ReaderController < ApplicationController
       comment.update_attributes({content: params[:comment_content]})
     end
     render partial: "reader/comment", :locals => {comment: comment}
+  end
+  
+  def create_post
+    p = User.find_by_share_token(params[:token]).feed.posts.create(
+      content: params[:content],
+      url: params[:url],
+      note: params[:note],
+      title: params[:title],
+      published: Time.now,
+      shared: true
+    )
+    p.update_attributes({original_post_id: p.id})
+    render text: "OK"
   end
 end

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :share_token
   
   has_many :subscriptions, dependent: :destroy
   has_many :feeds, :through => :subscriptions, dependent: :destroy
@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   
   after_create :make_shared_feed_and_subscribe_others_to_it
   after_create :subscribe_to_all_shared_feeds
+  after_create :make_share_token
   before_destroy :kill_my_feed
   
   def subscribe(feed_url)
@@ -79,5 +80,9 @@ class User < ActiveRecord::Base
     Feed.where(shared: true).where("id != '#{feed.id}'").each do |feed|
       subscriptions.create(feed: feed)
     end
+  end
+  
+  def make_share_token
+    update_attributes({share_token: SecureRandom.hex(20)})
   end
 end

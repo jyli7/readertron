@@ -11,6 +11,10 @@ class Post < ActiveRecord::Base
   
   after_create :generate_unreads
   
+  def self.shared
+    where("shared = 't'")
+  end
+  
   def self.unread_for_user(user)
     joins("LEFT JOIN unreads ON posts.id = unreads.post_id").where("unreads.user_id = #{user.id}")
   end

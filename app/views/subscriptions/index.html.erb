@@ -1,5 +1,8 @@
 <h1>Subscriptions for <%= current_user.email %></h1>
 
+<h2>"Note in Readertron" Bookmarklet</h2>
+Drag this link to your Bookmarks bar: <a href="<%= bookmarklet_for_user(current_user) %>">Note in Readertron</a>
+
 <h2>Shared item feeds</h2>
 <%= form_tag("/subscriptions/shared_feeds", :method => "post") do %>
 <% Feed.where(shared: true).where("id != #{current_user.feed.id}").each do |feed| %>

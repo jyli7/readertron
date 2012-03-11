@@ -1,8 +1,8 @@
-- commenting on a shared post.
+- bookmarklet: api to create a post-share from url, user (session?), and html content.
+- mark all as unread, both for individual feeds and for the whole thing.
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
 - publishing original posts via e-mail.
 - clean up and refactor a bit
-- bookmarklet: api to create a post-share from url, user (session?), and html content.
 - e-mail notifications.
 - comment creation via e-mail replies.
 - one-click instapaper integration.
