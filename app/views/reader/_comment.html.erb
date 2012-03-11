@@ -1,3 +1,18 @@
 <div class="comment" comment_id="<%= comment.id %>">
-	<div class="comment-body"><span class="comment-author"><%= comment.user.email %>:</span> <%= comment.content %> <span class="comment-timestamp"><%= comment_date(comment.updated_at) %></span> <span class="comment-actions"><a href="#" class="comment-edit-link">Edit</a> | <a href="#" class="comment-delete-link">Delete</a></span></div>
+	<div class="comment-body">
+		<span class="comment-author"><%= comment.user.email %>:</span> 
+		<span class="comment-content"><%= comment.content %> </span>
+		<span class="comment-timestamp"><%= comment_date(comment.updated_at) %></span> 
+		
+		<span class="comment-actions">
+			<a href="#" class="comment-edit-link">Edit</a> | <a href="#" class="comment-delete-link">Delete</a>
+		</span>
+		<%= form_tag("/reader/edit_comment", :method => "post", :style => "display: none;") do %>
+		  <%= text_area_tag(:comment_content, comment.content) %>
+		  <div class="after-actions">
+		    <%= submit_tag("Save") %>
+		    <a href="#" class="cancel-comment-edit">Cancel</a>
+		  </div>
+		<% end %>
+	</div>	
 </div>

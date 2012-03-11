@@ -56,4 +56,12 @@ class ReaderController < ApplicationController
     end
     render text: "OK"
   end
+  
+  def edit_comment
+    comment = Comment.find_by_id(params[:comment_id])
+    if comment && comment.user == current_user
+      comment.update_attributes({content: params[:comment_content]})
+    end
+    render partial: "reader/comment", :locals => {comment: comment}
+  end
 end

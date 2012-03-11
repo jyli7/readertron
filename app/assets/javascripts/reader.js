@@ -102,6 +102,32 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	
+	$(".comments .comment-actions .comment-edit-link").live("click", function() {
+		var $comment = $(this).closest(".comment");
+		$comment.find(".comment-actions").hide();
+		$comment.find(".comment-content").hide();
+		$comment.find(".comment-timestamp").hide();
+		$comment.find(".comment-body form").show();
+		return false;
+	});
+	
+	$(".comments .after-actions .cancel-comment-edit").live("click", function() {
+		var $comment = $(this).closest(".comment");
+		$comment.find(".comment-actions").show();
+		$comment.find(".comment-content").show();
+		$comment.find(".comment-timestamp").show();
+		$comment.find(".comment-body form").hide();
+		return false;
+	});
+	
+	$(".comments .comment form input[type=submit]").live("click", function() {
+		var $comment = $(this).closest(".comment");
+		$.post("/reader/edit_comment", {"comment_id": $comment.attr("comment_id"), "comment_content": $comment.find("form textarea[name=comment_content]").val()}, function(ret) {
+			$comment.replaceWith(ret);
+		});
+		return false;
+	});
 });
 
 function set_as_current_entry(entry) {
@@ -205,7 +231,7 @@ function share_with_note(entry) {
 };
 
 function add_comment(entry) {
-	var comment_content = $(entry).find("textarea[name=comment_content]").val();
+	var comment_content = $(entry).find(".comment-add-form textarea[name=comment_content]").val();
 	var post_id = $(entry).attr("post_id");
 	$.post("/reader/create_comment", {"post_id": post_id, "comment_content": comment_content}, function(ret) {
 		$(entry).find(".comment-add-form form").hide();
