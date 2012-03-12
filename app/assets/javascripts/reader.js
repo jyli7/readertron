@@ -247,11 +247,11 @@ function index_for(entry) {
 };
 
 function increment(div) {
-	var current_count = parseInt($(div).text());
-	$(div).text(current_count + 1);
+	var current_count = parseInt($(div).text().replace("(", "").replace(")", ""));
+	$(div).text("(" + (current_count + 1) + ")");
 };
 
 function decrement(div) {
-	var current_count = parseInt($(div).text());
-	$(div).text(current_count - 1);
+	var current_count = parseInt($(div).text().replace("(", "").replace(")", ""));
+	$(div).text("(" + (current_count - 1) + ")");
 };

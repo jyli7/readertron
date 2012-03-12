@@ -1,4 +1,4 @@
-<div class="entry" style="height: auto;" id="entry-<%= index %>" post_id="<%= entry.id %>">
+<div class="entry <%= entry.unread_for_user?(current_user) ? "unread" : "read" %>" style="height: auto;" id="entry-<%= index %>" post_id="<%= entry.id %>">
 	<div class="card card-common">
 		<div class="card-content">
 			<div class="entry-container">
@@ -50,7 +50,7 @@
 	
 	<div class="card comments">
 		<div class="comments-top">
-			Comments (<span class="comments-count"><%= entry.comments.count %></span>)
+			Comments <span class="comments-count">(<%= entry.comments.count %>)</span>
 		</div>
 		<div class="comments-container">
 		<% entry.comments.each do |comment| %>
