@@ -26,6 +26,6 @@ class Post < ActiveRecord::Base
   end
   
   def unread_for_user?(user)
-    unreads.find_by_user_id(user.id).present?
+    unreads.find_by_user_id(user.id).present? # FIXME
   end
 end

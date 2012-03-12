@@ -1,9 +1,10 @@
 $(document).ready(function() {
-	$(".entry").click(function() {
+	$(".entry").live("click", function() {
 		if (!$(this).hasClass("current")) {
 			set_as_current_entry(this);
 		};
 	});
+
 	if ($("#panes").length > 0) {
 		$(document).bind('keydown', 'j', function(e) {
 			next_post(1); return false;
@@ -32,24 +33,24 @@ $(document).ready(function() {
 		})
 	};
 	
-	$(".read-state").click(function() {
+	$(".read-state").live("click", function() {
 		toggle_read_status($(this).closest(".entry"));
 		return false;
 	});
 	
-	$(".item-star").click(function() {
+	$(".item-star").live("click", function() {
 		toggle_shared_status($(this).closest(".entry"));
 		return false;
 	});
 	
-	$(".entry-actions .email").click(function() {
+	$(".entry-actions .email").live("click", function() {
 		toggle_email_status($(this).closest(".entry"));
 		return false;
 	});
 	
 	$("#subscriptions li").click(function() {
 		var feed_id = $(this).attr("id").split("-")[1];
-		window.location = "/?feed_id=" + feed_id;
+		$("#entries").load("/reader/entries?feed_id=" + feed_id);
 		$("#subscriptions li").removeClass("selected");
 		$(this).addClass("selected");
 		return false;
@@ -61,29 +62,29 @@ $(document).ready(function() {
 		allowPageScroll: false
 	});
 	
-	$(".item-body a").click(function() {
+	$(".item-body a").live("click", function() {
 		window.open($(this).attr("href"), '_blank');
 		return false;
 	});
 	
-	$(".cancel-share-with-note").click(function() {
+	$(".cancel-share-with-note").live("click", function() {
 		toggle_email_status($(this).closest(".entry"));
 		return false;
 	});
 	
-	$(".card-share-with-note input[type=submit]").click(function() {
+	$(".card-share-with-note input[type=submit]").live("click", function() {
 		share_with_note($(this).closest(".entry"));
 		return false;
 	});
 	
-	$(".comments .add-comment-link").click(function() {
+	$(".comments .add-comment-link").live("click", function() {
 		var $entry = $(this).closest(".entry");
 		$entry.find(".comment-add-form form").show();
 		$(this).hide();
 		return false;
 	});
 	
-	$(".comments .cancel-comment-add").click(function() {
+	$(".comments .cancel-comment-add").live("click", function() {
 		$(this).closest(".comment-add-form").find("form").hide();
 		$(this).closest(".comments").find(".add-comment-link").show();
 		return false;

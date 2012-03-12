@@ -1,0 +1,3 @@
+<% @entries.each_with_index do |entry, index| %>
+	<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>
+<% end %>

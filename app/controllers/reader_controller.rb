@@ -7,6 +7,11 @@ class ReaderController < ApplicationController
     @entries = current_user.entries_for_feed_id(params[:feed_id])
   end
   
+  def entries
+    @entries = current_user.entries_for_feed_id(params[:feed_id])
+    render layout: false
+  end
+  
   def mark_as_read
     post = Post.find(params[:post_id])
     Unread.find_by_user_id_and_post_id(current_user.id, post.id).try(:destroy)
