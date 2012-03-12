@@ -1,12 +1,17 @@
-- make bookmarklet note field larger (probably by using a custom form).
+- feed reading dynamics: load posts quickly, infinite scroll, etc.
+- what to show when there are no posts left.
 - mark all as unread, both for individual feeds and for the whole thing.
+- sorting options at top of reader pane
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
 - clean up and refactor a bit
-- e-mail notifications.
-- comment creation via e-mail replies.
+
 - one-click instapaper integration.
+- e-mail notifications about comments on your shared items, or on items you've commented on.
+
+deploy
+
+- comment creation via e-mail replies.
 - de-duplicate shared posts and those posts in the regular feed.
-- publishing original posts via e-mail.
 - one-click evernote integration.
 - admin interface.
 - "n <note>" integration via the api.
