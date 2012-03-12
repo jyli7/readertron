@@ -35,7 +35,8 @@ class User < ActiveRecord::Base
     elsif feed_id == "mine"
       @entries = feed.posts.first(10)
     else
-      @entries = feeds.unshared.collect {|f| f.posts}.flatten.partition {|p| p.unread_for_user?(self)}.flatten.first(10)
+      @entries = Post.unread_for_user(self).limit(10)
+      #feeds.unshared.collect {|f| f.posts}.flatten.partition {|p| p.unread_for_user?(self)}.flatten.first(10)
     end
   end
   

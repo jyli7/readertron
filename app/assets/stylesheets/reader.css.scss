@@ -102,6 +102,10 @@ html, body, input {
 	margin-bottom: 10px;
 }
 
+.entry.read a {
+	color: #444;
+}
+
 .entry .entry-date {
 	float: right;
 }
@@ -117,10 +121,6 @@ html, body, input {
 .entry .entry-title {
 	font-size: 140%;
 	font-weight: bold;
-}
-
-.entry .card-bottom.unread {
-	background-color: #eefbff;
 }
 
 .entry .entry-title a {

@@ -1,4 +1,4 @@
-<div class="entry" style="height: auto;" id="entry-<%= index %>" post_id="<%= entry.id %>">
+<div class="entry <%= entry.unread_for_user?(current_user) ? "unread" : "read" %>" style="height: auto;" id="entry-<%= index %>" post_id="<%= entry.id %>">
 	<div class="card card-common">
 		<div class="card-content">
 			<div class="entry-container">
@@ -35,7 +35,7 @@
 			</div>
 		</div>
 
-		<div class="card-actions card-bottom <%= entry.unread_for_user?(current_user) ? "unread" : "" %>">
+		<div class="card-actions card-bottom">
 			<div class="entry-actions">
 				<span class="item-star <%= star_class(entry) %> link unselectable" title="Add star"></span>
 				<wbr><wbr>

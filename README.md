@@ -1,4 +1,5 @@
-- feed reading dynamics: load posts quickly, infinite scroll, etc.
+- feed reading dynamics: load posts VERY quickly, infinite scroll, etc.
+- read style is just to gray out all the links within a post, including the title and such.
 - what to show when there are no posts left.
 - mark all as unread, both for individual feeds and for the whole thing.
 - sorting options at top of reader pane
