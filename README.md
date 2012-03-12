@@ -1,12 +1,12 @@
-- bookmarklet: api to create a post-share from url, user (session?), and html content.
+- make bookmarklet note field larger (probably by using a custom form).
 - mark all as unread, both for individual feeds and for the whole thing.
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
-- publishing original posts via e-mail.
 - clean up and refactor a bit
 - e-mail notifications.
 - comment creation via e-mail replies.
 - one-click instapaper integration.
 - de-duplicate shared posts and those posts in the regular feed.
+- publishing original posts via e-mail.
 - one-click evernote integration.
 - admin interface.
 - "n <note>" integration via the api.
