@@ -4,11 +4,23 @@ class ReaderController < ApplicationController
   def index
     @regular_subscriptions = current_user.regular_subscriptions
     @shared_subscriptions = current_user.shared_subscriptions
-    @entries = current_user.entries_for_feed_id(params[:feed_id])
+    if feed = Feed.find_by_id(params[:feed_id])
+      @entries = feed.posts.partition {|p| p.unread_for_user?(current_user)}.flatten.first(10)
+      @feed_name = feed.title || feed.feed_url
+    else
+      @entries = current_user.entries_for_feed_id(params[:feed_id])
+      @feed_name = (params[:feed_id] || "all").titlecase
+    end
   end
   
   def entries
-    @entries = current_user.entries_for_feed_id(params[:feed_id])
+    if feed = Feed.find_by_id(params[:feed_id])
+      @entries = feed.posts.partition {|p| p.unread_for_user?(current_user)}.flatten.first(10)
+      @feed_name = feed.title || feed.feed_url
+    else
+      @entries = current_user.entries_for_feed_id(params[:feed_id])
+      @feed_name = (params[:feed_id] || "all").titlecase
+    end
     render layout: false
   end
   

@@ -1,3 +1,10 @@
-<% @entries.each_with_index do |entry, index| %>
-	<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>
+<% if @entries.present? %>
+	<% @entries.each_with_index do |entry, index| %>
+		<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>
+	<% end %>
+<% else %>
+	<div id="no-entries-msg">
+		<h2>"<%= @feed_name %>" has no unread items.</h2>
+		<span class="link">View all items</span>
+	</div>
 <% end %>

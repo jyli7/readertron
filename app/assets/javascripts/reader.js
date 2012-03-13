@@ -55,7 +55,6 @@ $(document).ready(function() {
 			$("#entries").html(ret);
 			$("#loading-area-container").hide();
 		});
-		// $("#entries").load("/reader/entries?feed_id=" + feed_id);
 		$("#subscriptions li").removeClass("selected");
 		$(this).addClass("selected");
 		return false;

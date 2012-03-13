@@ -313,3 +313,32 @@ html, body, input {
 	border-style: solid;
 	text-align: center;
 }
+
+#no-entries-msg {
+	padding: 1.5em 2em 3em;
+	text-align: center;
+	background: white;
+	border: 2px solid #CCC;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	margin: 1em;
+	color: black;
+	font-size: 90%;
+}
+
+#no-entries-msg h2 {
+	display: block;
+	font-size: 1.5em;
+	-webkit-margin-before: 0.83em;
+	-webkit-margin-after: 0.83em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-weight: bold;
+}
+
+#no-entries-msg .link {
+	font-size: 110%;
+	text-decoration: underline;
+	cursor: pointer;
+	color: #15C;
+}
