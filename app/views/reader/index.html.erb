@@ -30,6 +30,7 @@
 						<div role="wairole:button" tabindex="0" class="goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-menu-button goog-button-tight" id="stream-prefs-menu"><div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-content"><div class="goog-button-body">Feed settings...</div><div class="goog-menu-button-dropdown"></div></div></div></div></div></div> -->
 		</div>
 		<div id="entries">
+		<div id="feed_id_dump" feed_id="<%= @feed_id %>"></div>
 		<% if @entries.present? %>
 			<% @entries.each_with_index do |entry, index| %>
 				<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>

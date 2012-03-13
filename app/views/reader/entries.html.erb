@@ -1,3 +1,4 @@
+<div id="feed_id_dump" feed_id="<%= @feed_id %>"></div>
 <% if @entries.present? %>
 	<% @entries.each_with_index do |entry, index| %>
 		<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>

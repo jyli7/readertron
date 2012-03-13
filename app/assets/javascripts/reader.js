@@ -141,6 +141,16 @@ $(document).ready(function() {
 	$("#viewer-refresh").mouseout(function() {
 		$(this).removeClass("jfk-button-hover").addClass("jfk-button-standard");
 	});
+	
+	$("#viewer-refresh").click(function() {
+		$("#loading-area-container").show();
+		var feed_id = $("#feed_id_dump").attr("feed_id");
+		$.get("/reader/entries", {"feed_id": feed_id}, function(ret) {
+			$("#entries").html(ret);
+			$("#loading-area-container").hide();
+		});
+		return false;
+	});
 });
 
 function set_as_current_entry(entry) {
