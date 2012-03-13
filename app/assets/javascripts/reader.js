@@ -137,6 +137,7 @@ $(document).ready(function() {
 
 function set_as_current_entry(entry) {
 	$(".entry").removeClass("current");
+	$(".entry:not(.unread)").addClass("read");
 	$(entry).addClass("current");
 	$(entry).removeClass("read");
 	if (!$(entry).find("span.read-state").hasClass("read-state-kept-unread") && !$(entry).hasClass("dirty") && $(entry).hasClass("unread")) {
