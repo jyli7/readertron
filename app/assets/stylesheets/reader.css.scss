@@ -286,3 +286,30 @@ html, body, input {
 .entry .comments .after-actions {
 	margin-left: 40px;
 }
+
+#loading-area-container {
+	position: absolute;
+	z-index: 10000;
+	top: 0;
+	text-align: center;
+	left: 50%;
+	color: black;
+	font-size: 90%;
+}
+
+#loading-area-container #loading-area {
+	font-weight: bold;
+	font-size: 12px;
+	border-width: 1px;
+	height: 14px;
+	padding: 6px 16px;
+	background-color: #F9EDBE;
+	border-color: #F0C36D;
+	color: #333;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+	border-style: solid;
+	text-align: center;
+}

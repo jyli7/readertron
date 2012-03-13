@@ -49,8 +49,13 @@ $(document).ready(function() {
 	});
 	
 	$("#subscriptions li").click(function() {
+		$("#loading-area-container").show();
 		var feed_id = $(this).attr("id").split("-")[1];
-		$("#entries").load("/reader/entries?feed_id=" + feed_id);
+		$.get("/reader/entries", {"feed_id": feed_id}, function(ret) {
+			$("#entries").html(ret);
+			$("#loading-area-container").hide();
+		});
+		// $("#entries").load("/reader/entries?feed_id=" + feed_id);
 		$("#subscriptions li").removeClass("selected");
 		$(this).addClass("selected");
 		return false;
