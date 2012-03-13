@@ -54,6 +54,7 @@ $(document).ready(function() {
 		$.get("/reader/entries", {"feed_id": feed_id}, function(ret) {
 			$("#entries").html(ret);
 			$("#loading-area-container").hide();
+			$.scrollTo($("#entries"), {offset: -50});
 		});
 		$("#subscriptions li").removeClass("selected");
 		$(this).addClass("selected");
@@ -148,6 +149,7 @@ $(document).ready(function() {
 		$.get("/reader/entries", {"feed_id": feed_id}, function(ret) {
 			$("#entries").html(ret);
 			$("#loading-area-container").hide();
+			$.scrollTo($("#entries"), {offset: -50});
 		});
 		return false;
 	});
