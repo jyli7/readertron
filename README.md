@@ -1,5 +1,6 @@
 - sorting options: unread, all, chron, revchron
 - load posts VERY quickly, infinite scroll, etc.
+- pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
 - what to show at the end of the infinite scroll
 - mark all as unread, both for individual feeds and for the whole thing.
 - sorting options at top of reader pane

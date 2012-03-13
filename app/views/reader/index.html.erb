@@ -3,7 +3,7 @@
 </div>
 
 <div id="panes">
-	<div class="left-pane">
+	<div id="left-pane">
 		<div id="subscriptions">
 			<h3><a href="?feed_id=mine">My Shared Items</a></h3>
 			<h3><a href="?feed_id=shared">Other Shared Items</a> <span id="shared_unread_count">(<%= current_user.shared_unread_count %>)</span></h3>
@@ -21,7 +21,15 @@
 		</div>
 	</div>
 
-	<div id="entries" class="cards right">
+	<div id="right-pane">
+		<div id="controls">
+			<div role="button" id="viewer-refresh" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;"><img src="/assets/refresh.png" alt="" class="jfk-button-img"></div>
+			
+			<!-- <div class="unread-or-all"><span id="new-items-count">6</span> new items</div>
+						<span id="mark-all-as-read-split-button"><div role="button" class="" tabindex="0" style="-webkit-user-select: none;">Mark all as read</div><div class="" title="" role="button" style="-webkit-user-select: none;" tabindex="0" aria-haspopup="true"><div class=""></div><div class="">&nbsp;</div></div></span>
+						<div role="wairole:button" tabindex="0" class="goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-menu-button goog-button-tight" id="stream-prefs-menu"><div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-content"><div class="goog-button-body">Feed settings...</div><div class="goog-menu-button-dropdown"></div></div></div></div></div></div> -->
+		</div>
+		<div id="entries">
 		<% if @entries.present? %>
 			<% @entries.each_with_index do |entry, index| %>
 				<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>
@@ -32,5 +40,6 @@
 				<span class="link">View all items</span>
 			</div>
 		<% end %>
+		</div>
 	</div>
 </div>

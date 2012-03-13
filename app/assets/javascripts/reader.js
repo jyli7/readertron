@@ -133,6 +133,14 @@ $(document).ready(function() {
 		});
 		return false;
 	});
+	
+	$("#viewer-refresh").mouseover(function() {
+		$(this).removeClass("jfk-button-standard").addClass("jfk-button-hover");
+	});
+	
+	$("#viewer-refresh").mouseout(function() {
+		$(this).removeClass("jfk-button-hover").addClass("jfk-button-standard");
+	});
 });
 
 function set_as_current_entry(entry) {
