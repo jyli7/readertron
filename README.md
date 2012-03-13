@@ -1,6 +1,6 @@
-- feed reading dynamics: load posts VERY quickly, infinite scroll, etc.
-- read style is just to gray out all the links within a post, including the title and such.
-- what to show when there are no posts left.
+- sorting options: unread, all, chron, revchron
+- load posts VERY quickly, infinite scroll, etc.
+- what to show at the end of the infinite scroll
 - mark all as unread, both for individual feeds and for the whole thing.
 - sorting options at top of reader pane
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
