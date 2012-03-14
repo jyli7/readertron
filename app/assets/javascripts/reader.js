@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#subscriptions li").click(function() {
-		SETTINGS.feed_id = $(this).split_id();
+		POST_FILTERS.feed_id = $(this).split_id();
 		fetch_entries();
 		$("#subscriptions li").removeClass("selected");
 		$(this).addClass("selected");
@@ -19,7 +19,7 @@ $(document).ready(function() {
 	});
 	
 	$(".view-all-items").live("click", function() {
-		SETTINGS.items_filter = "all";
+		POST_FILTERS.items_filter = "all";
 		fetch_entries();
 	});
 });
@@ -52,7 +52,7 @@ var next_post = function(offset) {
 
 var fetch_entries = function() {
 	$("#loading-area-container").show();
-	$.get("/reader/entries", SETTINGS, function(ret) {
+	$.get("/reader/entries", POST_FILTERS, function(ret) {
 		$("#entries").html(ret);
 		$("#loading-area-container").hide();
 		$.scrollTo($("#entries"), {offset: -50});
@@ -60,6 +60,6 @@ var fetch_entries = function() {
 		$("#new-items-count-hidden").text(unread_count);
 		$("#new-items-count-visible").text(unread_count);
 		reset_unread_or_all_width();
-		$("#subscription-" + SETTINGS.feed_id).find(".unread_count").text("(" + unread_count + ")");
+		$("#subscription-" + POST_FILTERS.feed_id).find(".unread_count").text("(" + unread_count + ")");
 	});
 }

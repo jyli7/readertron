@@ -31,14 +31,14 @@ $(document).ready(function() {
 	});
 	
 	$('#feed-all-items-filter').click(function() {
-		SETTINGS.items_filter = "all";
+		POST_FILTERS.items_filter = "all";
 		$(".menu-button-caption").text("All items");
 		reset_unread_or_all_width();
 		fetch_entries();
 	});
 	
 	$("#feed-unread-items-filter").click(function() {
-		SETTINGS.items_filter = "unread";
+		POST_FILTERS.items_filter = "unread";
 		$(".menu-button-caption").html("<span id='new-items-count-visible'>" + $("#new-items-count-hidden").text() + "</span> new items")
 		reset_unread_or_all_width();
 		fetch_entries();
