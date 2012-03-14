@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$("#subscriptions li").click(function() {
-		var feed_id = $(this).split_id();
-		fetch_entries(feed_id);
+		SETTINGS.feed_id = $(this).split_id();
+		fetch_entries();
 		$("#subscriptions li").removeClass("selected");
 		$(this).addClass("selected");
 		return false;
@@ -16,7 +16,12 @@ $(document).ready(function() {
 	$(".item-body a").live("click", function() {
 		window.open($(this).attr("href"), '_blank');
 		return false;
-	});	
+	});
+	
+	$(".view-all-items").live("click", function() {
+		SETTINGS.items_filter = "all";
+		fetch_entries();
+	});
 });
 
 $.fn.split_id = function() {
@@ -45,11 +50,16 @@ var next_post = function(offset) {
 	}
 };
 
-var fetch_entries = function(feed_id) {
+var fetch_entries = function() {
 	$("#loading-area-container").show();
-	$.get("/reader/entries", {"feed_id": feed_id}, function(ret) {
+	$.get("/reader/entries", SETTINGS, function(ret) {
 		$("#entries").html(ret);
 		$("#loading-area-container").hide();
 		$.scrollTo($("#entries"), {offset: -50});
+		var unread_count = $("#unread-count-dump").text();
+		$("#new-items-count-hidden").text(unread_count);
+		$("#new-items-count-visible").text(unread_count);
+		$("#unread-or-all .menu-button-dropdown").css("left", ($(".menu-button-caption").width() + 5) + "px");
+		$("#subscription-" + SETTINGS.feed_id).find(".unread_count").text("(" + unread_count + ")");
 	});
 }

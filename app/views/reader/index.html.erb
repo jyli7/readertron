@@ -1,3 +1,11 @@
+<script type="text/javascript">
+	var SETTINGS = {
+		date_sort: "revchron",
+		items_filter: "unread",
+		feed_id: ""
+	}
+</script>
+
 <div class="message-area-container" id="loading-area-container" style="display: none;">
 	<div class="jfk-butterBar jfk-butterBar-shown jfk-butterBar-info" id="loading-area">Loading...</div>
 </div>
@@ -25,12 +33,23 @@
 		<div id="controls">
 			<div role="button" id="viewer-refresh" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;"><img src="/assets/refresh.png" alt="" class="jfk-button-img"></div>
 			
-			<!-- <div class="unread-or-all"><span id="new-items-count">6</span> new items</div>
-						<span id="mark-all-as-read-split-button"><div role="button" class="" tabindex="0" style="-webkit-user-select: none;">Mark all as read</div><div class="" title="" role="button" style="-webkit-user-select: none;" tabindex="0" aria-haspopup="true"><div class=""></div><div class="">&nbsp;</div></div></span>
-						<div role="wairole:button" tabindex="0" class="goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-menu-button goog-button-tight" id="stream-prefs-menu"><div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-content"><div class="goog-button-body">Feed settings...</div><div class="goog-menu-button-dropdown"></div></div></div></div></div></div> -->
+			<div id="unread-or-all" class="jfk-button jfk-button-standard">
+				<div class="menu-button-caption"><span id="new-items-count-visible"><%= @unread_count %></span> new items</div>
+				<div class="menu-button-dropdown">&nbsp;</div>
+			</div>
+			<div id="unread-or-all-menu" style="-webkit-user-select: none; left: 89px; top: 8px; display: none;">
+				<div class="item" id="feed-all-items-filter" style="-webkit-user-select: none; ">
+					<div style="-webkit-user-select: none;">All items</div>
+				</div>
+				<div class="item" id="feed-unread-items-filter" style="-webkit-user-select: none;">
+					<div style="-webkit-user-select: none;"><span id="new-items-count-hidden"><%= @unread_count %></span> new items</div>
+				</div>
+			</div>
+			
+			<!--<span id="mark-all-as-read-split-button"><div role="button" class="" tabindex="0" style="-webkit-user-select: none;">Mark all as read</div><div class="" title="" role="button" style="-webkit-user-select: none;" tabindex="0" aria-haspopup="true"><div class=""></div><div class="">&nbsp;</div></div></span>
+			<div role="wairole:button" tabindex="0" class="goog-button goog-button-base unselectable goog-inline-block goog-button-float-left goog-menu-button goog-button-tight" id="stream-prefs-menu"><div class="goog-button-base-outer-box goog-inline-block"><div class="goog-button-base-inner-box goog-inline-block"><div class="goog-button-base-pos"><div class="goog-button-base-content"><div class="goog-button-body">Feed settings...</div><div class="goog-menu-button-dropdown"></div></div></div></div></div></div> -->
 		</div>
 		<div id="entries">
-		<div id="feed_id_dump" feed_id="<%= @feed_id %>"></div>
 		<% if @entries.present? %>
 			<% @entries.each_with_index do |entry, index| %>
 				<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>
@@ -38,7 +57,7 @@
 		<% else %>
 			<div id="no-entries-msg">
 				<h2>"<%= @feed_name %>" has no unread items.</h2>
-				<span class="link">View all items</span>
+				<span class="link view-all-items">View all items</span>
 			</div>
 		<% end %>
 		</div>

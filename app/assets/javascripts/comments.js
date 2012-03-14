@@ -19,7 +19,7 @@ $(document).ready(function() {
 
 	$(".comments .comment-delete-link").live("click", function() {
 		var $comment = $(this).closest(".comment");
-		$.post("/reader/delete_comment", {"comment_id": $comment.attr("comment_id")}, function(ret) {
+		$.post("/reader/delete_comment", {comment_id: $comment.attr("comment_id")}, function(ret) {
 			$comment.closest(".comments").find(".comments-count").notch(-1);
 			$comment.remove();
 		});
@@ -46,7 +46,7 @@ $(document).ready(function() {
 
 	$(".comments .comment form input[type=submit]").live("click", function() {
 		var $comment = $(this).closest(".comment");
-		$.post("/reader/edit_comment", {"comment_id": $comment.attr("comment_id"), "comment_content": $comment.find("form textarea[name=comment_content]").val()}, function(ret) {
+		$.post("/reader/edit_comment", {comment_id: $comment.attr("comment_id"), comment_content: $comment.find("form textarea[name=comment_content]").val()}, function(ret) {
 			$comment.replaceWith(ret);
 		});
 		return false;
@@ -56,7 +56,7 @@ $(document).ready(function() {
 var add_comment = function(entry) {
 	var comment_content = $(entry).find(".comment-add-form textarea[name=comment_content]").val();
 	var post_id = $(entry).attr("post_id");
-	$.post("/reader/create_comment", {"post_id": post_id, "comment_content": comment_content}, function(ret) {
+	$.post("/reader/create_comment", {post_id: post_id, comment_content: comment_content}, function(ret) {
 		$(entry).find(".comment-add-form form").hide();
 		$(entry).find(".comments .add-comment-link").show();
 		$(entry).find(".comments-count").notch(+1);

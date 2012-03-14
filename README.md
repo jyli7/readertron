@@ -1,4 +1,4 @@
-- sorting options: unread, all, chron, revchron
+- sorting options: chron, revchron
 - mark all as unread, both for individual feeds and for the whole thing.
 - postshare join model, instead of duping posts
 - refresh ALL posts on feed fetch

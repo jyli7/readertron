@@ -26,17 +26,7 @@ class User < ActiveRecord::Base
       subscriptions.create(feed: feed)
     end
   end
-  
-  def entries_for_feed_id(feed_id)
-    if feed_id == "shared"
-      @entries = feeds.shared.collect {|f| f.posts}.flatten.partition {|p| p.unread_for_user?(self)}.flatten.first(10)
-    elsif feed_id == "mine"
-      @entries = feed.posts.first(10)
-    else
-      @entries = Post.unread_for_user(self).limit(10)
-    end
-  end
-  
+
   def total_unread_count
     subscriptions.sum(&:unread_count)
   end
