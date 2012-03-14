@@ -1,5 +1,5 @@
-- going from 0 to 1 unread should change style of subscription h3
 - don't dynamically add parens when unread count is 0
+- going from 0 to 1 unread should change style of subscription h3
 - change star icon to shared? (and use the little pencil thing for the share with note.)
 - refresh ALL posts on feed fetch
 - fix "mine" and such

@@ -41,10 +41,7 @@ $.fn.set_as_current_entry = function() {
 		if (!this.hasClass("dirty")) {
 			var that = this;
 			$.post("/reader/mark_as_read", {post_id: this.attr("post_id")}, function(ret) {
-				$("#subscription-" + ret.feed_id).find(".unread_count").text("(" + ret.unread_count + ")");
-				$("#total_unread_count").notch(-1);
-				$("#new-items-count-hidden").notch(-1);
-				$("#new-items-count-visible").notch(-1);
+				notch_unread_for_feed_id(ret.feed_id, -1);
 				that.addClass("dirty");
 			});
 		};
@@ -79,11 +76,7 @@ var mark_as_read = function(selector, to_be_marked_as_read) {
 		$span.removeClass("read-state-not-kept-unread").addClass("read-state-kept-unread");
 	};
 	$.post("/reader/mark_as_" + (to_be_marked_as_read ? "read" : "unread"), {post_id: $(selector).attr("post_id")}, function(ret) {
-		var notch = to_be_marked_as_read ? -1 : +1
-		$("#subscription-" + ret.feed_id).find(".unread_count").notch(notch);
-		$("#total_unread_count").notch(notch);
-		$("#new-items-count-hidden").notch(notch);
-		$("#new-items-count-visible").notch(notch);
+		notch_unread_for_feed_id(ret.feed_id, to_be_marked_as_read ? -1 : +1);
 	});
 };
 

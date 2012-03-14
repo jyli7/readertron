@@ -4,20 +4,15 @@ class ReaderController < ApplicationController
   def index
     @regular_subscriptions = current_user.regular_subscriptions
     @shared_subscriptions = current_user.shared_subscriptions
-    posts = Post.for_options(current_user, "revchron", "unread")
-    @entries = posts[:entries]
-    @unread_count = posts[:unread_count]
-    @feed_name = "All"
+    @entries = Post.for_options(current_user, "revchron", "unread")
+    @unread_counts = Subscription.unread_hash_for_user(current_user)
   end
   
   def entries
-    posts = Post.for_options(current_user, params[:date_sort], params[:items_filter], params[:feed_id])
-    @entries = posts[:entries]
-    @unread_count = posts[:unread_count]
+    @entries = Post.for_options(current_user, params[:date_sort], params[:items_filter], params[:feed_id])
+    @unread_counts = Subscription.unread_hash_for_user(current_user)
     if feed = Feed.find_by_id(@feed_id = params[:feed_id])
-      @feed_name = feed.title || feed.feed_url
-    else
-      @feed_name = "All"
+      @feed_name = (feed.title || feed.feed_url) 
     end
     render layout: false
   end

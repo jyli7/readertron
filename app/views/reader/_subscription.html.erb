@@ -1,4 +1,4 @@
-<li id="subscription-<%= subscription.feed.id %>" class="<%= li_classes(subscription, params[:feed_id]) %>">
+<li id="subscription-<%= subscription.feed.id %>">
 	<%= truncate(subscription.feed.title || subscription.feed.feed_url) %>
-	<span class="unread_count"> <%= unread_count(subscription) %></span>
+	<span class="unread_count"></span>
 </li>

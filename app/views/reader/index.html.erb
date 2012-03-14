@@ -3,7 +3,9 @@
 		date_sort: "revchron",
 		items_filter: "unread",
 		feed_id: ""
-	}
+	};
+	
+	var UNREAD_COUNTS = <%= raw(@unread_counts.to_json) %>;
 </script>
 
 <div class="message-area-container" id="loading-area-container" style="display: none;">
@@ -20,7 +22,7 @@
 					<%= render "subscription", subscription: subscription %>
 				<% end %>
 			</ul>
-			<h3><a href="/">All Items</a> <span id="total_unread_count">(<%= current_user.total_unread_count %>)</span></h3>
+			<h3><a href="/">All Items</a> <span id="total_unread_count">(<%= @unread_counts.values.sum %>)</span></h3>
 			<ul>
 			<% @regular_subscriptions.each do |subscription| %>
 				<%= render "subscription", subscription: subscription %>
@@ -34,7 +36,7 @@
 			<div role="button" id="viewer-refresh" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;"><img src="/assets/refresh.png" alt="" class="jfk-button-img"></div>
 			
 			<div id="unread-or-all" class="jfk-button jfk-button-standard">
-				<div class="menu-button-caption"><span id="new-items-count-visible"><%= @unread_count %></span> new items</div>
+				<div class="menu-button-caption"><span id="new-items-count-visible"></span> new items</div>
 				<div class="menu-button-dropdown">&nbsp;</div>
 			</div>
 			<div id="unread-or-all-menu" style="-webkit-user-select: none; left: 89px; top: 8px; display: none;">
@@ -42,7 +44,7 @@
 					<div style="-webkit-user-select: none;">All items</div>
 				</div>
 				<div class="item" id="feed-unread-items-filter" style="-webkit-user-select: none;">
-					<div style="-webkit-user-select: none;"><span id="new-items-count-hidden"><%= @unread_count %></span> new items</div>
+					<div style="-webkit-user-select: none;"><span id="new-items-count-hidden"></span> new items</div>
 				</div>
 			</div>
 			

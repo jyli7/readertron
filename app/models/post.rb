@@ -40,7 +40,7 @@ class Post < ActiveRecord::Base
       posts = (items_filter == "unread" ? unread_for_user(user) : for_user(user))
     end
     posts = (date_sort == "chron" ? posts.chron : posts.revchron)
-    return {unread_count: posts.unread_for_user(user).count, entries: posts.limit(10)}
+    return posts.limit(10)
   end
   
   def self.shared

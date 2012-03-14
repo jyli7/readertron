@@ -22,6 +22,8 @@ $(document).ready(function() {
 		POST_FILTERS.items_filter = "all";
 		fetch_entries();
 	});
+	
+	refresh_unread_counts();
 });
 
 $.fn.split_id = function() {
@@ -32,10 +34,16 @@ $.fn.snap_to_top = function() {
 	$.scrollTo(this, {offset: -10});
 };
 
+$.fn.get_int = function() {
+	return parseInt(this.text().replace(/[^0-9]/g, ""));
+};
+
+$.fn.replace_int = function(n) {
+	this.text(this.text().replace(/[0-9]+/, n));
+};
+
 $.fn.notch = function(n) {
-	var current_count = parseInt(this.text().replace(/[^0-9]/g, ""));
-	this.text(this.text().replace(/[0-9]+/, current_count + n));
-	reset_unread_or_all_width();
+	this.replace_int(this.get_int() + n);
 };
 
 var next_post = function(offset) {
@@ -57,10 +65,30 @@ var fetch_entries = function() {
 		$("#entries").html(ret);
 		$("#loading-area-container").hide();
 		$.scrollTo($("#entries"), {offset: -50});
-		var unread_count = $("#unread-count-dump").text();
-		$("#new-items-count-hidden").text(unread_count);
-		$("#new-items-count-visible").text(unread_count);
-		reset_unread_or_all_width();
-		$("#subscription-" + POST_FILTERS.feed_id).find(".unread_count").text("(" + unread_count + ")");
+		refresh_unread_counts();
 	});
-}
+};
+
+var refresh_unread_counts = function() {
+	var total_count = 0;
+	for (var k in UNREAD_COUNTS) {
+		var old_count = $("#subscription-" + k).find(".unread_count").get_int();
+		var new_count = UNREAD_COUNTS[k];
+		total_count += new_count;
+		if (new_count > 0) {
+			$("#subscription-" + k).addClass("unread").find(".unread_count").text("(" + new_count + ")");
+		} else {
+			$("#subscription-" + k).removeClass("unread").find(".unread_count").text("");
+		};
+	};
+	var rep = UNREAD_COUNTS[POST_FILTERS.feed_id] == undefined ? total_count : UNREAD_COUNTS[POST_FILTERS.feed_id]
+	$("#new-items-count-hidden").text(rep);
+	$("#new-items-count-visible").text(rep);
+	reset_unread_or_all_width();
+	$("#total_unread_count").text("(" + total_count + ")");
+};
+
+var notch_unread_for_feed_id = function(feed_id, n) {
+	UNREAD_COUNTS[feed_id] = UNREAD_COUNTS[feed_id] + n;
+	refresh_unread_counts();
+};
