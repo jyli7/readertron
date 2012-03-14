@@ -1,16 +1,25 @@
-- postshare join model, instead of duping posts
-- change star icon to shared?
+- postshare join model, instead of duping posts. (Ah, but consider "Note in Readertron" posts. Plus: not too hard to update the dependent share-posts on the update of the original.)
+- unread and post share
+- change star icon to shared? (and use the little pencil thing for the share with note.)
 - refresh ALL posts on feed fetch
+- refresh unread count filter button width even on notches
 - fix "mine" and such
 - sorting options: chron, revchron (but only dynamically, not stored/saved like google reader. maybe a two-state button)
+- user names
+- backbone-y unread counts
+
 - mark all as unread (only ALL, not with these stupid ranges), both for individual feeds and for the whole thing.
 - infinite scroll
 - what to show at the end of the infinite scroll
+
 - modeling, controllers, separation of concerns
+- cron job in separate thread to poll for new rss data
 - pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
+
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
 - one-click instapaper integration.
 - e-mail notifications about comments on your shared items, or on items you've commented on.
+- title unread count
 
 deploy
 
