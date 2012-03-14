@@ -1,7 +1,9 @@
-- sorting options: chron, revchron
-- mark all as unread, both for individual feeds and for the whole thing.
 - postshare join model, instead of duping posts
+- change star icon to shared?
 - refresh ALL posts on feed fetch
+- fix "mine" and such
+- sorting options: chron, revchron (but only dynamically, not stored/saved like google reader. maybe a two-state button)
+- mark all as unread (only ALL, not with these stupid ranges), both for individual feeds and for the whole thing.
 - infinite scroll
 - what to show at the end of the infinite scroll
 - modeling, controllers, separation of concerns
@@ -12,6 +14,8 @@
 
 deploy
 
+- starring posts
+- search
 - comment creation via e-mail replies.
 - de-duplicate shared posts and those posts in the regular feed.
 - one-click evernote integration.
