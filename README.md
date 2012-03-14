@@ -2,7 +2,6 @@
 - don't dynamically add parens when unread count is 0
 - change star icon to shared? (and use the little pencil thing for the share with note.)
 - refresh ALL posts on feed fetch
-- refresh unread count filter button width even on notches
 - fix "mine" and such
 - sorting options: chron, revchron (but only dynamically, not stored/saved like google reader. maybe a two-state button)
 - user names

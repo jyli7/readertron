@@ -34,7 +34,8 @@ $.fn.snap_to_top = function() {
 
 $.fn.notch = function(n) {
 	var current_count = parseInt(this.text().replace(/[^0-9]/g, ""));
-	this.text(this.text().replace(/[0-9]+/, current_count + n))
+	this.text(this.text().replace(/[0-9]+/, current_count + n));
+	reset_unread_or_all_width();
 };
 
 var next_post = function(offset) {
