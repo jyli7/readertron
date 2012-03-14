@@ -12,11 +12,11 @@ $(document).ready(function() {
 			$(".entry.current").toggle("span.read-state", "read-state-kept-unread", mark_as_read); return false;
 		});
 
-		$(document).bind('keydown', 's', function(e) {
+		$(document).bind('keydown', 'h', function(e) {
 			$(".entry.current").toggle("span.item-star", "star-inactive", set_shared_status); return false;
 		});
 
-		$(document).bind('keydown', 'shift+s', function(e) {
+		$(document).bind('keydown', 'n', function(e) {
 			$(".entry.current").toggle("span.share-with-note", "share-with-note-inactive", set_shared_with_note_status); return false;
 		});
 
