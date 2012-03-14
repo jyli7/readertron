@@ -1,5 +1,9 @@
 - sorting options: unread, all, chron, revchron
 - load posts VERY quickly, infinite scroll, etc.
+- refactor js and move to coffeescript
+- postshare join model, instead of duping posts
+- refresh ALL posts on feed fetch
+- modeling, controllers, separation of concerns
 - pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
 - what to show at the end of the infinite scroll
 - mark all as unread, both for individual feeds and for the whole thing.

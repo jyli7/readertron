@@ -12,4 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.hotkeys
+//= require jquery.scrollTo
+//= require jquery.slimScroll
+//= require jquery.ui.draggable.min
 //= require_tree .

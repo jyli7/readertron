@@ -33,10 +33,10 @@ module ReaderHelper
     "star-inactive"
   end
   
-  def email_class(post)
+  def share_with_note_class(post)
     if (share = Post.find_all_by_original_post_id(post.id).select {|share| share.feed.title == current_user.email}.first.presence)
-      return "email-active" if share.note.present?
+      return "share-with-note-active" if share.note.present?
     end
-    "email-inactive"
+    "share-with-note-inactive"
   end
 end
