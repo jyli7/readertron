@@ -1,5 +1,5 @@
-- postshare join model, instead of duping posts. (Ah, but consider "Note in Readertron" posts. Plus: not too hard to update the dependent share-posts on the update of the original.)
-- unread and post share
+- going from 0 to 1 unread should change style of subscription h3
+- don't dynamically add parens when unread count is 0
 - change star icon to shared? (and use the little pencil thing for the share with note.)
 - refresh ALL posts on feed fetch
 - refresh unread count filter button width even on notches
