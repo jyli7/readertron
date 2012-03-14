@@ -1,16 +1,12 @@
 - sorting options: unread, all, chron, revchron
-- load posts VERY quickly, infinite scroll, etc.
-- refactor js and move to coffeescript
+- mark all as unread, both for individual feeds and for the whole thing.
 - postshare join model, instead of duping posts
 - refresh ALL posts on feed fetch
+- infinite scroll
+- what to show at the end of the infinite scroll
 - modeling, controllers, separation of concerns
 - pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
-- what to show at the end of the infinite scroll
-- mark all as unread, both for individual feeds and for the whole thing.
-- sorting options at top of reader pane
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
-- clean up and refactor a bit
-
 - one-click instapaper integration.
 - e-mail notifications about comments on your shared items, or on items you've commented on.
 
