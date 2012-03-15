@@ -20,7 +20,7 @@ class ReaderController < ApplicationController
   def mark_as_read
     post = Post.find(params[:post_id])
     Unread.find_by_user_id_and_post_id(current_user.id, post.id).try(:destroy)
-    render json: {feed_id: post.feed.id, unread_count: post.feed.subscriptions.find_by_user_id(current_user.id).unread_count}.to_json
+    render json: {feed_id: post.feed.id}
   end
   
   def mark_as_unread
@@ -28,7 +28,7 @@ class ReaderController < ApplicationController
     unless (u = Unread.find_by_user_id_and_post_id(current_user.id, post.id))
       u = Unread.create(post_id: post.id, user_id: current_user.id)
     end
-    render json: {feed_id: post.feed.id, unread_count: post.feed.subscriptions.find_by_user_id(current_user.id).unread_count}.to_json
+    render json: {feed_id: post.feed.id}
   end
   
   def post_share
