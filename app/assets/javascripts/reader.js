@@ -86,6 +86,7 @@ var refresh_unread_counts = function() {
 	$("#new-items-count-visible").text(rep);
 	reset_unread_or_all_width();
 	$("#total_unread_count").text("(" + total_count + ")");
+	$("title").text("Readertron (" + total_count + ")");
 };
 
 var notch_unread_for_feed_id = function(feed_id, n) {
