@@ -186,12 +186,12 @@ html, body, input {
 
 .entry .entry-actions .star-inactive {
 	background: transparent url(/assets/stars.png) no-repeat;
-	background-position: -102px -1px;
+	background-position: -32px -64px; /* For the star-inactive: -102px -1px */
 }
 
 .entry .entry-actions .star-active {
 	background: transparent url(/assets/stars.png) no-repeat;
-	background-position: -64px -33px;
+	background-position: -48px -96px; /* For the star-active: -64px -33px */
 }
 
 .entry .entry-actions .share-with-note-active {
@@ -199,13 +199,13 @@ html, body, input {
 	background-position: -48px -96px;
 }
 
-.entry .entry-actions .share-with-note .link {
-	margin-bottom: 10px;
-}
-
 .entry .entry-actions .share-with-note-inactive {
 	background: transparent url(/assets/stars.png) no-repeat;
-	background-position: -32px -64px;
+	background-position: -96px -194px;
+}
+
+.entry .entry-actions .share-with-note .link {
+	margin-bottom: 10px;
 }
 
 .entry .card-share-with-note .after-actions {

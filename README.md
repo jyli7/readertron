@@ -1,8 +1,5 @@
-- don't dynamically add parens when unread count is 0
-- going from 0 to 1 unread should change style of subscription h3
-- change star icon to shared? (and use the little pencil thing for the share with note.)
-- refresh ALL posts on feed fetch
-- fix "mine" and such
+- refresh ALL posts on feed fetch (and propagate to shared copies)
+- fix "mine" and such, and be sure to refresh those unread counts as appropriate (especially when YOU share something new.)
 - sorting options: chron, revchron (but only dynamically, not stored/saved like google reader. maybe a two-state button)
 - user names
 - backbone-y unread counts
@@ -19,6 +16,8 @@
 - one-click instapaper integration.
 - e-mail notifications about comments on your shared items, or on items you've commented on.
 - title unread count
+
+- 400s of content using relative URLs
 
 deploy
 
