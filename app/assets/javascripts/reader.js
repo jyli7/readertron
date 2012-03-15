@@ -28,6 +28,7 @@ $(document).ready(function() {
 	
 	$(".view-all-items").live("click", function() {
 		POST_FILTERS.items_filter = "all";
+		$(".menu-button-caption").text("All items");
 		fetch_entries();
 	});
 	
