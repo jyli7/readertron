@@ -12,7 +12,7 @@ $(document).ready(function() {
 		return false;
 	});
 
-	$(".comments .comment-add-form input[type=submit]").click(function() {
+	$(".comments .comment-add-form input[type=submit]").live("click", function() {
 		add_comment($(this).closest(".entry"));
 		return false;
 	});
