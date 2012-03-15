@@ -4,7 +4,7 @@ class ReaderController < ApplicationController
   def index
     @regular_subscriptions = current_user.regular_subscriptions
     @shared_subscriptions = current_user.shared_subscriptions
-    @entries = Post.for_options(current_user, "revchron", "unread")
+    @entries = Post.for_options(current_user, "chron", "unread")
     @unread_counts = Subscription.unread_hash_for_user(current_user)
     @shared_unread_counts = Subscription.shared_unread_hash_for_user(current_user)
   end
