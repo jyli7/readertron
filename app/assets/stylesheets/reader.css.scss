@@ -22,18 +22,13 @@ html, body, input {
 	line-height: 12px;
 }
 
-#subscriptions a {
-	text-decoration: none;
-	color: black;
-}
-
-#subscriptions a:visited {
-	color: black;
+#subscriptions ul {
+	margin-top: 5px;
 }
 
 #subscriptions ul li {
 	border-left: 3px solid white;
-	padding: 5px;
+	padding: 5px 5px 5px 10px;
 	cursor: pointer;
 	color: #333;
 	font-size: 13px;
@@ -51,6 +46,34 @@ html, body, input {
 #subscriptions ul li.selected {
 	border-left: 3px solid #DD4B39;
 	color: #D14836;
+}
+
+#subscriptions h3 {
+	padding: 5px 0px 5px 5px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+#subscriptions h3 a {
+	color: black;
+	text-decoration: none;
+}
+
+#subscriptions h3:hover {
+	background-color: #eee;
+}
+
+#subscriptions h3.selected {
+	border-left: 3px solid #DD4B39;
+	color: #D14836;
+}
+
+#subscription h3.selected a {
+	color: #D14836;
+}
+
+#subscriptions h3.selected a:visited {
+	color: #D14836;	
 }
 
 #subscriptions::-webkit-scrollbar {

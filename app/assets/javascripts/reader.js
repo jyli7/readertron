@@ -2,13 +2,15 @@ $(document).ready(function() {
 	$("#subscriptions li").click(function() {
 		POST_FILTERS.feed_id = $(this).split_id();
 		fetch_entries();
-		$("#subscriptions li").removeClass("selected");
+		$("#subscriptions li, #subscriptions h3").removeClass("selected");
 		$(this).addClass("selected");
 		return false;
 	});
 	
 	$("#subscriptions h3").click(function() {
 		POST_FILTERS.feed_id = $(this).attr("feed_id");
+		$("#subscriptions li").removeClass("selected");
+		$(this).addClass("selected");
 		fetch_entries();
 		return false;
 	});
