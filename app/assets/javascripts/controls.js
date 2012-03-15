@@ -43,6 +43,37 @@ $(document).ready(function() {
 		reset_unread_or_all_width();
 		fetch_entries();
 	});
+	
+	$("#revchron").mouseover(function() {
+		$(this).removeClass("jfk-button-unchecked").addClass("jfk-button-hover");
+	});
+
+	$("#revchron").mouseout(function() {
+		$(this).addClass("jfk-button-standard");
+	});
+	
+	$("#revchron").click(function() {
+		$("#chron").removeClass("jfk-button-checked").addClass("jfk-button-unchecked");
+		$(this).removeClass("jfk-button-unchecked").addClass("jfk-button-checked");
+		POST_FILTERS.date_sort = "revchron";
+		fetch_entries();
+	});
+	
+	$("#chron").mouseover(function() {
+		$(this).removeClass("jfk-button-unchecked").addClass("jfk-button-hover");
+	});
+
+	$("#chron").mouseout(function() {
+		$(this).addClass("jfk-button-standard");
+	});
+	
+	$("#chron").click(function() {
+		$("#revchron").removeClass("jfk-button-checked").addClass("jfk-button-unchecked");
+		$(this).removeClass("jfk-button-unchecked").addClass("jfk-button-checked");
+		POST_FILTERS.date_sort = "chron";
+		fetch_entries();
+	});
+	
 });
 
 var reset_unread_or_all_width = function() {

@@ -1,6 +1,6 @@
+- sorting options: chron, revchron (but only dynamically, not stored/saved like google reader. maybe a two-state button)
 - refresh ALL posts on feed fetch (and propagate to shared copies)
 - fix "mine" and such, and be sure to refresh those unread counts as appropriate (especially when YOU share something new.)
-- sorting options: chron, revchron (but only dynamically, not stored/saved like google reader. maybe a two-state button)
 - user names
 - backbone-y unread counts
 
