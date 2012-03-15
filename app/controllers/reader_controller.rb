@@ -6,11 +6,11 @@ class ReaderController < ApplicationController
     @shared_subscriptions = current_user.shared_subscriptions
     @entries = Post.for_options(current_user, "revchron", "unread")
     @unread_counts = Subscription.unread_hash_for_user(current_user)
+    @shared_unread_counts = Subscription.shared_unread_hash_for_user(current_user)
   end
   
   def entries
     @entries = Post.for_options(current_user, params[:date_sort], params[:items_filter], params[:feed_id])
-    @unread_counts = Subscription.unread_hash_for_user(current_user)
     if feed = Feed.find_by_id(@feed_id = params[:feed_id])
       @feed_name = (feed.title || feed.feed_url) 
     end

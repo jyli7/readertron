@@ -6,6 +6,12 @@ $(document).ready(function() {
 		$(this).addClass("selected");
 		return false;
 	});
+	
+	$("#subscriptions h3").click(function() {
+		POST_FILTERS.feed_id = $(this).attr("feed_id");
+		fetch_entries();
+		return false;
+	});
 
 	$("#subscriptions").slimScroll({
 		height: "800px",
@@ -24,6 +30,7 @@ $(document).ready(function() {
 	});
 	
 	refresh_unread_counts();
+	refresh_shared_unread_counts();
 });
 
 $.fn.split_id = function() {
@@ -66,6 +73,7 @@ var fetch_entries = function() {
 		$("#loading-area-container").hide();
 		$.scrollTo($("#entries"), {offset: -50});
 		refresh_unread_counts();
+		refresh_shared_unread_counts();
 	});
 };
 
@@ -81,7 +89,14 @@ var refresh_unread_counts = function() {
 			$("#subscription-" + k).removeClass("unread").find(".unread_count").text("");
 		};
 	};
-	var rep = UNREAD_COUNTS[POST_FILTERS.feed_id] == undefined ? total_count : UNREAD_COUNTS[POST_FILTERS.feed_id]
+	var rep;
+	if (POST_FILTERS.feed_id == undefined || POST_FILTERS.feed_id == "") {
+		rep = total_count;
+	} else if (UNREAD_COUNTS[POST_FILTERS.feed_id] == undefined) {
+		rep = SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id];
+	} else {
+		rep = UNREAD_COUNTS[POST_FILTERS.feed_id];
+	};
 	$("#new-items-count-hidden").text(rep);
 	$("#new-items-count-visible").text(rep);
 	reset_unread_or_all_width();
@@ -89,7 +104,42 @@ var refresh_unread_counts = function() {
 	$("title").text("Readertron (" + total_count + ")");
 };
 
+var refresh_shared_unread_counts = function() {
+	var total_count = 0;
+	for (var k in SHARED_UNREAD_COUNTS) {
+		var old_count = $("#subscription-" + k).find(".unread_count").get_int();
+		var new_count = SHARED_UNREAD_COUNTS[k];
+		total_count += new_count;
+		if (new_count > 0) {
+			$("#subscription-" + k).addClass("unread").find(".unread_count").text("(" + new_count + ")");
+		} else {
+			$("#subscription-" + k).removeClass("unread").find(".unread_count").text("");
+		};
+	};
+	var rep;
+	if (POST_FILTERS.feed_id == undefined || POST_FILTERS.feed_id == "") {
+		rep = null;
+	} else if (POST_FILTERS.feed_id == "shared") {
+		rep = total_count;
+	} else if (SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id] == undefined) {
+		rep = UNREAD_COUNTS[POST_FILTERS.feed_id];
+	} else {
+		rep = SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id];
+	};
+	if (rep != null) {
+		$("#new-items-count-hidden").text(rep);
+		$("#new-items-count-visible").text(rep);
+	};
+	reset_unread_or_all_width();
+	$("#shared_unread_count").text("(" + total_count + ")");
+};
+
 var notch_unread_for_feed_id = function(feed_id, n) {
 	UNREAD_COUNTS[feed_id] = UNREAD_COUNTS[feed_id] + n;
 	refresh_unread_counts();
+};
+
+var shared_notch_unread_for_feed_id = function(feed_id, n) {
+	SHARED_UNREAD_COUNTS[feed_id] = SHARED_UNREAD_COUNTS[feed_id] + n;
+	refresh_shared_unread_counts();
 };
