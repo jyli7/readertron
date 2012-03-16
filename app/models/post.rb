@@ -34,10 +34,10 @@ class Post < ActiveRecord::Base
   
   def self.for_options(user, date_sort, items_filter, feed_id=nil)
     if feed_id.present?
-      posts = feed_id == "shared" ? shared : for_feed(feed_id)
+      posts = feed_id == "shared" ? shared.for_user(user) : for_feed(feed_id)
       posts = posts.unread_for_user(user) if items_filter == "unread"
     else
-      posts = unshared
+      posts = unshared.for_user(user)
       posts = (items_filter == "unread" ? posts.unread_for_user(user) : posts.for_user(user))
     end
     posts = (date_sort == "chron" ? posts.chron : posts.revchron)
