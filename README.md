@@ -1,4 +1,3 @@
-- user names
 - infinite scroll
 - what to show at the end of the infinite scroll
 - sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
