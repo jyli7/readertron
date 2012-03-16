@@ -146,3 +146,7 @@ var shared_notch_unread_for_feed_id = function(feed_id, n) {
 	SHARED_UNREAD_COUNTS[feed_id] = SHARED_UNREAD_COUNTS[feed_id] + n;
 	refresh_shared_unread_counts();
 };
+
+var broadcast = function(msg) {
+	$("#broadcast-message").text(msg).parent().show().fadeOut(3000);
+};

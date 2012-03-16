@@ -310,7 +310,7 @@ html, body, input {
 	margin-left: 40px;
 }
 
-#loading-area-container {
+#loading-area-container, #broadcast-message-container {
 	position: absolute;
 	z-index: 10000;
 	top: 0;
@@ -320,7 +320,7 @@ html, body, input {
 	font-size: 90%;
 }
 
-#loading-area-container #loading-area {
+#loading-area-container #loading-area, #broadcast-message-container #broadcast-message {
 	font-weight: bold;
 	font-size: 12px;
 	border-width: 1px;
@@ -335,6 +335,10 @@ html, body, input {
 	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 	border-style: solid;
 	text-align: center;
+}
+
+#broadcast-message-container #broadcast-message {
+	font-weight: normal;
 }
 
 #no-entries-msg {
@@ -566,4 +570,8 @@ html, body, input {
 	background-image: linear-gradient(top,#F8F8F8,#F1F1F1);
 	border: 1px solid #C6C6C6;
 	color: #333;
+}
+
+#mark-all-as-read {
+	float: left;
 }

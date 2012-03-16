@@ -87,4 +87,17 @@ class ReaderController < ApplicationController
     p.update_attributes({original_post_id: p.id})
     render text: "OK"
   end
+  
+  def mark_all_as_read
+    if feed_id = params[:feed_id]
+      if feed_id == "shared"
+        current_user.unreads.shared.destroy_all
+      else
+        current_user.unreads.for_feed(feed_id).destroy_all
+      end
+    else
+      current_user.unreads.unshared.destroy_all
+    end
+    render text: "OK"
+  end
 end

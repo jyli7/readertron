@@ -5,7 +5,11 @@
 	<% end %>
 <% else %>
 	<div id="no-entries-msg">
-		<h2>"<%= @feed_name %>" has no unread items.</h2>
+		<% if @feed_name.present? %>
+			<h2>"<%= @feed_name %>" has no unread items.</h2>
+		<% else %>
+			<h2>You have no unread items.</h2>
+		<% end %>
 		<span class="link view-all-items">View all items</span>
 	</div>
 <% end %>

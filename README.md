@@ -1,17 +1,16 @@
-- sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
-- refresh ALL posts on feed fetch (and propagate to shared copies)
 - user names
-- mark all as unread (only ALL, not with these stupid ranges), both for individual feeds and for the whole thing.
 - infinite scroll
 - what to show at the end of the infinite scroll
-- modeling, controllers, separation of concerns
+- sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
+- refresh ALL posts on feed fetch (and propagate to shared copies)
 - cron job in separate thread to poll for new rss data
 - pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
 - where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
-- one-click instapaper integration.
 - e-mail notifications about comments on your shared items, or on items you've commented on.
-- title unread count
+- one-click instapaper integration.
 - 400s of content using relative URLs
+- modeling, controllers, separation of concerns
+- refactor crazy shared/regular unread count javascript
 
 deploy
 

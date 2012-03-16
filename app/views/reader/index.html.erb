@@ -13,6 +13,12 @@
 	<div class="jfk-butterBar jfk-butterBar-shown jfk-butterBar-info" id="loading-area">Loading...</div>
 </div>
 
+<div id="broadcast-message-container" style="display: none;">
+	<div id="broadcast-message">
+		Thing has been loaded.
+	</div>
+</div>
+
 <div id="panes">
 	<div id="left-pane">
 		<div id="subscriptions">
@@ -49,6 +55,8 @@
 				</div>
 			</div>
 			
+			<div role="button" id="mark-all-as-read" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;">Mark all as read</div>
+			
 			<div id="revchron" class="jfk-button jfk-button-standard jfk-button-unchecked">
 				<div>Newest first</div>
 			</div>
@@ -65,7 +73,11 @@
 			<% end %>
 		<% else %>
 			<div id="no-entries-msg">
-				<h2>"<%= @feed_name %>" has no unread items.</h2>
+				<% if @feed_name.present? %>
+					<h2>"<%= @feed_name %>" has no unread items.</h2>
+				<% else %>
+					<h2>You have no unread items.</h2>
+				<% end %>
 				<span class="link view-all-items">View all items</span>
 			</div>
 		<% end %>

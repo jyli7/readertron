@@ -74,6 +74,35 @@ $(document).ready(function() {
 		fetch_entries();
 	});
 	
+	$("#mark-all-as-read").mouseover(function() {
+		$(this).removeClass("jfk-button-standard").addClass("jfk-button-hover");
+	});
+
+	$("#mark-all-as-read").mouseout(function() {
+		$(this).removeClass("jfk-button-hover").addClass("jfk-button-standard");
+	});
+
+	$("#mark-all-as-read").click(function() {
+		if (SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id] != undefined) {
+			SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id] = 0
+		} else if (UNREAD_COUNTS[POST_FILTERS.feed_id] != undefined) {
+			UNREAD_COUNTS[POST_FILTERS.feed_id] = 0
+		} else if (POST_FILTERS.feed_id == "shared") {
+			for (k in SHARED_UNREAD_COUNTS) {
+				SHARED_UNREAD_COUNTS[k] = 0;
+			};
+		} else if (POST_FILTERS.feed_id == "" || POST_FILTERS.feed_id == undefined) {
+			for (k in UNREAD_COUNTS) {
+				UNREAD_COUNTS[k] = 0;
+			};
+		};
+		$.post("/reader/mark_all_as_read", {feed_id: POST_FILTERS.feed_id}, function(ret) {
+			fetch_entries();
+			broadcast("Marked all entries as read.")
+		});
+		return false;
+	});
+	
 });
 
 var reset_unread_or_all_width = function() {

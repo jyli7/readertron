@@ -10,6 +10,18 @@ class Unread < ActiveRecord::Base
   
   validates_uniqueness_of :user_id, :scope => :post_id
   
+  def self.for_feed(feed_id)
+    joins("JOIN posts ON unreads.post_id = posts.id JOIN feeds ON posts.feed_id = feeds.id").where("feeds.id = #{feed_id}")
+  end
+  
+  def self.shared
+    joins("JOIN posts ON unreads.post_id = posts.id JOIN feeds ON posts.feed_id = feeds.id").where("feeds.shared = 't'")
+  end
+  
+  def self.unshared
+    joins("JOIN posts ON unreads.post_id = posts.id JOIN feeds ON posts.feed_id = feeds.id").where("feeds.shared = 'f'")
+  end
+  
   def increment_subscription
     sub = post.feed.subscriptions.find_by_user_id(user.id)
     sub.unread_count = sub.unread_count + 1
