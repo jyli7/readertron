@@ -56,4 +56,12 @@ class Feed < ActiveRecord::Base
   def latest
     last_modified || Date.parse("Aug. 7th, 1987")
   end
+  
+  def get_favicon
+    begin 
+      `curl http://www.google.com/s2/favicons?domain=#{URI.parse(url).host} > #{Rails.root}/app/assets/images/favicons/#{id}.png`
+    rescue
+      `cp #{Rails.root}/app/assets/images/favicons/default.png #{Rails.root}/app/assets/images/favicons/#{id}.png`
+    end
+  end
 end

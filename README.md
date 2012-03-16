@@ -1,5 +1,6 @@
 - infinite scroll
 - what to show at the end of the infinite scroll
+- show who shared a post in those views	
 - sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
 - refresh ALL posts on feed fetch (and propagate to shared copies)
 - cron job in separate thread to poll for new rss data
