@@ -10,6 +10,7 @@ $(document).ready(function() {
 	$("#subscriptions h3").click(function() {
 		POST_FILTERS.feed_id = $(this).attr("feed_id");
 		$("#subscriptions li").removeClass("selected");
+		$("#subscriptions h3").removeClass("selected");
 		$(this).addClass("selected");
 		fetch_entries();
 		return false;

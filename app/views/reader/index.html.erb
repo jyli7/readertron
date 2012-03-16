@@ -23,13 +23,13 @@
 	<div id="left-pane">
 		<div id="subscriptions">
 			<h3 feed_id="<%= current_user.feed.id %>"><a href="#">My Shared Items</a></h3>
-			<h3 feed_id="shared"><a href="#">Other Shared Items</a> <span id="shared_unread_count">(<%= @shared_unread_counts.values.sum %>)</span></h3>
+			<h3 id="shared-items-link" feed_id="shared"><a href="#">Other Shared Items</a> <span id="shared_unread_count">(<%= @shared_unread_counts.values.sum %>)</span></h3>
 			<ul>
 				<% @shared_subscriptions.each do |subscription| %>
 					<%= render "subscription", subscription: subscription %>
 				<% end %>
 			</ul>
-			<h3><a href="#">All Items</a> <span id="total_unread_count">(<%= @unread_counts.values.sum %>)</span></h3>
+			<h3><a id="all-items-link" href="#">All Items</a> <span id="total_unread_count">(<%= @unread_counts.values.sum %>)</span></h3>
 			<ul>
 			<% @regular_subscriptions.each do |subscription| %>
 				<%= render "subscription", subscription: subscription %>

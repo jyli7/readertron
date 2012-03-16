@@ -1,3 +1,5 @@
+var g_mark = false;
+
 $(document).ready(function() {
 	if ($("#panes").length > 0) {
 		$(document).bind('keydown', 'j', function(e) {
@@ -24,6 +26,25 @@ $(document).ready(function() {
 			if ($(".entry.current").length > 0) {
 				window.open($(".entry.current").find(".entry-title-link").attr("href"), '_blank');
 			};
-		})
+		});
+		
+		$(document).bind('keydown', 'g', function(e) {
+			g_mark = true;
+			setTimeout("g_mark = false", 1000);
+		});
+		
+		$(document).bind('keydown', 'a', function(e) {
+			if (g_mark) {
+				$("#all-items-link").click();
+				g_mark = false;
+			}
+		});
+		
+		$(document).bind('keydown', 's', function(e) {
+			if (g_mark) {
+				$("#shared-items-link").click();
+				g_mark = false;
+			}
+		});
 	};	
 });
