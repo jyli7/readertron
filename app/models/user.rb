@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :share_token
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :share_token, :name
   
   has_many :subscriptions, dependent: :destroy
   has_many :feeds, :through => :subscriptions, dependent: :destroy
@@ -15,7 +15,10 @@ class User < ActiveRecord::Base
   after_create :make_shared_feed_and_subscribe_others_to_it
   after_create :subscribe_to_all_shared_feeds
   after_create :make_share_token
+  after_update :update_corresponding_feed_name
   before_destroy :kill_my_feed
+  
+  validates_presence_of :name
   
   def subscribe(feed_url)
     subscriptions.create(feed: Feed.find_or_create_by_feed_url(feed_url))
@@ -42,14 +45,14 @@ class User < ActiveRecord::Base
   end
   
   def make_shared_feed_and_subscribe_others_to_it
-    feed = Feed.create(title: email, feed_url: "#shared", shared: true)
+    feed = Feed.create(title: name, feed_url: "#shared", shared: true)
     User.where("id != #{id}").each do |user|
       user.subscriptions.create(feed: feed)
     end
   end
   
   def feed
-    Feed.where("feed_url = '#shared' AND title = '#{email}'").first
+    Feed.where("feed_url = '#shared' AND title = '#{name}'").first
   end
   
   def kill_my_feed
@@ -68,5 +71,11 @@ class User < ActiveRecord::Base
   
   def make_share_token
     update_attributes({share_token: SecureRandom.hex(20)})
+  end
+  
+  def update_corresponding_feed_name
+    if name_changed?
+      Feed.where("feed_url = '#shared' AND title = '#{name_was}'").first.update_attributes(title: name)
+    end
   end
 end
