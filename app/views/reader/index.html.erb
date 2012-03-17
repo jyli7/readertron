@@ -7,6 +7,8 @@
 	
 	var UNREAD_COUNTS = <%= raw(@unread_counts.to_json) %>;
 	var SHARED_UNREAD_COUNTS = <%= raw(@shared_unread_counts.to_json) %>;
+	
+	var INSTAPAPER = {username: "<%= current_user.instapaper_username %>", password: "<%= current_user.instapaper_password %>"}
 </script>
 
 <div class="message-area-container" id="loading-area-container" style="display: none;">

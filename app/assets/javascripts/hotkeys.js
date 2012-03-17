@@ -46,5 +46,19 @@ $(document).ready(function() {
 				g_mark = false;
 			}
 		});
+		
+		$(document).bind('keydown', 'shift+I', function(e) {
+			if (INSTAPAPER.username.length > 0) {
+				$.ajax(
+					{url: "https://www.instapaper.com/api/add", type: "GET", dataType: "jsonp", crossDomain: true, 
+						data: {jsonp: "handle_instapaper", username: INSTAPAPER.username, password: INSTAPAPER.password, 
+							url: $(".entry.current .entry-title-link").attr("href")}
+					});
+			}
+		});
 	};	
 });
+
+var handle_instapaper = function() {
+	broadcast("Successfully saved entry to Instapaper!");
+};

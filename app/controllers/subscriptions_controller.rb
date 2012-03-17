@@ -32,4 +32,9 @@ class SubscriptionsController < ApplicationController
     end
     redirect_to action: :index
   end
+  
+  def instapaper
+    current_user.update_attributes(instapaper_username: params[:username], instapaper_password: params[:password])
+    redirect_to action: :index
+  end
 end

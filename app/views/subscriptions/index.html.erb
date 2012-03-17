@@ -46,3 +46,10 @@ Drag this link to your Bookmarks bar: <a href="<%= bookmarklet_for_user(current_
 	</tr>
 	<% end %>
 </table>
+
+<h2>Instapaper integration (Use Shift+I on a story to send it to your Instapaper account!)</h2>
+<%= form_tag("/subscriptions/instapaper", :method => "post") do %>
+  <%= text_field_tag(:username, current_user.instapaper_username) %>
+  <%= password_field_tag(:password, current_user.instapaper_password) %>
+  <%= submit_tag("Submit") %>
+<% end %>
