@@ -23,7 +23,7 @@ $(document).ready(function() {
 		$(this).removeClass("jfk-button-hover").addClass("jfk-button-standard");
 	});
 	
-	$("#unread-or-all").click(function() {
+	$("#unread-or-all").click(function(event) {
 		$("#unread-or-all-menu").show();
 		$(document).one("click", function() {
 			$("#unread-or-all-menu").hide();

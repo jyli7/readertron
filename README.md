@@ -1,8 +1,4 @@
-- sorter broken in firefox. (missing moz css declaration?)
-
-- refactor regular vs. shared count maintenance code.
-- show who shared a post in the shared views
-- sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
+- allow editing of titles in bookmarklet
 
 - refresh ALL posts on feed fetch (and propagate to shared copies)
 - cron job in separate thread to poll for new rss data
@@ -11,10 +7,16 @@
 
 - e-mail notifications about comments on your shared items, or on items you've commented on.
 
+- pretty up user, signup, etc., pages
+
 - 400s of content using relative URLs
 
+- refactor regular vs. shared count maintenance code.
+- show who shared a post in the shared views
+- sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
+
 - modeling, controllers, separation of concerns
-- pretty up user, signup, etc., pages
+
 
 deploy
 
