@@ -1,21 +1,28 @@
-- one-click instapaper integration.
-- refactor regular vs. shared count maintenance code.
+- currentize items as you scroll (compare window.scrollTop() with the element's scrollTop)
+
 - handle feed favicons on CRUD
-- verify that subscribing/unsubscribing from shared feeds still works properly
-- infinite scroll
-- what to show at the end of the infinite scroll
-- show who shared a post in those views
+
+- refactor regular vs. shared count maintenance code.
+- show who shared a post in the shared views
 - sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
-- sorter broken in firefox.
+
+- sorter broken in firefox. (missing moz css declaration?)
+
 - refresh ALL posts on feed fetch (and propagate to shared copies)
 - cron job in separate thread to poll for new rss data
+
 - pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
+
 - where that big subscribe button was, put a "QuickPost" button. highlight those posts in red or something. shows up in a person's share feed.
+
 - "1 new items"
+
 - e-mail notifications about comments on your shared items, or on items you've commented on.
+
 - 400s of content using relative URLs
+
 - modeling, controllers, separation of concerns
-- design of simple pages
+- pretty up user, signup, etc., pages
 
 deploy
 

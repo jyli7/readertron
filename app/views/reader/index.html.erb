@@ -2,7 +2,8 @@
 	var POST_FILTERS = {
 		date_sort: "chron",
 		items_filter: "unread",
-		feed_id: ""
+		feed_id: "",
+		page: 0
 	};
 	
 	var UNREAD_COUNTS = <%= raw(@unread_counts.to_json) %>;
@@ -68,6 +69,7 @@
 			</div>
 			<div id="logo"><span>readertron</span><img src="/assets/rss-bot-small.png"/></div>
 		</div>
+
 		<div id="entries">
 		<% if @entries.present? %>
 			<% @entries.each_with_index do |entry, index| %>
@@ -84,5 +86,12 @@
 			</div>
 		<% end %>
 		</div>
+	</div>
+	
+	<div id="end-of-the-line" style="display: none;">
+		You have no more items!
+	</div>
+	<div id="entries-loader" style="display: none;">
+		<img src="/assets/ajax-loader.gif"/>
 	</div>
 </div>

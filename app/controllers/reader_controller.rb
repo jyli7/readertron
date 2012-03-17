@@ -10,7 +10,7 @@ class ReaderController < ApplicationController
   end
   
   def entries
-    @entries = Post.for_options(current_user, params[:date_sort], params[:items_filter], params[:feed_id])
+    @entries = Post.for_options(current_user, params[:date_sort], params[:items_filter], params[:page], params[:feed_id])
     if feed = Feed.find_by_id(@feed_id = params[:feed_id])
       @feed_name = (feed.title || feed.feed_url) 
     end

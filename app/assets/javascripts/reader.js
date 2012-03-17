@@ -4,6 +4,7 @@ $(document).ready(function() {
 	
 	$("#subscriptions li").click(function() {
 		POST_FILTERS.feed_id = $(this).split_id();
+		POST_FILTERS.page = 0;
 		fetch_entries();
 		$("#subscriptions li, #subscriptions h3").removeClass("selected");
 		$(this).addClass("selected");
@@ -15,6 +16,7 @@ $(document).ready(function() {
 		$("#subscriptions li").removeClass("selected");
 		$("#subscriptions h3").removeClass("selected");
 		$(this).addClass("selected");
+		POST_FILTERS.page = 0;
 		fetch_entries();
 		return false;
 	});
@@ -31,14 +33,25 @@ $(document).ready(function() {
 	});
 	
 	$(".view-all-items").live("click", function() {
+		POST_FILTERS.page = 0;
 		POST_FILTERS.items_filter = "all";
 		$(".menu-button-caption").text("All items");
 		fetch_entries();
 	});
 	
+	$(document).scroll(function() {
+		if (scrollFetchFlag && ($("#entries").height() - $(window).scrollTop() < 350)) {
+			POST_FILTERS.page = POST_FILTERS.page + 1;
+			scrollFetchFlag = false;
+			append_entries();
+		};
+	});
+	
 	refresh_unread_counts();
 	refresh_shared_unread_counts();
 });
+
+var scrollFetchFlag = true;
 
 $.fn.split_id = function() {
 	return this.attr("id").split("-")[1];
@@ -76,11 +89,29 @@ var next_post = function(offset) {
 var fetch_entries = function() {
 	$("#loading-area-container").show();
 	$.get("/reader/entries", POST_FILTERS, function(ret) {
+		scrollFetchFlag = true;
 		$("#entries").html(ret);
 		$("#loading-area-container").hide();
 		$.scrollTo($("#entries"), {offset: -50});
 		refresh_unread_counts();
 		refresh_shared_unread_counts();
+	});
+};
+
+var append_entries = function() {
+	$("#entries").append($("#entries-loader").clone().show());
+	$.get("/reader/entries", POST_FILTERS, function(ret) {
+		if ($(ret).length == 3) {
+			$("#entries #entries-loader").remove();
+			$("#entries").append($("#end-of-the-line").clone().show());
+			scrollFetchFlag = false;
+		} else {
+			$("#entries").append(ret);
+			$("#entries #entries-loader").remove();
+			refresh_unread_counts();
+			refresh_shared_unread_counts();
+			scrollFetchFlag = true;			
+		}
 	});
 };
 

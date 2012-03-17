@@ -32,7 +32,7 @@ class Post < ActiveRecord::Base
     joins("JOIN unreads ON posts.id = unreads.post_id").where("unreads.user_id = #{user.id}")
   end
   
-  def self.for_options(user, date_sort, items_filter, feed_id=nil)
+  def self.for_options(user, date_sort, items_filter, page=0, feed_id=nil)
     if feed_id.present?
       posts = feed_id == "shared" ? shared.for_user(user) : for_feed(feed_id)
       posts = posts.unread_for_user(user) if items_filter == "unread"
@@ -41,7 +41,7 @@ class Post < ActiveRecord::Base
       posts = (items_filter == "unread" ? posts.unread_for_user(user) : posts.for_user(user))
     end
     posts = (date_sort == "chron" ? posts.chron : posts.revchron)
-    return posts.limit(10)
+    return posts.offset(page.to_i * 10).limit(10)
   end
   
   def self.shared
