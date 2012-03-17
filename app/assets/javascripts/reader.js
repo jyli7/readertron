@@ -45,7 +45,7 @@ $.fn.split_id = function() {
 };
 
 $.fn.snap_to_top = function() {
-	$.scrollTo(this, {offset: -10});
+	$.scrollTo(this, {offset: -50});
 };
 
 $.fn.get_int = function() {
