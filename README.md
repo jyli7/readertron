@@ -1,19 +1,17 @@
-- currentize items as you scroll (compare window.scrollTop() with the element's scrollTop)
+- pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
 
-- handle feed favicons on CRUD
+- where that big subscribe button was, put a "QuickPost" button. highlight those posts in red or something. shows up in a person's share feed.
+
+- sorter broken in firefox. (missing moz css declaration?)
 
 - refactor regular vs. shared count maintenance code.
 - show who shared a post in the shared views
 - sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
 
-- sorter broken in firefox. (missing moz css declaration?)
-
 - refresh ALL posts on feed fetch (and propagate to shared copies)
 - cron job in separate thread to poll for new rss data
 
-- pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
-
-- where that big subscribe button was, put a "QuickPost" button. highlight those posts in red or something. shows up in a person's share feed.
+- currentize items as you scroll (compare window.scrollTop() with the element's scrollTop)
 
 - "1 new items"
 

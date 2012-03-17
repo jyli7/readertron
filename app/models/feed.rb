@@ -3,6 +3,9 @@ class Feed < ActiveRecord::Base
   has_many :users, :through => :subscriptions
   has_many :posts, :dependent => :destroy
   
+  after_save :get_favicon
+  before_destroy :remove_favicon
+  
   validates_presence_of :feed_url
 
   module OPML
@@ -58,10 +61,16 @@ class Feed < ActiveRecord::Base
   end
   
   def get_favicon
-    begin 
-      `curl http://www.google.com/s2/favicons?domain=#{URI.parse(url).host} > #{Rails.root}/app/assets/images/favicons/#{id}.png`
-    rescue
-      `cp #{Rails.root}/app/assets/images/favicons/default.png #{Rails.root}/app/assets/images/favicons/#{id}.png`
+    if url_changed?
+      begin
+        `curl http://www.google.com/s2/favicons?domain=#{URI.parse(url).host} > #{Rails.root}/app/assets/images/favicons/#{id}.png`
+      rescue
+        `cp #{Rails.root}/app/assets/images/favicons/default.png #{Rails.root}/app/assets/images/favicons/#{id}.png`
+      end
     end
+  end
+  
+  def remove_favicon
+    `rm #{Rails.root}/app/assets/images/favicons/#{id}.png`
   end
 end
