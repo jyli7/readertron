@@ -42,8 +42,14 @@ class Feed < ActiveRecord::Base
           feed.hydrate(feedzirra)
 
           feedzirra.entries.each do |entry| # Going backwards through time.
-            break if entry.published && (entry.published < feed.latest)
-            feed.posts.create(title: entry.title, url: entry.url, author: entry.author, content: (entry.content || entry.summary), published: entry.published)
+            if entry.published && (entry.published < feed.latest) && post = Post.find_by_url(entry.url)
+              post.update_attributes(title: entry.title, author: entry.author, content: (entry.content || entry.summary), published: entry.published)
+              shared_posts = Post.find_all_by_original_post_id(post.id).each do |share|
+                share.update_attributes(title: entry.title, author: entry.author, content: (entry.content || entry.summary), published: entry.published)
+              end
+            else
+              feed.posts.create(title: entry.title, url: entry.url, author: entry.author, content: (entry.content || entry.summary), published: entry.published)
+            end
           end
 
           feed.update_attributes(last_modified: feedzirra.last_modified)

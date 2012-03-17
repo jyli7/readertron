@@ -1,6 +1,3 @@
-- allow editing of titles in bookmarklet
-
-- refresh ALL posts on feed fetch (and propagate to shared copies)
 - cron job in separate thread to poll for new rss data
 
 - "1 new items"
