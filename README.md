@@ -1,7 +1,3 @@
-- pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
-
-- where that big subscribe button was, put a "QuickPost" button. highlight those posts in red or something. shows up in a person's share feed.
-
 - sorter broken in firefox. (missing moz css declaration?)
 
 - refactor regular vs. shared count maintenance code.

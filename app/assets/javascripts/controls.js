@@ -109,6 +109,31 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$("#quickpost-button").mouseover(function() {
+		$(this).addClass("hover");
+	});
+	
+	$("#quickpost-button").mouseout(function() {
+		$(this).removeClass("hover");
+	});
+	
+	$("#quickpost-button").live("click", function() {
+		$("#entries").html($("#quickpost-form").clone().show());
+	});
+	
+	$("#cancel-quickpost").live("click", function() {
+		fetch_entries();
+		return false;
+	});
+	
+	$("#quickpost-form input[type=submit]").live("click", function() {
+		$.post("/reader/quickpost", {title: $(this).closest("#quickpost-form").find("input[name=title]").val(), content: $(this).closest("#quickpost-form").find("textarea[name=content]").val()}, function(ret) {
+			fetch_entries();
+			broadcast("Your post has been created and shared successfully!");
+		});
+		return false;
+	});
+	
 });
 
 var reset_unread_or_all_width = function() {

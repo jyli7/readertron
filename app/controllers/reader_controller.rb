@@ -100,4 +100,17 @@ class ReaderController < ApplicationController
     end
     render text: "OK"
   end
+  
+  def quickpost
+    p = current_user.feed.posts.create(
+      content: params[:content],
+      title: params[:title],
+      published: Time.now,
+      url: "#quickpost",
+      shared: true,
+      author: "#{current_user.name} (Quickpost)"
+    )
+    p.update_attributes({original_post_id: p.id})
+    render text: "OK"
+  end
 end
