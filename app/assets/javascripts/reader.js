@@ -20,6 +20,8 @@ $(document).ready(function() {
 		fetch_entries();
 		return false;
 	});
+	
+	$("#all-items-link").closest("h3").addClass("selected");
 
 	$("#subscriptions").slimScroll({
 		height: "800px",
