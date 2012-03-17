@@ -118,6 +118,7 @@ $(document).ready(function() {
 	});
 	
 	$("#quickpost-button").live("click", function() {
+		scrollFetchFlag = false;
 		$("#entries").html($("#quickpost-form").clone().show());
 	});
 	
