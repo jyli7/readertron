@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316040524) do
+ActiveRecord::Schema.define(:version => 20120317043151) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(:version => 20120316040524) do
     t.datetime "updated_at",                             :null => false
     t.string   "share_token"
     t.string   "name"
+    t.string   "instapaper_username"
+    t.string   "instapaper_password"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
