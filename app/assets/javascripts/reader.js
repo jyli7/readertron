@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	
+	$("#alert").fadeOut(3000);
+	
 	$("#subscriptions li").click(function() {
 		POST_FILTERS.feed_id = $(this).split_id();
 		fetch_entries();

@@ -315,7 +315,7 @@ html, body, input {
 	margin-left: 40px;
 }
 
-#loading-area-container, #broadcast-message-container {
+#loading-area-container, #broadcast-message-container, #alert-container, #notice-container {
 	position: absolute;
 	z-index: 10000;
 	top: 0;
@@ -325,7 +325,7 @@ html, body, input {
 	font-size: 90%;
 }
 
-#loading-area-container #loading-area, #broadcast-message-container #broadcast-message {
+#loading-area-container #loading-area, #broadcast-message-container #broadcast-message, #alert, #notice {
 	font-weight: bold;
 	font-size: 12px;
 	border-width: 1px;

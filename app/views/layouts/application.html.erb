@@ -5,11 +5,12 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <link href="/assets/rss-bot.png" rel="shortcut icon"/>
 </head>
 <body>
-	
-	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p>
+	<% if alert %>
+	<div id="alert-container"><div id="alert"><%= alert %></div></div>
+	<% end %>
 	
 
 <%= yield %>
