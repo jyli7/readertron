@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$(".entry").live("click", function() {
 		if (!$(this).hasClass("current"))
-			$(this).set_as_current_entry();
+			$(this).set_as_current_entry(true);
 	});
 
 	$(".read-state").live("click", function() {
@@ -28,13 +28,28 @@ $(document).ready(function() {
 		$(this).closest(".entry").share_with_note();
 		return false;
 	});
+	
+	$(document).scroll(function() {
+		if ($(".entry.current").length == 0 && $(window).scrollTop() > lastScrollTop) {
+			$(".entry:first").set_as_current_entry(false);
+		} else if ($(".entry.current + .entry").length > 0 && ($(".entry.current + .entry").offset().top - $(window).scrollTop() < 150) && $(window).scrollTop() > lastScrollTop) {
+			$(".entry.current + .entry").set_as_current_entry(false);
+		} else if ($(".entry.current").prev(".entry").length > 0 && ($(window).scrollTop() - $(".entry.current").prev(".entry").find(".read-state").offset().top < -50) && $(window).scrollTop() < lastScrollTop) {
+			$(".entry.current").prev(".entry").set_as_current_entry(false);
+		};
+		lastScrollTop = $(window).scrollTop();
+	});
 });
 
-$.fn.set_as_current_entry = function() {
+var lastScrollTop = 0;
+
+$.fn.set_as_current_entry = function(should_snap) {
 	$(".entry").removeClass("current");
 	$(".entry:not(.unread)").addClass("read");
 
-	this.addClass("current").removeClass("read").snap_to_top();
+	this.addClass("current").removeClass("read")
+	if (should_snap)
+		this.snap_to_top();
 
 	if (this.freshly_unread()) {
 		this.removeClass("unread");

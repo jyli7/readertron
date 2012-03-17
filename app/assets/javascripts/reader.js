@@ -82,7 +82,7 @@ var next_post = function(offset) {
 	if ($("#entry-" + next_post_index).length == 0) {
 		return false;
 	} else {
-		$("#entry-" + next_post_index).set_as_current_entry();
+		$("#entry-" + next_post_index).set_as_current_entry(true);
 	}
 };
 

@@ -7,8 +7,6 @@
 - refresh ALL posts on feed fetch (and propagate to shared copies)
 - cron job in separate thread to poll for new rss data
 
-- currentize items as you scroll (compare window.scrollTop() with the element's scrollTop)
-
 - "1 new items"
 
 - e-mail notifications about comments on your shared items, or on items you've commented on.
