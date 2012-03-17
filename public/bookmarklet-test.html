@@ -8,7 +8,7 @@ var execute = function (text) {
 	query+="&note="+note;
 	query+="&type=regular";
 	query+="&url="+window.location.href;
-	query+="&title="+document.title;
+	query+="&title="+document.getElementById("readertron-title").value;
 	query+="&token=64b5823f1988d47c39afe61542acfac65a696073";
 	query+="&content="+encodeURIComponent(text);
 	xmlHttpReq.send(query);
@@ -36,11 +36,14 @@ var go = function() {
 	img.style.padding = "5px";
 	div.appendChild(img);
 	var titlediv = document.createElement("div");
-	var title = document.createTextNode(document.title);
-	titlediv.style.marginLeft = "50px";
-	titlediv.style.color = "#333";
-	titlediv.style.fontSize = "18px";
-	titlediv.style.fontFamily = "arial, sans-serif";
+	var title = document.createElement("input");
+	title.id = "readertron-title";
+	title.value = document.title;
+	title.style.color = "#333";
+	title.style.fontSize = "18px";
+	title.style.fontFamily = "Helvetica, arial, sans-serif";
+	title.style.marginLeft = "50px";
+	title.style.width = "400px";
 	titlediv.appendChild(title);
 	div.appendChild(titlediv);
 	var contentdiv = document.createElement("div");
