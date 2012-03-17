@@ -40,7 +40,7 @@ $(document).ready(function() {
 	});
 	
 	$(document).scroll(function() {
-		if (scrollFetchFlag && ($("#entries").height() - $(window).scrollTop() < 350)) {
+		if (scrollFetchFlag && ($("#entries").height() - $(window).scrollTop() < 700)) {
 			POST_FILTERS.page = POST_FILTERS.page + 1;
 			scrollFetchFlag = false;
 			append_entries();
