@@ -10,10 +10,12 @@
 - refresh ALL posts on feed fetch (and propagate to shared copies)
 - cron job in separate thread to poll for new rss data
 - pretty up the bookmarklet, and add useful information like title, and some sense of the post preview.
-- where that big subscribe button was, put a compose post button. highlight those posts in red or something. shows up in a person's share feed.
+- where that big subscribe button was, put a "QuickPost" button. highlight those posts in red or something. shows up in a person's share feed.
+- "1 new items"
 - e-mail notifications about comments on your shared items, or on items you've commented on.
 - 400s of content using relative URLs
 - modeling, controllers, separation of concerns
+- design of simple pages
 
 deploy
 

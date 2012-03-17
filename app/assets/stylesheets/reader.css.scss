@@ -580,3 +580,14 @@ html, body, input {
 #mark-all-as-read {
 	float: left;
 }
+
+#logo {
+	float: right;
+}
+#logo span {
+	font-family: 'Graduate', cursive;
+	font-size: 24px;
+	color: #FF7C00;
+	position: relative;
+	top: -5px;
+}
