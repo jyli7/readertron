@@ -14,7 +14,7 @@ $(document).ready(function() {
 			$(".entry.current").toggle("span.read-state", "read-state-kept-unread", mark_as_read); return false;
 		});
 
-		$(document).bind('keydown', 'h', function(e) {
+		$(document).bind('keydown', 's', function(e) {
 			$(".entry.current").toggle("span.item-star", "star-inactive", set_shared_status); return false;
 		});
 
