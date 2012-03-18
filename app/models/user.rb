@@ -35,13 +35,11 @@ class User < ActiveRecord::Base
   end
   
   def regular_subscriptions
-    # FIXME: Different db engine might not like this 't'.
-    subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 'f'")
+    subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 'f'", false)
   end
   
   def shared_subscriptions
-    # FIXME: Different db engine might not like this 't'.
-    subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 't'")
+    subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = ?", true)
   end
   
   def make_shared_feed_and_subscribe_others_to_it

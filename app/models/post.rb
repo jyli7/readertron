@@ -55,11 +55,11 @@ class Post < ActiveRecord::Base
   end
   
   def self.shared
-    where("posts.shared = 't'")
+    where("posts.shared = ?", true)
   end
   
   def self.unshared
-    where("posts.shared = 'f'")
+    where("posts.shared = ?", false)
   end
   
   def refresh(attrs)

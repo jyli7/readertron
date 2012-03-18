@@ -32,11 +32,11 @@ class Feed < ActiveRecord::Base
   end
   
   def self.shared
-    where("shared = 't'")
+    where(shared: true)
   end
   
   def self.unshared
-    where("shared = 'f'")
+    where(shared: false)
   end
   
   def self.all_for_opml(opml)

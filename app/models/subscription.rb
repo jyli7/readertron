@@ -7,11 +7,11 @@ class Subscription < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :feed_id
   
   def self.unshared
-    joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 'f'")
+    joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = ?", false)
   end
   
   def self.shared
-    joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 't'")
+    joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = ?", true)
   end
   
   def self.unread_hash_for_user(user)
