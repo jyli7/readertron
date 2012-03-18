@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+	<p><strong><%= @comment.user.name %></strong> wrote:</p>
+    <blockquote>
+      <%= mdown(@comment.content) %>
+    </blockquote>
+    <p>(See the rest of the discussion on the <a href="http://readertron.com/?post_id=<%= @comment.post.id %>">post's page</a>.)</p>
+
+	<p>- Readertron</p>
+  </body>
+</html>

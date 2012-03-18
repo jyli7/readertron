@@ -2,8 +2,6 @@
 
 - "1 new items"
 
-- e-mail notifications about comments on your shared items, or on items you've commented on.
-
 - pretty up user, signup, etc., pages
 
 - refactor regular vs. shared count maintenance code.
@@ -15,6 +13,7 @@
 deploy
 - cron job in separate thread to poll for new rss data
 
+- a comment stream view, with links to each of the posts.
 - starring posts
 - search
 - comment creation via e-mail replies.
