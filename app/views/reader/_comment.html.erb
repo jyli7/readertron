@@ -1,8 +1,7 @@
 <div class="comment" comment_id="<%= comment.id %>">
 	<div class="comment-body">
-		<span class="comment-author"><%= comment.user.name %>:</span> 
-		<span class="comment-content"><%= comment.content %> </span>
-		<span class="comment-timestamp"><%= comment_date(comment.updated_at) %></span> 
+		<span class="comment-author"><%= comment.user.name %> <span class="comment-timestamp"><%= comment_date(comment.updated_at) %>:</span></span> 
+		<span class="comment-content"><%= mdown(comment.content) %></span>
 		<% if comment.user == current_user %>
 			<span class="comment-actions">
 				<a href="#" class="comment-edit-link">Edit</a> | <a href="#" class="comment-delete-link">Delete</a>

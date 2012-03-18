@@ -37,4 +37,10 @@ module ReaderHelper
     renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
     clean(renderer.render(text))
   end
+  
+  def mdown(text)
+    text = text.gsub(%r{(^|\s)([*_])(.+?)\2(\s|$)}x, %{\\1<em>\\3</em>\\4})
+    text = text.gsub(/[\n]+/, "<br><br>")
+    raw(text)
+  end
 end
