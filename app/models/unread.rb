@@ -30,7 +30,9 @@ class Unread < ActiveRecord::Base
   
   def decrement_subscription
     sub = post.feed.subscriptions.find_by_user_id(user.id)
-    sub.unread_count = sub.unread_count - 1
-    sub.save
+    if sub.present?
+      sub.unread_count = sub.unread_count - 1
+      sub.save
+    end
   end
 end

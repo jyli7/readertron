@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   
   def subscribe(feed_url)
-    subscriptions.create(feed: Feed.find_or_create_by_feed_url(feed_url))
+    subscriptions.create(feed: Feed.find_or_create_by_feed_url(Feed.clean_url(feed_url)))
   end
   
   def bulk_subscribe(opml)

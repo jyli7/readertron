@@ -62,6 +62,13 @@ class Post < ActiveRecord::Base
     where("posts.shared = 'f'")
   end
   
+  def refresh(attrs)
+    update_attributes(attrs)
+    shared_posts = Post.find_all_by_original_post_id(id).each do |share|
+      share.update_attributes(attrs)
+    end
+  end
+  
   def generate_unreads
     feed.users.each do |subscriber|
       subscriber.unreads.create(post: self)
@@ -69,6 +76,6 @@ class Post < ActiveRecord::Base
   end
   
   def unread_for_user?(user)
-    unreads.find_by_user_id(user.id).present? # FIXME
+    unreads.find_by_user_id(user.id).present?
   end
 end
