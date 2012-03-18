@@ -1,17 +1,18 @@
-<h2>Sign in</h2>
+<div id="sign-in">
+	<img src="/assets/rss-bot.png"/>
+	<h2>Sign in to READERTRON (or <a href="/users/sign_up">sign up</a>)</h2>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+	  <%= f.email_field :email, {placeholder: "E-mail address"} %>
+	  <br/>
+	  <%= f.password_field :password, {placeholder: "••••••••••"} %>
+	  <br/>
+	  <button type="submit" class="classy primary">
+		<span>Sign in to Readertron</span>
+      </button>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
-
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
-
-<%= render "links" %>
+	  <% if devise_mapping.rememberable? -%>
+	   <div id="remember-me"><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+	  <% end -%>
+	<% end %>
+</div>

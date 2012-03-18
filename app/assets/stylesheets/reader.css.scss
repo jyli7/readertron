@@ -689,3 +689,86 @@ html, body, input {
 	width: 650px;
 	height: 250px;
 }
+
+#sign-in {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#sign-in h2 {
+	font-family: "Graduate", cursive;
+	color: #FF7C00;
+	font-weight: normal;
+}
+
+#sign-in h2 a {
+	color: #74BB5A;
+	text-decoration: none;
+	border-bottom: 1px solid #74BB5A;
+}
+
+#sign-in h2 a:hover {
+	color: #4c8b36;
+}
+
+#sign-in input {
+	font-size: 20px;
+	padding: 5px;
+	font-weight: bold;
+	text-align: center;
+}
+
+#sign-in input[type=password] {
+	letter-spacing: 0.2em;
+}
+
+#sign-in button.classy {
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+	border-color: #74BB5A;
+	border-bottom-color: #509338;
+	background: #8ADD6D;
+	background: -moz-linear-gradient(#8ADD6D,#60B044);
+	background: -webkit-linear-gradient(#8ADD6D,#60B044);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#8add6d',endColorstr='#60b044')";
+	box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+#sign-in button.classy:hover {
+    background: #69d344;
+    background: -moz-linear-gradient(#69d344, #4c8b36);
+    background: -webkit-linear-gradient(#69d344, #4c8b36);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#69d344', endColorstr='#4c8b36')";
+    border-color: #4a993e;
+    color: #fff;
+}
+
+#sign-in button {
+	display: inline-block;
+	padding: 8px 15px;
+	line-height: normal;
+	position: relative;
+	font-family: Helvetica,arial,freesans,clean,sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: #666;
+	text-shadow: 0 1px rgba(255, 255, 255, 0.9);
+	background: whiteSmoke;
+	background: -moz-linear-gradient(whiteSmoke,#E5E5E5);
+	background: -webkit-linear-gradient(whiteSmoke,#E5E5E5);
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5',endColorstr='#e5e5e5')";
+	border-radius: 3px;
+	border: 1px solid #DDD;
+	border-bottom-color: #BBB;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+#sign-in #remember-me {
+	color: #666;
+	font-size: 11px;
+	font-family: Helvetica;
+}
