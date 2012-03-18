@@ -1,1 +1,7 @@
-rvm ruby-1.9.2-p290@readertron
+rvm ruby-1.9.2-p318@readertron
+
+if [[ -s "/usr/local/rvm/environments/ruby-1.9.2-p318@readertron" ]] ; then
+  . "/usr/local/rvm/environments/ruby-1.9.2-p318@readertron"
+else
+  rvm --create use  "ruby-1.9.2-p318@readertron"
+fi
