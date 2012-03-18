@@ -32,4 +32,9 @@ module ReaderHelper
   def clean(html)
     raw(Sanitize.clean(html, Sanitize::Config::RELAXED.merge({elements: Sanitize::Config::RELAXED[:elements] + ["style"]})))
   end
+  
+  def markdown(text)
+    renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    clean(renderer.render(text))
+  end
 end

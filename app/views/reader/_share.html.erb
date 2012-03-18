@@ -31,7 +31,11 @@
 						<div>
 							<div class="item-body">
 								<div>
-									<%= raw(entry.content) %>
+									<% if entry.url == "#quickpost" %>
+										<%= markdown(entry.content) %>
+									<% else %>
+										<%= clean(entry.content) %>
+									<% end %>
 								</div>
 							</div>
 						</div>

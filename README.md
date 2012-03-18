@@ -1,5 +1,3 @@
-- fix "sanitize" calls
-
 - 400s of content using relative URLs / strip content of bad shit.
 
 - "1 new items"
