@@ -30,7 +30,7 @@ $(document).ready(function() {
 	$("#all-items-link").closest("h3").addClass("selected");
 
 	$("#subscriptions").slimScroll({
-		height: "650px",
+		height: $(window).height() + "px",
 		wheelStep: 5,
 		allowPageScroll: false
 	});
