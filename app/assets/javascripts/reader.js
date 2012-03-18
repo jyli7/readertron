@@ -13,6 +13,13 @@ $(document).ready(function() {
 	
 	$("#subscriptions h3").click(function() {
 		POST_FILTERS.feed_id = $(this).attr("feed_id");
+		if ($(this).attr("id") == "my-shared-items") {
+			$("#revchron").click();
+			POST_FILTERS.date_sort = "revchron";
+			POST_FILTERS.items_filter = "all";
+			$(".menu-button-caption").text("All items");
+			reset_unread_or_all_width();
+		};
 		$("#subscriptions li").removeClass("selected");
 		$("#subscriptions h3").removeClass("selected");
 		$(this).addClass("selected");
