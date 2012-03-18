@@ -31,7 +31,7 @@ $(document).ready(function() {
 	$("#all-items-link").closest("h3").addClass("selected");
 
 	$("#subscriptions").slimScroll({
-		height: "800px",
+		height: "650px",
 		wheelStep: 5,
 		allowPageScroll: false
 	});
