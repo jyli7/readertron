@@ -2,6 +2,7 @@ $(document).ready(function() {
 	$(".comments .add-comment-link").live("click", function() {
 		var $entry = $(this).closest(".entry");
 		$entry.find(".comment-add-form form").show();
+		$entry.find(".comment-add-form form textarea").focus();
 		$(this).hide();
 		return false;
 	});
@@ -32,6 +33,7 @@ $(document).ready(function() {
 		$comment.find(".comment-content").hide();
 		$comment.find(".comment-timestamp").hide();
 		$comment.find(".comment-body form").show();
+		$comment.find(".comment-body form textarea").focus();
 		return false;
 	});
 
