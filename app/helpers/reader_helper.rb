@@ -7,14 +7,6 @@ module ReaderHelper
     end
   end
   
-  def comment_date(date)
-    if date >= 1.month.ago
-      date.strftime("(#{time_ago_in_words(date)} ago)")
-    else
-      date.strftime("(%b #{date.day}, %Y %I:%M %p)")
-    end
-  end
-
   def star_class(post)
     if (share = Post.find_all_by_original_post_id(post.id).select {|share| share.feed.title == current_user.name}.first.presence)
       return "star-active" if share.note.blank?
@@ -31,16 +23,5 @@ module ReaderHelper
   
   def clean(html)
     raw(Sanitize.clean(html, Sanitize::Config::RELAXED.merge({elements: Sanitize::Config::RELAXED[:elements] + ["style"]})))
-  end
-  
-  def markdown(text)
-    renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
-    clean(renderer.render(text))
-  end
-  
-  def mdown(text)
-    text = text.gsub(%r{(^|\s)([*_])(.+?)\2(\s|$)}x, %{\\1<em>\\3</em>\\4})
-    text = text.gsub(/[\n]+/, "<br><br>")
-    raw(text)
   end
 end
