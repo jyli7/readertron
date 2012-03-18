@@ -1,20 +1,17 @@
 - nokogiri parser segfault?
 
-- 400s of content using relative URLs / strip content of bad shit.
-
 - "1 new items"
 
 - pretty up user, signup, etc., pages
 
 - refactor regular vs. shared count maintenance code.
-- show who shared a post in the shared views
-- sort out "My Shared Items" stuff: how to render the posts (as shares?), how to deal with unreads.
 
 - modeling, controllers, separation of concerns
 
 deploy
 - cron job in separate thread to poll for new rss data
 
+- 400s of content using relative URLs / strip content of bad shit.
 - windows bookmarklet broken?
 - scrolling to the bottom of the subscriptions list
 

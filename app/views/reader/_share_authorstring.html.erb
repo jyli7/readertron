@@ -1,0 +1,20 @@
+<% feed = Post.find(entry.original_post_id).feed %>
+<div class="entry-author">
+	<span class="entry-sharer-name">Shared by <%= entry.sharer == current_user ? "you" : entry.sharer.name %></span>
+	<span class="entry-icons-placeholder">
+		<% if feed.title == entry.sharer.name %>
+			<% if entry.url == "#quickpost" %>
+				as a Quickpost
+			<% else %>
+				from the "Note in Readertron" bookmarklet
+			<% end %>
+		<% else %>
+			<span class="entry-source-title-parent">from <a class="entry-source-title" target="_blank" href="/#"><%= feed.title %></a></span>
+			<% if entry.author %>
+				<span class="entry-author-parent">
+					by <span class="entry-author-name"><%= entry.author %></span>
+				</span>
+			<% end %>
+		<% end %>
+	</span>
+</div>

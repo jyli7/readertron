@@ -78,4 +78,8 @@ class Post < ActiveRecord::Base
   def unread_for_user?(user)
     unreads.find_by_user_id(user.id).present?
   end
+  
+  def sharer
+    User.find_by_name(feed.title) if shared?
+  end
 end

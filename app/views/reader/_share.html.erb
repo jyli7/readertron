@@ -22,9 +22,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="entry-author">
-						<span class="entry-icons-placeholder"><span class="entry-source-title-parent">from <a class="entry-source-title" target="_blank" href="/#"><%= Post.find(entry.original_post_id).feed.title %></a></span><% if entry.author %> <span class="entry-author-parent">by <span class="entry-author-name"><%= entry.author %></span></span> <% end %></span>
-					</div>
+					<%= render "share_authorstring", entry: entry %>
 					<div class="entry-debug"></div>
 					<div class="entry-annotations"></div>
 					<div class="entry-body">
