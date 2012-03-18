@@ -34,9 +34,6 @@
 
 <div id="panes">
 	<div id="left-pane">
-		<div id="quickpost">
-			<div id="quickpost-button">Quickpost</div>
-		</div>
 		<div id="subscriptions">
 			<h3 feed_id="<%= current_user.feed.id %>"><a href="#">My Shared Items</a></h3>
 			<h3 id="shared-items-link" feed_id="shared"><a href="#">Other Shared Items</a> <span id="shared_unread_count">(<%= @shared_unread_counts.values.sum %>)</span></h3>
@@ -56,7 +53,9 @@
 
 	<div id="right-pane">
 		<div id="controls">
-			<div role="button" id="viewer-refresh" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;"><img src="/assets/refresh.png" alt="" class="jfk-button-img"></div>
+			<div role="button" id="viewer-refresh" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;">
+				<img src="/assets/refresh.png" alt="" class="jfk-button-img">
+			</div>
 			
 			<div id="unread-or-all" class="jfk-button jfk-button-standard">
 				<div class="menu-button-caption"><span id="new-items-count-visible"></span> new items</div>
@@ -80,6 +79,9 @@
 			<div id="chron" class="jfk-button jfk-button-standard jfk-button-checked">
 				<div>Oldest first</div>
 			</div>
+			
+			<div id="quickpost-button">Quickpost</div>
+			
 			<div id="logo"><span>readertron</span><img src="/assets/rss-bot-small.png"/></div>
 		</div>
 

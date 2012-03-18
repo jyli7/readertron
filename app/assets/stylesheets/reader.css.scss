@@ -553,6 +553,7 @@ html, body, input {
 	-webkit-border-top-left-radius: 0px;
 	border-bottom-left-radius: 0px;
 	border-top-left-radius: 0px;
+	margin-right: 16px;
 }
 
 .jfk-button-checked {
@@ -612,12 +613,8 @@ html, body, input {
 	margin-bottom: 30px;
 }
 
-#quickpost { 
-	height: 30px;
-	padding-bottom: 10px;
-}
-
 #quickpost-button {
+	float: left;
 	width: 80px;
 	height: 27px;
 	display: block;
@@ -638,7 +635,6 @@ html, body, input {
 	font-size: 11px;
 	font-weight: bold;
 	text-align: center;
-	margin-left: 6px;
 	height: 27px;
 	line-height: 27px;
 	min-width: 54px;
