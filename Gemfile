@@ -5,12 +5,7 @@ gem 'rails', '3.2.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# gem 'sqlite3'
-gem 'mysql2'
 gem 'devise'
-
-# gem 'ruby-debug-base19'
-# gem 'ruby-debug19'
 
 gem 'happymapper'
 gem 'feedzirra'
@@ -20,7 +15,16 @@ gem 'dalli'
 gem 'sanitize'
 gem 'redcarpet'
 
-gem 'therubyracer'
+group :development do
+  gem 'ruby-debug-base19'
+  gem 'ruby-debug19'
+  gem 'sqlite3'
+end
+
+group :production do
+  gem 'therubyracer'
+  gem 'mysql2'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
