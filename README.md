@@ -1,5 +1,3 @@
-- individual page with post_id param.
-
 - nokogiri parser segfault?
 
 - 400s of content using relative URLs / strip content of bad shit.
@@ -28,6 +26,7 @@ deploy
 	- the opened up version has the terms highlighted.
 	- "back to search results" link.
 - collapsed view
+- sassify CSS
 - comment creation via e-mail replies.
 - de-duplicate shared posts and those posts in the regular feed.
 - look at shared items by feed, or vice versa

@@ -4,7 +4,11 @@ class ReaderController < ApplicationController
   def index
     @regular_subscriptions = current_user.regular_subscriptions
     @shared_subscriptions = current_user.shared_subscriptions
-    @entries = Post.for_options(current_user, "chron", "unread")
+    if params[:post_id].present?
+      @entries = [Post.find(params[:post_id])]
+    else
+      @entries = Post.for_options(current_user, "chron", "unread")
+    end
     @unread_counts = Subscription.unread_hash_for_user(current_user)
     @shared_unread_counts = Subscription.shared_unread_hash_for_user(current_user)
   end

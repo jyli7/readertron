@@ -1,5 +1,4 @@
-$(document).ready(function() {
-	
+$(document).ready(function() {	
 	$("#alert").fadeOut(3000);
 	
 	$("#subscriptions li").click(function() {
