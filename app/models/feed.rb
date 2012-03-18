@@ -68,7 +68,8 @@ class Feed < ActiveRecord::Base
     feedzirra.entries.each do |entry| # Going backwards through time.
       attrs = {
         title: entry.title, 
-        author: entry.author, 
+        author: entry.author,
+        url: entry.url,
         content: (entry.content || entry.summary), 
         published: entry.published
       }
