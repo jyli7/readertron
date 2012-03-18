@@ -42,11 +42,12 @@ class Post < ActiveRecord::Base
     if items_filter == "unread"
       if page == 0
         posts = posts.unread_for_user(user)
-        Rails.cache.write("#{user.id}_#{feed_id}_#{date_sort}", Array.wrap(posts))
+        Rails.cache.write("#{user.id}_#{feed_id}_#{date_sort}", posts.map(&:id))
         return posts.first(10)
       else
-        posts = Rails.cache.read("#{user.id}_#{feed_id}_#{date_sort}")
-        return Array.wrap(posts[page * 10..(page * 10) + 9])
+        post_ids = Rails.cache.read("#{user.id}_#{feed_id}_#{date_sort}")
+        posts = Post.find(Array.wrap(post_ids[page * 10..(page * 10) + 9]))
+        return posts
       end
     else
       return posts.offset(page.to_i * 10).limit(10)
