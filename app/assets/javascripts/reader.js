@@ -103,7 +103,7 @@ var fetch_entries = function() {
 var append_entries = function() {
 	$("#entries").append($("#entries-loader").clone().show());
 	$.get("/reader/entries", POST_FILTERS, function(ret) {
-		if ($(ret).length == 1) {
+		if (ret.indexOf("no-entries-msg") != -1) {
 			$("#entries #entries-loader").remove();
 			$("#entries").append($("#end-of-the-line").clone().show());
 			scrollFetchFlag = false;

@@ -1,5 +1,3 @@
-- fix bug due to appended entries having the wrong indexes.
-
 - fix "sanitize" calls
 
 - 400s of content using relative URLs / strip content of bad shit.
