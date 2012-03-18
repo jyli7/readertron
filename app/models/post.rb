@@ -35,13 +35,22 @@ class Post < ActiveRecord::Base
   def self.for_options(user, date_sort, items_filter, page=0, feed_id=nil)
     if feed_id.present?
       posts = feed_id == "shared" ? shared.for_user(user) : for_feed(feed_id)
-      posts = posts.unread_for_user(user) if items_filter == "unread"
     else
       posts = unshared.for_user(user)
-      posts = (items_filter == "unread" ? posts.unread_for_user(user) : posts.for_user(user))
     end
     posts = (date_sort == "chron" ? posts.chron : posts.revchron)
-    return posts.offset(page.to_i * 10).limit(10)
+    if items_filter == "unread"
+      if page == 0
+        posts = posts.unread_for_user(user)
+        Rails.cache.write("#{user.id}_#{feed_id}_#{date_sort}", Array.wrap(posts))
+        return posts.first(10)
+      else
+        posts = Rails.cache.read("#{user.id}_#{feed_id}_#{date_sort}")
+        return Array.wrap(posts[page * 10..(page * 10) + 9])
+      end
+    else
+      return posts.offset(page.to_i * 10).limit(10)
+    end
   end
   
   def self.shared
