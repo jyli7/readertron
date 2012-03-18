@@ -1,21 +1,24 @@
-<h2>Sign up</h2>
+<div id="sign-in" class="meta-page">
+	<img src="/assets/rss-bot.png"/>
+	<h2>Sign up for READERTRON (or <a href="/users/sign_in">sign in</a>)</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+	<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+	  <%= devise_error_messages! %>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+	  <%= f.email_field :email, {placeholder: "E-mail address"} %>
+	  <br />
 
-  <div><%= f.label :name %><br />
-  <%= f.text_field :name %></div>
+	  <%= f.text_field :name, {placeholder: "Full name"} %>
+	  <br />
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+	  <%= f.password_field :password, {placeholder: "••••••••••"} %>
+	
+	  <br />
+	  <%= f.password_field :password_confirmation, {placeholder: "••••••••••"} %>
 
-  <div><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></div>
-
-  <div><%= f.submit "Sign up" %></div>
-<% end %>
-
-<%= render "links" %>
+	  <br />
+	  <button type="submit" class="classy primary">
+		<span>Sign up for Readertron</span>
+      </button>
+	<% end %>
+</div>

@@ -690,39 +690,39 @@ html, body, input {
 	height: 250px;
 }
 
-#sign-in {
+.meta-page {
 	margin: 0 auto;
 	text-align: center;
 }
 
-#sign-in h2 {
+.meta-page h2 {
 	font-family: "Graduate", cursive;
 	color: #FF7C00;
 	font-weight: normal;
 }
 
-#sign-in h2 a {
+.meta-page h2 a {
 	color: #74BB5A;
 	text-decoration: none;
 	border-bottom: 1px solid #74BB5A;
 }
 
-#sign-in h2 a:hover {
+.meta-page h2 a:hover {
 	color: #4c8b36;
 }
 
-#sign-in input {
+.meta-page input {
 	font-size: 20px;
 	padding: 5px;
 	font-weight: bold;
 	text-align: center;
 }
 
-#sign-in input[type=password] {
+.meta-page input[type=password] {
 	letter-spacing: 0.2em;
 }
 
-#sign-in button.classy {
+.meta-page button.classy {
 	color: white;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
 	border-color: #74BB5A;
@@ -734,7 +734,7 @@ html, body, input {
 	box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 
-#sign-in button.classy:hover {
+.meta-page button.classy:hover {
     background: #69d344;
     background: -moz-linear-gradient(#69d344, #4c8b36);
     background: -webkit-linear-gradient(#69d344, #4c8b36);
@@ -743,7 +743,7 @@ html, body, input {
     color: #fff;
 }
 
-#sign-in button {
+.meta-page button {
 	display: inline-block;
 	padding: 8px 15px;
 	line-height: normal;
@@ -767,8 +767,20 @@ html, body, input {
 	-moz-user-select: none;
 }
 
-#sign-in #remember-me {
+.meta-page #remember-me {
 	color: #666;
 	font-size: 11px;
 	font-family: Helvetica;
 }
+
+.meta-page #error_explanation h2 {
+	font-family: Helvetica;
+	color: #D14836;
+}
+
+.meta-page #error_explanation ul {
+	list-style: none;
+	color: #D14836;
+	font-size: 14px;
+}
+
