@@ -28,4 +28,8 @@ module ReaderHelper
     end
     "share-with-note-inactive"
   end
+  
+  def clean(html)
+    raw(Sanitize.clean(html, Sanitize::Config::RELAXED.merge({elements: Sanitize::Config::RELAXED[:elements] + ["style"]})))
+  end
 end
