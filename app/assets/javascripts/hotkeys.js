@@ -22,7 +22,7 @@ $(document).ready(function() {
 			$(".entry.current").toggle("span.share-with-note", "share-with-note-inactive", set_shared_with_note_status); return false;
 		});
 
-		$(document).bind('keydown', 'v', function(e) {
+		$(document).bind('keydown', 'o', function(e) {
 			if ($(".entry.current").length > 0) {
 				window.open($(".entry.current").find(".entry-title-link").attr("href"), '_blank');
 			};
