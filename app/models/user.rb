@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   after_create :make_shared_feed_and_subscribe_others_to_it
   after_create :subscribe_to_all_shared_feeds
   after_create :make_share_token
-  after_update :update_corresponding_feed_name
+  after_save :update_corresponding_feed_name
   before_destroy :kill_my_feed
   
   validates_presence_of :name
@@ -74,8 +74,8 @@ class User < ActiveRecord::Base
   end
   
   def update_corresponding_feed_name
-    if name_changed?
-      Feed.where("feed_url = '#shared' AND title = '#{name_was}'").first.update_attributes(title: name)
+    if name_changed? && feed = Feed.where("feed_url = '#shared' AND title = '#{name_was}'").first
+      feed.update_attributes(title: name)
     end
   end
 end
