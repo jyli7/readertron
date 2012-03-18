@@ -41,6 +41,7 @@ GEM
     coffee-script-source (1.2.0)
     columnize (0.3.6)
     curb (0.7.18)
+    dalli (1.1.5)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -77,7 +78,6 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    memcache-client (1.8.5)
     mime-types (1.17.2)
     multi_json (1.0.4)
     nokogiri (1.4.7)
@@ -147,11 +147,11 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  dalli
   devise
   feedzirra
   happymapper
   jquery-rails
-  memcache-client
   rails (= 3.2.1)
   ruby-debug-base19
   ruby-debug19

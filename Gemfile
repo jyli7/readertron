@@ -14,7 +14,7 @@ gem 'ruby-debug19'
 gem 'happymapper'
 gem 'feedzirra'
 
-gem 'memcache-client'
+gem 'dalli'
 
 # Gems used only for assets and not required
 # in production environments by default.

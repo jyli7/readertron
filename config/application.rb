@@ -56,6 +56,6 @@ module Readertron
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    config.cache_store = :mem_cache_store
+    config.cache_store = :dalli_store, {expires_in: 5.hours, compression: true}
   end
 end
