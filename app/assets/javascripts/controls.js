@@ -13,7 +13,9 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	reset_unread_or_all_width();
+	if ($("#entries").length > 0) {
+		reset_unread_or_all_width();	
+	};
 	
 	$("#unread-or-all").mouseover(function() {
 		$(this).removeClass("jfk-button-standard").addClass("jfk-button-hover");

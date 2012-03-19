@@ -60,16 +60,17 @@ $(document).ready(function() {
 		fetch_entries();
 	});
 	
-	$(document).scroll(function() {
-		if (scrollFetchFlag && ($("#entries").height() - $(window).scrollTop() < 700)) {
-			POST_FILTERS.page = POST_FILTERS.page + 1;
-			scrollFetchFlag = false;
-			append_entries();
-		};
-	});
-	
-	refresh_unread_counts();
-	refresh_shared_unread_counts();
+	if ($("#entries").length > 0) {
+		$(document).scroll(function() {
+			if (scrollFetchFlag && ($("#entries").height() - $(window).scrollTop() < 700)) {
+				POST_FILTERS.page = POST_FILTERS.page + 1;
+				scrollFetchFlag = false;
+				append_entries();
+			};
+		});		
+		refresh_unread_counts();
+		refresh_shared_unread_counts();
+	}
 });
 
 var placeholderStack = [];
