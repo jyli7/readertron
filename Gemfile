@@ -15,6 +15,8 @@ gem 'dalli'
 gem 'sanitize'
 gem 'redcarpet'
 
+gem 'whenever'
+
 group :development do
   gem 'ruby-debug-base19'
   gem 'ruby-debug19'
