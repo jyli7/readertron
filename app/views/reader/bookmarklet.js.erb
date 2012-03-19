@@ -1,6 +1,6 @@
 var execute = function (text) { 
 	var xmlHttpReq=new XMLHttpRequest();
- 	xmlHttpReq.open("POST","http://localhost:3000/reader/create_post",true);
+ 	xmlHttpReq.open("POST","<%= Domain.url %>/reader/create_post",true);
 	xmlHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	var note = document.getElementById("readertron-textarea").value;
 	var query="";
@@ -34,7 +34,7 @@ div.style.border = "3px solid #B4CEFE";
 div.style.top = "10px";
 div.style.right = "10px";
 var img = document.createElement("img");
-img.src = "http://localhost:3000/assets/logo-with-wordmark.png";
+img.src = "<%= Domain.url %>/assets/logo-with-wordmark.png";
 img.style.padding = "5px";
 img.style.position = "absolute";
 img.style.top = "0px";
@@ -78,7 +78,7 @@ textarea.style.top = "180px";
 textarea.style.left = "40px";
 textarea.id = "readertron-textarea";
 var quotes = document.createElement("img");
-quotes.src = "http://localhost:3000/assets/bookmarklet-quotes.png";
+quotes.src = "<%= Domain.url %>/assets/bookmarklet-quotes.png";
 quotes.style.position = "absolute";
 quotes.style.top = "180px";
 quotes.style.left = "10px";
