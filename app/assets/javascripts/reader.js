@@ -1,6 +1,10 @@
 $(document).ready(function() {	
 	$("#alert").fadeOut(3000);
 	
+	$("#start-readertron").click(function() {
+		window.location = "/";
+	});
+	
 	$("#subscriptions li").click(function() {
 		POST_FILTERS.feed_id = $(this).split_id();
 		POST_FILTERS.page = 0;

@@ -55,13 +55,17 @@
 		<% end %>
 	</table>-->
 
-	<h2>4. Add your <a href="http://instapaper.com">Instapaper</a> credentials</h2>
+	<h2>4. (Optional) Add your Instapaper credentials</h2>
 	If you press <strong>Shift + I</strong> in Readertron, the current post will be saved to your Instapaper account.
+	<br/><br/>
 	<%= form_tag("/subscriptions/instapaper", :method => "post") do %>
 	  <%= text_field_tag(:username, current_user.instapaper_username, {placeholder: "Instapaper username"}) %>
 	  <%= password_field_tag(:password, current_user.instapaper_password, {placeholder: "••••••••••"}) %>
 	  <%= submit_tag("Submit") %>
 	<% end %>
 	
-	<h2>5. <a href="/">Start readertron-ing!</a></h2>
+	<h2>5. Start readertron-ing!</h2>
+	  <button type="submit" class="classy primary" id="start-readertron">
+		<span>Start Readertron</span>
+    </button>
 </div>
