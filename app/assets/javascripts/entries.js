@@ -83,6 +83,7 @@ $.fn.share_with_note = function() {
 	var post_id = this.attr("post_id");
 	var that = this;
 	$.post("/reader/share_with_note", {post_id: post_id, note_content: note_content}, function(ret) {
+		broadcast("Your post and note have been shared successfully");
 		that.find(".card-share-with-note").hide();
 	});
 };
