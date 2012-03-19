@@ -117,4 +117,11 @@ class ReaderController < ApplicationController
     p.update_attributes({original_post_id: p.id})
     render text: "OK"
   end
+  
+  def bookmarklet
+    @token = params[:token]
+    respond_to do |format|
+      format.js
+    end
+  end
 end
