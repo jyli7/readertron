@@ -1,21 +1,21 @@
-1. pretty up user, signup, etc., pages (onboarding UI -- what to do first once you've hit the /subscriptions page, etc.)
-- don't require selection on bookmarklet.
-
+- norvig feed count out of whack on my feeds?
+- feed links on /\_entry and /\_share should skip to those feeds.
+- close the "share with note" thing right after you click it, and broadcast the message then, too, and find out what's wrong with broadcasts
 - settings-type link to the /subscriptions page.
-
-deploy
-- cron job in separate thread to poll for new rss data
+- editing quickposts
+- quickposts preview
+- keyboard shortcut "?" menu.
 
 - option on users for turning off the "I commented too" type of notification.
 - nokogiri parser segfault?
+- this very annoying assets management shit w/ git across environments
+- PCRE or whatever for compressing assets in nginx.
+- speeding up the interval at which we call Feed.refresh.
 - "1 new items"
 - refactor regular vs. shared count maintenance code.
 - modeling, controllers, separation of concerns
 - 400s of content using relative URLs / strip content of bad shit.
-- windows bookmarklet broken?
-- editing quickposts
-- quickposts preview
-- keyboard shortcut "?" menu.
+- bookmarklet broken on FF on windows?
 - a comment stream view, with links to each of the posts.
 - starring posts
 - search
