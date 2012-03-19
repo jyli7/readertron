@@ -1,5 +1,5 @@
 class ReaderController < ApplicationController
-  before_filter :authenticate_user!, except: :create_post
+  before_filter :authenticate_user!, except: [:create_post, :bookmarklet]
   
   def index
     @regular_subscriptions = current_user.regular_subscriptions
