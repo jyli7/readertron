@@ -1,55 +1,67 @@
-<h1>Subscriptions for <%= current_user.name %></h1>
+<div id="subscriptions-management" class="meta-page">
 
-<h2>"Note in Readertron" Bookmarklet</h2>
-Drag this link to your Bookmarks bar: <a href="<%= bookmarklet_for_user(current_user) %>">Note in Readertron</a>
+	<h2>1. Grab the "Note in Readertron" Bookmarklet</h2>
+	Drag this up to your Bookmarks bar: <a id="note-in-readertron" href="<%= bookmarklet_for_user(current_user) %>">Note in Readertron</a>
 
-<h2>Shared item feeds</h2>
-<%= form_tag("/subscriptions/shared_feeds", :method => "post") do %>
-<% Feed.where(shared: true).where("id != #{current_user.feed.id}").each do |feed| %>
-	<%= hidden_field_tag("feeds[#{feed.id}]", 0) %>
-	<%= check_box_tag("feeds[#{feed.id}]", 1, current_user.is_subscribed_to?(feed)) %> <%= feed.title %><br/>
-<% end %>
-<br/><%= submit_tag("Save") %>
-<% end %>
+	<h2>2. Follow your friends</h2>
+	You are already subscribed to the following shared feeds. Check or uncheck as you like:
+	<table id="shared-subscriptions">
+		<tr>
+			<td>
+				<%= form_tag("/subscriptions/shared_feeds", :method => "post") do %>
+					<% Feed.where(shared: true).where("id != #{current_user.feed.id}").each do |feed| %>
+						<%= hidden_field_tag("feeds[#{feed.id}]", 0) %>
+						<%= check_box_tag("feeds[#{feed.id}]", 1, current_user.is_subscribed_to?(feed)) %> <%= feed.title %><br/>
+					<% end %>
+				<% end %>
+			</td>
+			<td>
+				<%= submit_tag("Save changes") %>
+			</td>
+		</tr>
+	</table>
 
-<h2>To add more subscriptions</h2>
-<h3>One at a time:</h3>
-<%= form_tag("/subscriptions/create", :method => "post") do %>
-  <%= text_field_tag(:feed_url) %>
-  <%= submit_tag("Submit") %>
-<% end %>
+	<h2>3. Import your subscriptions</h2>
+	<ol id="add-subscriptions">
+		<li>A. Sign in to Google Reader.</li>
+		<li>B. Click the little gear dropdown in the top right-hand corner of the page, and choose "Reader settings."</li>
+		<li>C. Go to the <strong>Import/Export</strong> tab.</li>
+		<li>D. Click the "download" link next to <strong>Your subscriptions</strong> in the <strong>OPML</strong> column.</li>
+		<li>E. Upload the file you just downloaded, called <strong>google-reader-subscriptions.xml</strong>, using the uploader below.</li>
+	</ol>
 
-<h3>In bulk:</h3>
-<ol>
-	<li>Sign in to Google Reader.</li>
-	<li>Click the little gear dropdown in the top right-hand corner of the page, and choose "Reader settings."</li>
-	<li>Go to the <strong>Import/Export</strong> tab.</li>
-	<li>Click the "download" link next to <strong>Your subscriptions</strong> in the <strong>OPML</strong> column.</li>
-	<li>Upload the file you just downloaded, called <strong>google-reader-subscriptions.xml</strong>, using the uploader below.</li>
-</ol>
-
-<%= form_tag("/subscriptions/upload", :method => "post", :multipart => true) do %>
-  <%= file_field_tag(:opml) %>
-  <%= submit_tag("Submit") %>
-<% end %>
-
-<h2>Current subscriptions</h2>
-<table>
-	<th>Feed URL</th>
-	<th>Feed Title</th>
-	<th>Last Updated</th>
-	<% @subscriptions.each do |subscription| %>
-	<tr>
-		<td><a href="/subscriptions/destroy/<%= subscription.id %>" onclick="return confirm('Are you sure?')">[x]</a> <%= subscription.feed.feed_url %></td>
-		<td><%= subscription.feed.title %></td>
-		<td><%= subscription.feed.last_modified ? time_ago_in_words(subscription.feed.last_modified) + " ago" : nil %></td>
-	</tr>
+	<%= form_tag("/subscriptions/upload", :method => "post", :multipart => true) do %>
+	  <%= file_field_tag(:opml) %>
+	  <%= submit_tag("Submit") %>
 	<% end %>
-</table>
+	
+	<!-- <h3>One at a time:</h3>
+		<%= form_tag("/subscriptions/create", :method => "post") do %>
+		  <%= text_field_tag(:feed_url) %>
+		  <%= submit_tag("Submit") %>
+		<% end %>
 
-<h2>Instapaper integration (Use Shift+I on a story to send it to your Instapaper account!)</h2>
-<%= form_tag("/subscriptions/instapaper", :method => "post") do %>
-  <%= text_field_tag(:username, current_user.instapaper_username) %>
-  <%= password_field_tag(:password, current_user.instapaper_password) %>
-  <%= submit_tag("Submit") %>
-<% end %>
+	<h2>Current subscriptions</h2>
+	<table>
+		<th>Feed URL</th>
+		<th>Feed Title</th>
+		<th>Last Updated</th>
+		<% @subscriptions.each do |subscription| %>
+		<tr>
+			<td><a href="/subscriptions/destroy/<%= subscription.id %>" onclick="return confirm('Are you sure?')">[x]</a> <%= subscription.feed.feed_url %></td>
+			<td><%= subscription.feed.title %></td>
+			<td><%= subscription.feed.last_modified ? time_ago_in_words(subscription.feed.last_modified) + " ago" : nil %></td>
+		</tr>
+		<% end %>
+	</table>-->
+
+	<h2>4. Add your <a href="http://instapaper.com">Instapaper</a> credentials</h2>
+	If you press <strong>Shift + I</strong> in Readertron, the current post will be saved to your Instapaper account.
+	<%= form_tag("/subscriptions/instapaper", :method => "post") do %>
+	  <%= text_field_tag(:username, current_user.instapaper_username, {placeholder: "Instapaper username"}) %>
+	  <%= password_field_tag(:password, current_user.instapaper_password, {placeholder: "••••••••••"}) %>
+	  <%= submit_tag("Submit") %>
+	<% end %>
+	
+	<h2>5. <a href="/">Start readertron-ing!</a></h2>
+</div>

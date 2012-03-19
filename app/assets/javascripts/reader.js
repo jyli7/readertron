@@ -10,6 +10,10 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$("input").focus(function() {
+		$(this).attr("placeholder", "");
+	})
+	
 	$("#subscriptions h3").click(function() {
 		POST_FILTERS.feed_id = $(this).attr("feed_id");
 		if ($(this).attr("id") == "my-shared-items") {

@@ -784,3 +784,84 @@ html, body, input {
 	font-size: 14px;
 }
 
+.meta-page h1 {
+	color: #4c8b36;
+	font-size: 40px;
+}
+
+#subscriptions-management.meta-page {
+	color: #333;
+	font-family: 'Inika', sans-serif;
+	font-size: 15px;
+}
+
+#subscriptions-management.meta-page h2 {
+	font-family: "Inika", sans-serif;
+	margin-bottom: 0px;
+	margin-top: 30px;
+}
+
+a#note-in-readertron  {
+	width: 130px;
+	height: 27px;
+	display: block;
+	font-weight: normal;
+	font-family: arial;
+	text-transform: uppercase;
+	text-decoration: none;
+	margin:0 auto;
+	margin-top: 10px;
+	background-color: #D14836;
+	background-image: -webkit-linear-gradient(top,#DD4B39,#D14836);
+	background-image: -moz-linear-gradient(top,#DD4B39,#D14836);
+	background-image: -ms-linear-gradient(top,#DD4B39,#D14836);
+	background-image: -o-linear-gradient(top,#DD4B39,#D14836);
+	background-image: linear-gradient(top,#DD4B39,#D14836);
+	border: 1px solid transparent;
+	color: white;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	cursor: default;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	height: 27px;
+	line-height: 27px;
+	min-width: 54px;
+	outline: 0;
+	padding: 0 8px;
+}
+
+#shared-subscriptions {
+	text-align: left;
+	margin:0 auto;
+	width: 300px;
+	margin-top: 10px;
+}
+
+#shared-subscriptions input[type=submit] {
+	text-align: center;
+	margin:0 auto;
+}
+
+ol#add-subscriptions {
+	list-style: none;
+	text-align: left;
+	margin:0 auto;
+	width: 430px;
+	margin-top: 10px;	
+}
+
+ol#add-subscriptions li {
+	margin-top: 10px;
+}
+
+#subscriptions-management.meta-page input[type=file] {
+	font-size: 12px;
+	font-weight: normal;
+	padding: 10px;
+	border: 1px solid #eee;
+	margin-top: 10px;
+}
