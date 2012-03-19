@@ -8,7 +8,7 @@
 # set :output, "/path/to/my/cron_log.log"
 #
 every 1.hour do
-  runner "Feed.fetch"
+  runner "Feed.refresh"
 end
 
 # Learn more: http://github.com/javan/whenever
