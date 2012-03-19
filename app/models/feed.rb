@@ -92,7 +92,7 @@ class Feed < ActiveRecord::Base
   end
   
   def get_favicon(force=false)
-    if url_changed? || force
+    if url.present? && (url_changed? || force)
       begin
         `curl http://www.google.com/s2/favicons?domain=#{URI.parse(url).host} > #{Rails.root}/app/assets/images/favicons/#{id}.png`
       rescue

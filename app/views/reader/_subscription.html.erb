@@ -1,4 +1,4 @@
 <li id="subscription-<%= subscription.feed.id %>">
-	<img src="/assets/favicons/<%= subscription.feed.id %>.png"/> <%= truncate(subscription.feed.title || subscription.feed.feed_url, length: 27) %>
+	<img src="<%= feed_favicon(subscription.feed.id) %>"/> <%= truncate(subscription.feed.title || subscription.feed.feed_url, length: 27) %>
 	<span class="unread_count"></span>
 </li>
