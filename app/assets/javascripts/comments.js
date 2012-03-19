@@ -48,7 +48,10 @@ $(document).ready(function() {
 
 	$(".comments .comment form input[type=submit]").live("click", function() {
 		var $comment = $(this).closest(".comment");
-		$.post("/reader/edit_comment", {comment_id: $comment.attr("comment_id"), comment_content: $comment.find("form textarea[name=comment_content]").val()}, function(ret) {
+		var comment_id = $comment.attr("comment_id");
+		var comment_content = $comment.find("form textarea[name=comment_content]").val();
+		$comment.html($("#entries-loader").clone().show());
+		$.post("/reader/edit_comment", {comment_id: comment_id, comment_content: comment_content}, function(ret) {
 			$comment.replaceWith(ret);
 		});
 		return false;
@@ -58,10 +61,12 @@ $(document).ready(function() {
 var add_comment = function(entry) {
 	var comment_content = $(entry).find(".comment-add-form textarea[name=comment_content]").val();
 	var post_id = $(entry).attr("post_id");
+	$(entry).find(".comment-add-form form").hide();
+	$(entry).find(".comments .add-comment-link").show();
+	$(entry).find(".comments-count").notch(+1);
+	$(entry).find(".comments-container").append($("#entries-loader").clone().show());
 	$.post("/reader/create_comment", {post_id: post_id, comment_content: comment_content}, function(ret) {
-		$(entry).find(".comment-add-form form").hide();
-		$(entry).find(".comments .add-comment-link").show();
-		$(entry).find(".comments-count").notch(+1);
 		$(entry).find(".comments-container").append(ret);
+		$(entry).find(".comments-container #entries-loader").remove();
 	});
 };
