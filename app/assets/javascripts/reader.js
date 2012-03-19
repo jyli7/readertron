@@ -10,8 +10,13 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$("input").focus(function() {
+	$(".meta-page input[type=text], .meta-page input[type=password], .meta-page input[type=email]").focus(function() {
+		placeholderStack.push($(this).attr("placeholder"));
 		$(this).attr("placeholder", "");
+	});
+	
+	$(".meta-page input[type=text], .meta-page input[type=password], .meta-page input[type=email]").focusout(function() {
+		$(this).attr("placeholder", placeholderStack.pop());
 	})
 	
 	$("#subscriptions h3").click(function() {
@@ -62,6 +67,8 @@ $(document).ready(function() {
 	refresh_unread_counts();
 	refresh_shared_unread_counts();
 });
+
+var placeholderStack = [];
 
 var scrollFetchFlag = true;
 
