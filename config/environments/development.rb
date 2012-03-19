@@ -48,4 +48,8 @@ Readertron::Application.configure do
   #   :password             => 'ENV["ONE_TIME_GMAIL_PASSWORD"]',
   #   :authentication       => 'plain',
   #   :enable_starttls_auto => true  }
+  
+  config.after_initialize do
+    Domain.url = 'http://localhost:3000'
+  end
 end
