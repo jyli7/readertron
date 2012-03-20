@@ -113,13 +113,13 @@ var next_post = function(offset) {
 var fetch_entries = function() {
 	$("#entries").empty();
 	$("#loading-area-container").show();
+	refresh_unread_counts();
+	refresh_shared_unread_counts();
 	$.get("/reader/entries", POST_FILTERS, function(ret) {
 		scrollFetchFlag = true;
 		$("#entries").html(ret);
 		$("#loading-area-container").hide();
 		$.scrollTo($("#entries"), {offset: -50});
-		refresh_unread_counts();
-		refresh_shared_unread_counts();
 	});
 };
 
@@ -198,12 +198,12 @@ var refresh_shared_unread_counts = function() {
 };
 
 var notch_unread_for_feed_id = function(feed_id, n) {
-	UNREAD_COUNTS[feed_id] = UNREAD_COUNTS[feed_id] + n;
+	UNREAD_COUNTS[parseInt(feed_id)] = UNREAD_COUNTS[parseInt(feed_id)] + n;
 	refresh_unread_counts();
 };
 
 var shared_notch_unread_for_feed_id = function(feed_id, n) {
-	SHARED_UNREAD_COUNTS[feed_id] = SHARED_UNREAD_COUNTS[feed_id] + n;
+	SHARED_UNREAD_COUNTS[parseInt(feed_id)] = SHARED_UNREAD_COUNTS[parseInt(feed_id)] + n;
 	refresh_shared_unread_counts();
 };
 

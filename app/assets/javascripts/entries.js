@@ -57,12 +57,12 @@ $.fn.set_as_current_entry = function(should_snap) {
 		this.removeClass("unread");
 		if (!this.hasClass("dirty")) {
 			var that = this;
+			if (that.hasClass("shared")) {
+				shared_notch_unread_for_feed_id(that.attr("feed_id"), -1);
+			} else {
+				notch_unread_for_feed_id(that.attr("feed_id"), -1);
+			};
 			$.post("/reader/mark_as_read", {post_id: this.attr("post_id")}, function(ret) {
-				if (that.hasClass("shared")) {
-					shared_notch_unread_for_feed_id(ret.feed_id, -1);
-				} else {
-					notch_unread_for_feed_id(ret.feed_id, -1);
-				}
 				that.addClass("dirty");
 			});
 		};
@@ -97,12 +97,13 @@ var mark_as_read = function(selector, to_be_marked_as_read) {
 		$(selector).removeClass("read").addClass("unread");
 		$span.removeClass("read-state-not-kept-unread").addClass("read-state-kept-unread");
 	};
+	if ($(selector).hasClass("shared")) {
+		shared_notch_unread_for_feed_id($(selector).attr("feed_id"), to_be_marked_as_read ? -1 : +1);
+	} else {
+		notch_unread_for_feed_id($(selector).attr("feed_id"), to_be_marked_as_read ? -1 : +1);
+	}
 	$.post("/reader/mark_as_" + (to_be_marked_as_read ? "read" : "unread"), {post_id: $(selector).attr("post_id")}, function(ret) {
-		if ($(selector).hasClass("shared")) {
-			shared_notch_unread_for_feed_id(ret.feed_id, to_be_marked_as_read ? -1 : +1);
-		} else {
-			notch_unread_for_feed_id(ret.feed_id, to_be_marked_as_read ? -1 : +1);
-		}
+		// Do nothing.
 	});
 };
 
