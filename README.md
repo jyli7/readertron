@@ -1,7 +1,35 @@
+- fix bookmarklet, add feedback to it. (everybody)
+- view bug with overlapping shit. (chip, john)
+- john's unread counts.
+- spurious unreads (like my norvig, and john's)
+- first post being marked as read. (silber)
+- ability to log in as other people. (me)
+- meta page input box widths on firefox
+- settings link for subscription management.
+	- gear: goes to /subscriptions (not /subscriptions?first_time_through)
+- stats rake task for me.
+- /entries less than 1s
+- scroll trigger still not smart enough?
+
+- nginx speed configs
+- actually using .count when counts are what we need
+- caching?
+- more memory?
+- :include and such on joins and lookups (Subscriptions and Feeds, for instance)
+- "feeds lots of people are subscribed to on /subscriptions"
+- polling for shared counts every 30s or so.
+- a little "success" notice after you've submitted your OPML.
+- "This page has insecure content" in the bookmarklet
+- even do mark as read/unread counts BEFORE the POSTs go out
+- relative URLs, as in post 62 (in production)
+	- 400s of content using relative URLs / strip content of bad shit.
+- the "Loading..." window not seeming to work after a period of inactivity
+- bommarito feed fucking up the styling
+- the david brooks feed and images creeping in
 - norvig feed count out of whack on my feeds?
 - feed links on /\_entry and /\_share should skip to those feeds.
 - close the "share with note" thing right after you click it, and broadcast the message then, too, and find out what's wrong with broadcasts
-- settings-type link to the /subscriptions page.
+- settings-type link to the /subscriptions page, and the ability to add a feed, remove them, etc.
 - editing quickposts
 - quickposts preview
 - keyboard shortcut "?" menu.
@@ -14,7 +42,6 @@
 - "1 new items"
 - refactor regular vs. shared count maintenance code.
 - modeling, controllers, separation of concerns
-- 400s of content using relative URLs / strip content of bad shit.
 - bookmarklet broken on FF on windows?
 - a comment stream view, with links to each of the posts.
 - starring posts
