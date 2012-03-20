@@ -48,7 +48,7 @@ class Feed < ActiveRecord::Base
   end
 
   def self.refresh
-    Feed.find_in_batches do |feeds|
+    Feed.find_in_batches(batch_size: 80) do |feeds|
       Feedzirra::Feed.fetch_and_parse(feeds.reject {|f| f.shared?}.map(&:feed_url)).each do |feed_url, feedzirra|
         next if feedzirra.is_a?(Fixnum) || feedzirra.nil? # Fetch failed.
 
