@@ -47,7 +47,7 @@ class Feed < ActiveRecord::Base
     where("#{field} like '%#{string}%'")
   end
 
-  def self.refresh(batch_size=80)
+  def self.refresh(batch_size=50)
     failed_feeds = []
     successful_feeds = {}
     Feed.find_in_batches(batch_size: batch_size) do |feeds|
