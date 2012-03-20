@@ -1,0 +1,10 @@
+<html>
+<head></head>
+<body>
+    <script type="text/javascript">
+        window.name = '{"post_id": <%= @post.id %>}';
+        window.parent.postMessage ? window.parent.postMessage(window.name, "*") :
+            location.href = "<%= @origin %>/janky.html";
+    </script>
+</body>
+</html>

@@ -1,16 +1,113 @@
-var execute = function (text) { 
-	var xmlHttpReq=new XMLHttpRequest();
- 	xmlHttpReq.open("POST","<%= Domain.url %>/reader/create_post",true);
-	xmlHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+/** copyright for jankypost stuff below:
+ * @author: Thomas Rampelberg <thomas@saunter.org>
+ *
+ * Copyright(c) 2011 Thomas Rampelberg.
+ */
+
+(function() {
+
+  var extend = function(obj) {
+    var rest = Array.prototype.slice.call(arguments, 1);
+    for (var i=0,j=rest.length; i<j; i++) {
+      for (var prop in rest[i]) obj[prop] = rest[i][prop];
+    }
+    return obj;
+  };
+
+  this.janky = function(opts) {
+    janky._form(function(iframe, form) {
+      opts = extend({}, janky._default_opts, opts);
+      if (!opts.url) throw new Error("Must include a URL to send data to.");
+      form.setAttribute("action", opts.url);
+      form.setAttribute("method", opts.method);
+      opts.data = extend({}, opts.data, {
+        _origin: location.href
+      });
+      janky._input(iframe, form, opts.data);
+      var _response = function(resp) {
+        window.detachEvent && window.detachEvent('onmessage', _response);
+        window.removeEventListener && window.removeEventListener(
+          'message', _response, false);
+        setTimeout(function() { document.body.removeChild(iframe) }, 1);
+        opts.success && opts.success(JSON.parse(resp.data));
+      };
+      window.attachEvent && window.attachEvent('onmessage', _response);
+      window.addEventListener && window.addEventListener(
+        "message", _response, false);
+      // IE<8 must use window.name
+      iframe.onreadystatechange = function() {
+        if (typeof(window.postMessage) != 'undefined' ||
+            iframe.readyState != 'complete') return
+        _response({ data: iframe.contentWindow.name });
+      };
+      form.submit();
+    });
+  };
+
+  this.janky._form = function(cb) {
+    var iframe = document.createElement("iframe");
+    document.body.appendChild(iframe);
+    iframe.style.display = "none";
+    // IE creates the document only after yielding
+    setTimeout(function() {
+      var form = iframe.contentWindow.document.createElement("form");
+      iframe.contentWindow.document.body.appendChild(form);
+      cb(iframe, form);
+    }, 0);
+  };
+  this.janky._default_opts = {
+    method: 'get'
+  };
+  this.janky.is_string = function(obj) {
+    return !!(obj === '' || (obj && obj.charCodeAt && obj.substr))
+  };
+  this.janky._input = function(iframe, form, data) {
+    for (var k in data) {
+      var val = data[k];
+      if (!janky.is_string(val))
+        val = JSON.stringify(val);
+      var inp = iframe.contentWindow.document.createElement("input");
+      inp.setAttribute("type", "hidden");
+      inp.setAttribute("name", k);
+      inp.value = val;
+      form.appendChild(inp);
+    };
+  };
+})();
+
+var readertron_success = function(post_id) {
+	var div = document.createElement("div");
+	div.style.position = "absolute";
+	div.style.width = "490px";
+	div.style.padding = "5px";
+	div.style.top = "0px";
+	div.style.fontFamily = "Helvetica";
+	div.style.fontSize = "12px";
+	div.style.fontWeight = "bold";
+	div.style.backgroundColor = "#F9EDBE";
+	div.style.textAlign = "center";
+	var msg = document.createTextNode("Your note has been shared successfully! (Post id: " + post_id + ")");
+	div.appendChild(msg);
+	document.getElementById("readertron-bookmarklet").appendChild(div);
+	setTimeout('var c = document.getElementById("readertron-bookmarklet"); c.parentNode.removeChild(c)', 2000);
+};
+
+var readertron_execute = function(text) {
 	var note = document.getElementById("readertron-textarea").value;
-	var query="";
-	query+="&note="+note;
-	query+="&type=regular";
-	query+="&url="+window.location.href;
-	query+="&title="+document.getElementById("readertron-title").value;
-	query+="&token=<%= @token %>";
-	query+="&content="+encodeURIComponent(text);
-	xmlHttpReq.send(query);
+	if (typeof(note) === "undefined") {
+		note = "";
+	};
+	
+	janky({ url: "<%= Domain.url %>/reader/create_post",
+	            data: { note: note, content: text, token: "<%= @token %>", url: window.location.href, title: document.getElementById("readertron-title").value },
+				method: "POST",
+	            success: function(resp) {
+					readertron_success(resp.post_id);
+				}, 
+				error: function() {
+					console.log('error =(');
+				}
+	});
 };
 
 try {
@@ -90,7 +187,7 @@ closelink.style.right = "10px";
 closelink.style.color = "#100F62";
 closelink.style.fontSize = "12px";
 closelink.style.fontFamily = "arial";
-closelink.onclick = function() { var c = document.getElementById("readertron-bookmarklet"); c.parentNode.removeChild(c); cancelBubble(); };
+closelink.onclick = function() { var c = document.getElementById("readertron-bookmarklet"); c.parentNode.removeChild(c); };
 closelink.href = "#";
 var closetext = document.createTextNode("Close this");
 closelink.appendChild(closetext);
@@ -101,7 +198,7 @@ submit.value = "Post Item";
 submit.style.position = "absolute";
 submit.style.top = "250px";
 submit.style.left = "40px";
-submit.onclick = function(e) { execute(text); };
+submit.onclick = function(e) { readertron_execute(text); };
 form.appendChild(textarea);
 form.appendChild(submit);
 div.appendChild(form);

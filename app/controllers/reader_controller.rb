@@ -80,7 +80,7 @@ class ReaderController < ApplicationController
   end
   
   def create_post
-    p = User.find_by_share_token(params[:token]).feed.posts.create(
+    @post = User.find_by_share_token(params[:token]).feed.posts.create(
       content: params[:content],
       url: params[:url],
       note: params[:note],
@@ -88,8 +88,9 @@ class ReaderController < ApplicationController
       published: Time.now,
       shared: true
     )
-    p.update_attributes({original_post_id: p.id})
-    render text: "OK"
+    @post.update_attributes({original_post_id: @post.id})
+    @origin = params[:origin]
+    render layout: false
   end
   
   def mark_all_as_read
