@@ -51,7 +51,7 @@ class Feed < ActiveRecord::Base
     failed_feeds = []
     successful_feeds = {}
     Feed.find_in_batches(batch_size: batch_size) do |feeds|
-      Feedzirra::Feed.fetch_and_parse(feeds.reject {|f| f.shared?}.map(&:feed_url)).each do |feed_url, feedzirra|
+      Feedzirra::Feed.fetch_and_parse(feeds.reject {|f| f.shared?}.map(&:feed_url), timeout: 30).each do |feed_url, feedzirra|
         if feedzirra.is_a?(Fixnum) || feedzirra.nil? # Fetch failed.
           failed_feeds << feed_url
           next
