@@ -47,19 +47,27 @@ class Feed < ActiveRecord::Base
     where("#{field} like '%#{string}%'")
   end
 
-  def self.refresh
-    Feed.find_in_batches(batch_size: 80) do |feeds|
+  def self.refresh(batch_size=80)
+    failed_feeds = []
+    successful_feeds = {}
+    Feed.find_in_batches(batch_size: batch_size) do |feeds|
       Feedzirra::Feed.fetch_and_parse(feeds.reject {|f| f.shared?}.map(&:feed_url)).each do |feed_url, feedzirra|
-        next if feedzirra.is_a?(Fixnum) || feedzirra.nil? # Fetch failed.
+        if feedzirra.is_a?(Fixnum) || feedzirra.nil? # Fetch failed.
+          failed_feeds << feed_url
+          next
+        end
 
         if (feed = Feed.find_by_feed_url(feed_url))
+          old_count = feed.posts.count
           feed.refresh(feedzirra)
+          successful_feeds[feed_url] = feed.posts.count - old_count
         else
           feed = Feed.fuzzy_find(:feed_url, URI.parse(feed_url).host).first
           feed.update_attributes(feed_url: feed_url) if feed.present?
         end
       end
     end
+    Report.create(report_type: "Feed.refresh results", content: {failures: failed_feeds, successes: successful_feeds})
   end
   
   def refresh(feedzirra=Feedzirra::Feed.fetch_and_parse(self.feed_url))
@@ -73,8 +81,9 @@ class Feed < ActiveRecord::Base
         content: (entry.content || entry.summary), 
         published: entry.published
       }
-      if entry.published && (entry.published < self.latest) && post = Post.find_by_url(entry.url)
-        post.refresh(attrs)
+      if entry.published && (entry.published < self.latest)# && post = Post.find_by_url(entry.url)
+        break # This should speed things up quite a bit.
+        #post.refresh(attrs)
       else
         posts.create(attrs)
       end
