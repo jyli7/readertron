@@ -10,8 +10,8 @@
   <link href='http://fonts.googleapis.com/css?family=Inika' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<% if alert %>
-	<div id="alert-container"><div id="alert"><%= alert %></div></div>
+	<% if alert || notice %>
+	<div id="alert-container"><div id="alert"><%= alert || notice %></div></div>
 	<% end %>
 	
 

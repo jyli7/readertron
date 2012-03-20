@@ -20,8 +20,14 @@
 			</td>
 		</tr>
 	</table>
+	
+	<h2>Add a subscription quickly:</h2>
+		<%= form_tag("/subscriptions/create", :method => "post") do %>
+		  <%= text_field_tag(:feed_url, nil, placeholder: "http://jsomers.net/blog/feed") %>
+		  <%= submit_tag("Submit") %>
+		<% end %>
 
-	<h2>3. Import your subscriptions</h2>
+	<h2>3. Import subscriptions from Google Reader</h2>
 	<ol id="add-subscriptions">
 		<li>A. Sign in to Google Reader.</li>
 		<li>B. Click the little gear dropdown in the top right-hand corner of the page, and choose "Reader settings."</li>
@@ -34,28 +40,27 @@
 	  <%= file_field_tag(:opml) %>
 	  <%= submit_tag("Submit") %>
 	<% end %>
-	
-	<!-- <h3>One at a time:</h3>
-		<%= form_tag("/subscriptions/create", :method => "post") do %>
-		  <%= text_field_tag(:feed_url) %>
-		  <%= submit_tag("Submit") %>
-		<% end %>
 
-	<h2>Current subscriptions</h2>
-	<table>
-		<th>Feed URL</th>
-		<th>Feed Title</th>
+	<h2>4. Current subscriptions</h2>
+	<table id="current-subscriptions">
+		<th>Feed Name</th>
 		<th>Last Updated</th>
-		<% @subscriptions.each do |subscription| %>
+		<% @subscriptions.unshared.each do |subscription| %>
 		<tr>
-			<td><a href="/subscriptions/destroy/<%= subscription.id %>" onclick="return confirm('Are you sure?')">[x]</a> <%= subscription.feed.feed_url %></td>
-			<td><%= subscription.feed.title %></td>
+			<td>
+				<a href="/subscriptions/destroy/<%= subscription.id %>" class="delete-feed-link" onclick="return confirm('Are you sure?')">[x]</a> 
+				<% if (url = subscription.feed.url) %>
+					<a href="<%= url %>" class="subscriptions-page-feed-link"><%= truncate(subscription.feed.title || subscription.feed.feed_url) %></a>
+				<% else %>
+					<%= truncate(subscription.feed.title || subscription.feed.feed_url) %>
+				<% end %>
+			</td>
 			<td><%= subscription.feed.last_modified ? time_ago_in_words(subscription.feed.last_modified) + " ago" : nil %></td>
 		</tr>
 		<% end %>
-	</table>-->
+	</table>
 
-	<h2>4. (Optional) Add your Instapaper credentials</h2>
+	<h2>5. (Optional) Add your Instapaper credentials</h2>
 	If you press <strong>Shift + I</strong> in Readertron, the current post will be saved to your Instapaper account.
 	<br/><br/>
 	<%= form_tag("/subscriptions/instapaper", :method => "post") do %>
@@ -64,7 +69,7 @@
 	  <%= submit_tag("Submit") %>
 	<% end %>
 	
-	<h2>5. Start readertron-ing!</h2>
+	<h2>6. Start readertron-ing!</h2>
 	  <button type="submit" class="classy primary" id="start-readertron">
 		<span>Start Readertron</span>
     </button>

@@ -7,11 +7,13 @@ class SubscriptionsController < ApplicationController
   
   def create
     current_user.subscribe(params[:feed_url])
+    flash[:alert] = "Your subscription has been added successfully! (See below)"
     redirect_to action: :index
   end
   
   def upload
     current_user.bulk_subscribe(params[:opml].read)
+    flash[:alert] = "Your subscriptions have been added successfully! (See below)"
     redirect_to action: :index
   end
   

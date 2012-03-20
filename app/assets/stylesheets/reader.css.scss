@@ -487,7 +487,7 @@ html, body, input {
 	top: -15px;
 }
 
-#unread-or-all-menu {
+#unread-or-all-menu, #settings-menu {
 	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 	-moz-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
@@ -505,7 +505,7 @@ html, body, input {
 	color: black;
 }
 
-#unread-or-all-menu .item {
+#unread-or-all-menu .item, #settings-menu .item {
 	position: relative;
 	color: #333;
 	cursor: pointer;
@@ -516,7 +516,7 @@ html, body, input {
 	font: normal 12px Arial,sans-serif;
 }
 
-#unread-or-all-menu .item:hover {
+#unread-or-all-menu .item:hover, #settings-menu .item:hover {
 	background-color: #EEE;
 	border-color: #EEE;
 	border-style: dotted;
@@ -872,4 +872,55 @@ ol#add-subscriptions li {
  white-space: -pre-wrap;      /* Opera 4-6 */
  white-space: -o-pre-wrap;    /* Opera 7 */
  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+#settings-button {
+	margin-right: 1.5em;
+	float: left;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 27px;
+	list-style: none;
+	margin: 0 2px;
+	margin-left: 16px;
+	min-width: 46px;
+	outline: none;
+	padding: 0 18px 0 6px;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle;
+	margin-right: 16px;
+}
+
+#settings-button .menu-button-dropdown {
+	border-color: #777 transparent;
+	border-style: solid;
+	border-width: 4px 4px 0;
+	height: 0;
+	width: 0;
+	position: relative;
+	left: 48px;
+	top: -15px;
+}
+
+table#current-subscriptions {
+	width: 600px;
+	margin:0 auto;
+	text-align: left;
+}
+
+table#current-subscriptions a.delete-feed-link {
+	color: #D14836;
+}
+
+table#current-subscriptions a.subscriptions-page-feed-link {
+	color: #15C;
+}
+
+.meta-page input#feed_url {
+	width: 300px;
+}
+
+#edit-user.meta-page input {
+	letter-spacing: 0em;
 }

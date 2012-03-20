@@ -137,6 +137,30 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$("#settings-button").mouseover(function() {
+		$(this).removeClass("jfk-button-standard").addClass("jfk-button-hover");
+	});
+
+	$("#settings-button").mouseout(function() {
+		$(this).removeClass("jfk-button-hover").addClass("jfk-button-standard");
+	});
+	
+	$("#settings-button").click(function(event) {
+		$("#settings-menu").show();
+		$(document).one("click", function() {
+			$("#settings-menu").hide();
+		});
+		event.stopPropagation();
+	});
+	
+	$("#subscriptions-management-link").click(function() {
+		window.location = "/subscriptions";
+	});
+	
+	$("#user-settings-link").click(function() {
+		window.location = "/users/edit";
+	});
+	
 });
 
 var reset_unread_or_all_width = function() {
