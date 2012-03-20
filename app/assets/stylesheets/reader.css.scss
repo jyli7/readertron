@@ -319,7 +319,7 @@ html, body, input {
 }
 
 #loading-area-container, #broadcast-message-container, #alert-container, #notice-container {
-	position: absolute;
+	position: fixed;
 	z-index: 10000;
 	top: 0;
 	text-align: center;

@@ -111,6 +111,7 @@ var next_post = function(offset) {
 };
 
 var fetch_entries = function() {
+	$("#entries").empty();
 	$("#loading-area-container").show();
 	$.get("/reader/entries", POST_FILTERS, function(ret) {
 		scrollFetchFlag = true;
