@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120317043151) do
+ActiveRecord::Schema.define(:version => 20120320014256) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
@@ -44,6 +44,13 @@ ActiveRecord::Schema.define(:version => 20120317043151) do
     t.boolean  "shared",           :default => false
     t.integer  "original_post_id"
     t.text     "note"
+  end
+
+  create_table "reports", :force => true do |t|
+    t.string   "report_type"
+    t.text     "content"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "subscriptions", :force => true do |t|

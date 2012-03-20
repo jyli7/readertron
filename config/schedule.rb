@@ -11,4 +11,8 @@ every 1.hour do
   runner "Feed.refresh"
 end
 
+every 1.day do
+  runner "Report.daily"
+end
+
 # Learn more: http://github.com/javan/whenever
