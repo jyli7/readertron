@@ -18,6 +18,21 @@ test:
   pool: 5
   timeout: 5000
 
+worker:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: readertron
+  pool: 5
+  username: root
+  password: H0fst4dter!
+  port: 3306
+  host: 174.143.209.39
+# To get this working:
+    # 1. open up the iptables firewall rule.
+    # 2. change my.cnf in sql to remove the ...-access thing.
+    # 3. grant privileges to a user with my host name. (http://stackoverflow.com/questions/1559955/host-xxx-xx-xxx-xxx-is-not-allowed-to-connect-to-this-mysql-server)
+
 production:
   adapter: mysql2
   encoding: utf8
