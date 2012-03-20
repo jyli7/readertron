@@ -89,7 +89,7 @@ var readertron_success = function(post_id) {
 	var msg = document.createTextNode("Your note has been shared successfully! (Post id: " + post_id + ")");
 	div.appendChild(msg);
 	document.getElementById("readertron-bookmarklet").appendChild(div);
-	setTimeout('var c = document.getElementById("readertron-bookmarklet"); c.parentNode.removeChild(c)', 2000);
+	setTimeout('var c = document.getElementById("readertron-bookmarklet"); c.parentNode.removeChild(c)', 3000);
 };
 
 var readertron_execute = function(text) {
@@ -108,6 +108,7 @@ var readertron_execute = function(text) {
 					console.log('error =(');
 				}
 	});
+	return false;
 };
 
 try {
@@ -118,7 +119,7 @@ try {
 	objDiv.appendChild(objClone);
 	text = objDiv.innerHTML;
 } catch(err) {
-	var text = "<p>Try to select something on the page to share with people. Whatever you select will show up here.</p>";
+	var text = "<p>(Empty post)</p>";
 };
 var div = document.createElement("div");
 div.id = "readertron-bookmarklet";
@@ -192,12 +193,16 @@ closelink.href = "#";
 var closetext = document.createTextNode("Close this");
 closelink.appendChild(closetext);
 div.appendChild(closelink);
-var submit = document.createElement("input");
-submit.type = "submit";
-submit.value = "Post Item";
+var submit = document.createElement("a");
+var submittext = document.createTextNode("Post Item");
+submit.appendChild(submittext);
+submit.href = "#";
 submit.style.position = "absolute";
 submit.style.top = "250px";
 submit.style.left = "40px";
+closelink.style.color = "#100F62";
+closelink.style.fontSize = "12px";
+closelink.style.fontFamily = "arial";
 submit.onclick = function(e) { readertron_execute(text); };
 form.appendChild(textarea);
 form.appendChild(submit);
