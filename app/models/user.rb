@@ -35,10 +35,6 @@ class User < ActiveRecord::Base
     end
   end
   
-  def shared_unread_count
-    shared_subscriptions.sum(&:unread_count)
-  end
-  
   def regular_subscriptions
     subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = 'f'", false)
   end
@@ -81,4 +77,13 @@ class User < ActiveRecord::Base
       feed.update_attributes(title: name)
     end
   end
+  
+  def unread_hash
+     feeds.unshared.inject({}) {|hash, f| hash[f.id] = unreads.for_feed(f.id).count; hash}
+   end
+
+   def shared_unread_hash
+     feeds.shared.inject({}) {|hash, f| hash[f.id] = unreads.for_feed(f.id).count; hash}
+   end
+
 end

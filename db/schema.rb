@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320014256) do
+ActiveRecord::Schema.define(:version => 20120320023854) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
@@ -56,9 +56,8 @@ ActiveRecord::Schema.define(:version => 20120320014256) do
   create_table "subscriptions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "feed_id"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.integer  "unread_count", :default => 0
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "unreads", :force => true do |t|

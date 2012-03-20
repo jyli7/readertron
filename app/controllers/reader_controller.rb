@@ -9,8 +9,8 @@ class ReaderController < ApplicationController
     else
       @entries = Post.for_options(current_user, "chron", "unread")
     end
-    @unread_counts = Subscription.unread_hash_for_user(current_user)
-    @shared_unread_counts = Subscription.shared_unread_hash_for_user(current_user)
+    @unread_counts = current_user.unread_hash
+    @shared_unread_counts = current_user.shared_unread_hash
   end
   
   def entries
