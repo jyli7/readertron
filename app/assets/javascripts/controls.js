@@ -36,7 +36,7 @@ $(document).ready(function() {
 	$('#feed-all-items-filter').click(function() {
 		POST_FILTERS.page = 0;
 		POST_FILTERS.items_filter = "all";
-		$(".menu-button-caption").text("All items");
+		$("#unread-or-all .menu-button-caption").text("All items");
 		reset_unread_or_all_width();
 		fetch_entries();
 	});
@@ -44,7 +44,7 @@ $(document).ready(function() {
 	$("#feed-unread-items-filter").click(function() {
 		POST_FILTERS.items_filter = "unread";
 		POST_FILTERS.page = 0;
-		$(".menu-button-caption").html("<span id='new-items-count-visible'>" + $("#new-items-count-hidden").text() + "</span> new items")
+		$("#unread-or-all .menu-button-caption").html("<span id='new-items-count-visible'>" + $("#new-items-count-hidden").text() + "</span> new items")
 		reset_unread_or_all_width();
 		fetch_entries();
 	});
@@ -164,5 +164,5 @@ $(document).ready(function() {
 });
 
 var reset_unread_or_all_width = function() {
-	$("#unread-or-all .menu-button-dropdown").css("left", ($(".menu-button-caption").width() + 5) + "px");
+	$("#unread-or-all .menu-button-dropdown").css("left", ($("#unread-or-all .menu-button-caption").width() + 5) + "px");
 }

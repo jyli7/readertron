@@ -29,7 +29,7 @@ $(document).ready(function() {
 			$("#revchron").click();
 			POST_FILTERS.date_sort = "revchron";
 			POST_FILTERS.items_filter = "all";
-			$(".menu-button-caption").text("All items");
+			$("#unread-or-all .menu-button-caption").text("All items");
 			reset_unread_or_all_width();
 		};
 		$("#subscriptions li").removeClass("selected");
@@ -56,7 +56,7 @@ $(document).ready(function() {
 	$(".view-all-items").live("click", function() {
 		POST_FILTERS.page = 0;
 		POST_FILTERS.items_filter = "all";
-		$(".menu-button-caption").text("All items");
+		$("#unread-or-all .menu-button-caption").text("All items");
 		fetch_entries();
 	});
 	
