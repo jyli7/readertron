@@ -99,7 +99,7 @@ class Feed < ActiveRecord::Base
       })
     end
     
-    update(feedzrirra)
+    update(feedzirra)
     puts "-" * 80
     puts "Time: #{Time.now - t}"
     puts "-" * 80
