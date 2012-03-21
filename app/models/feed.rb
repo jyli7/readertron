@@ -134,7 +134,7 @@ class Feed < ActiveRecord::Base
   
   def self.resolve_duplicates
     marked_titles = {}
-    duplicated_feeds = unshared.select {|f| find_all_by_title(f.title).length > 1}.compact
+    duplicated_feeds = unshared.select {|f| find_all_by_title(f.title).length > 1}.select {|f| f.title.present?}
     duplicated_feeds.each do |dupe|
       if marked_titles[dupe.title].nil?
         ActiveRecord::Base.transaction do
