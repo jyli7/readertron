@@ -1,6 +1,3 @@
-- KOTTKE feed?
-- Bactra.org feed?
-- deduplicating feeds!
 - let's profile feeds to make sure we're getting shit for new ones (think jsomers.tumblr.com), fetching for all of them, pruning true failures, retrying on spurious failures, etc.
 
 - chip had problem with bookmarklet?
@@ -50,6 +47,7 @@
 - quickposts preview
 - editing the notes on a post
 - keyboard shortcut "?" menu.
+- reordering feeds through drag-and-drop
 
 - option on users for turning off the "I commented too" type of notification.
 - nokogiri parser segfault?
