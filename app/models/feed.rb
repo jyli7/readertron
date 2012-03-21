@@ -100,7 +100,7 @@ class Feed < ActiveRecord::Base
   def refresh(feedzirra=nil)
     t = Time.now
     if feedzirra.nil?
-      if cached_feedzirra.present?
+      if cached_feedzirra.present? && cached_feedzirra.feed_url.present?
         Feedzirra::Feed.update(cached_feedzirra, max_redirects: 5, timeout: 10,
           on_success: lambda {|fz| feedzirra = fz},
           on_failure: lambda do |fz, response_code, c, d|
@@ -129,14 +129,14 @@ class Feed < ActiveRecord::Base
     entries = (ne = feedzirra.new_entries).empty? ? feedzirra.entries : ne
     cutoff = (latest_post ? latest_post.published : nil)
     
-    entries.each do |entry|
+    entries.each_with_index do |entry, i|
       break if entry.published && cutoff && (entry.published < cutoff)
       posts.create({
         title: entry.title, 
         author: entry.author,
         url: entry.url,
         content: (entry.content || entry.summary), 
-        published: entry.published
+        published: (entry.published || (begin Date.parse(entry.summary) rescue i.days.ago end))
       })
     end
     
