@@ -1,22 +1,14 @@
-- faster feed fetching. consider feedzirra docs, etc., to tune shit.
-	- take advantage of feedzirra's feed objects. (Serialize them? Yeah, use a text "feedzirra" column on the Feed model.)
-		- http://groups.google.com/group/feedzirra/browse_thread/thread/6eb16d9a6d4d168e
-		- http://snippets.aktagon.com/snippets/379-How-to-do-an-HTTP-conditional-GET-with-Feedzirra-update-an-existing-feed-
-	- try putting it on another box.
-	- let's profile feeds to make sure we're getting shit for new ones, fetching for all of them, pruning true failures, retrying on spurious failures, etc.
-	- http://asciicasts.com/episodes/168-feed-parsing
-	- is there a limit to the number of entries we can get?
-	- look at the hivemined source?
-	- feed fetching can be a little smarter, not looking at feeds with super old posts, or looking at them less frequently.
-	- after_create refresh feeds
-
 - KOTTKE feed?
 - Bactra.org feed?
 - deduplicating feeds!
+- let's profile feeds to make sure we're getting shit for new ones (think jsomers.tumblr.com), fetching for all of them, pruning true failures, retrying on spurious failures, etc.
 
-- settings link gets overwritten
-- "c" comment hotkey
 - chip had problem with bookmarklet?
+- "c" comment hotkey
+- unsharing bookmarklet posts
+	- validate against duplicate bookmarklet posts?
+- "My Shared Items" feed generally
+
 - comment on a post sends e-mail to yourself?
 - blue current bar becomes gray with read.
 - close the "share with note" thing right after you click it, and broadcast the message then, too.
@@ -24,6 +16,10 @@
 - update your share count when you share something.
 - polling for shared counts every 30s or so.
 - subscribe to friends' feeds that you might like (that you don't already have).
+
+- gravatars for users (I could probably pull them over myself), and a more Reader-like share-with-note style.
+
+- db backup
 
 - sharing YouTube videos via the bookmarklet.
 - first post being marked as read. (silber)
@@ -70,7 +66,6 @@
 	- returns infinitely-scrollable results in the #entries div, but using a different partial, this one with a snippet view.
 	- the opened up version has the terms highlighted.
 	- "back to search results" link.
-- prettier submit buttons and things
 - collapsed view
 - sassify CSS
 - replying in comments

@@ -5,7 +5,7 @@
 				<div class="entry-main">
 					<% if entry.note.present? %>
 					<div class="entry-note">
-						<strong><%= entry.feed.title %>:</strong> <%= mdown(entry.note) %>
+						<%= markdown("<strong>#{entry.feed.title}:</strong> #{entry.note}") %>
 					</div>
 					<% end %>
 					<div class="entry-date">
