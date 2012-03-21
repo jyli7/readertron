@@ -8,7 +8,7 @@ class ReaderController < ApplicationController
     if params[:post_id].present?
       @entries = [Post.find(params[:post_id])]
     else
-      @entries = Post.for_options(current_user, "chron", "unread")
+      @entries = current_user.unreads(:include => :posts).order("published ASC").limit(10).map(&:post)
     end
     @unread_counts = current_user.unread_hash
     @shared_unread_counts = current_user.shared_unread_hash
