@@ -3,12 +3,11 @@ class Feed < ActiveRecord::Base
   has_many :users, :through => :subscriptions
   has_many :posts, :dependent => :destroy
 
-  # TODO: When a user subscribes, don't just use a "find_or_create_by_feed_url".
-  # Also search on title / url after a quick one-off fetch, to see.
   after_save :get_favicon
   before_destroy :remove_favicon
   
   validates_presence_of :feed_url
+  validates_uniqueness_of :feed_url
 
   module OPML
     class Outline
@@ -42,7 +41,24 @@ class Feed < ActiveRecord::Base
   end
   
   def self.all_for_opml(opml)
-    OPML::Outline.parse(opml).map(&:xmlUrl).map {|feed_url| find_or_create_by_feed_url(clean_url(feed_url))}
+    OPML::Outline.parse(opml).map(&:xmlUrl).map {|feed_url| create_if_needed(clean_url(feed_url))}
+  end
+  
+  def self.create_if_needed(feed_url)
+    if (f = find_by_feed_url(feed_url))
+      return f
+    else
+      fz = Feedzirra::Feed.fetch_and_parse(feed_url)
+      if !fz.is_a?(Fixnum) && fz.present?
+        if (f = find_by_title(fz.title))
+          return f
+        end
+        if (f = find_by_url(fz.url))
+          return f
+        end
+      end
+    end
+    return create(feed_url: feed_url)
   end
   
   def self.fuzzy_find(field, string)
