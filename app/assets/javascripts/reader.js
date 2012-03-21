@@ -142,15 +142,20 @@ var append_entries = function() {
 
 var refresh_unread_counts = function() {
 	var total_count = 0;
+	var title_count = 0;
 	for (var k in UNREAD_COUNTS) {
 		var old_count = $("#subscription-" + k).find(".unread_count").get_int();
 		var new_count = UNREAD_COUNTS[k];
 		total_count += new_count;
+		title_count += new_count;
 		if (new_count > 0) {
 			$("#subscription-" + k).addClass("unread").find(".unread_count").text("(" + new_count + ")");
 		} else {
 			$("#subscription-" + k).removeClass("unread").find(".unread_count").text("");
 		};
+	};
+	for (var l in SHARED_UNREAD_COUNTS) {
+		title_count += SHARED_UNREAD_COUNTS[l];
 	};
 	var rep;
 	if (POST_FILTERS.feed_id == undefined || POST_FILTERS.feed_id == "") {
@@ -164,20 +169,25 @@ var refresh_unread_counts = function() {
 	$("#new-items-count-visible").text(rep);
 	reset_unread_or_all_width();
 	$("#total_unread_count").text("(" + total_count + ")");
-	$("title").text("Readertron (" + total_count + ")");
+	$("title").text("Readertron (" + title_count + ")");
 };
 
 var refresh_shared_unread_counts = function() {
 	var total_count = 0;
+	var title_count = 0;
 	for (var k in SHARED_UNREAD_COUNTS) {
 		var old_count = $("#subscription-" + k).find(".unread_count").get_int();
 		var new_count = SHARED_UNREAD_COUNTS[k];
 		total_count += new_count;
+		title_count += new_count;
 		if (new_count > 0) {
 			$("#subscription-" + k).addClass("unread").find(".unread_count").text("(" + new_count + ")");
 		} else {
 			$("#subscription-" + k).removeClass("unread").find(".unread_count").text("");
 		};
+	};
+	for (var l in UNREAD_COUNTS) {
+		title_count += UNREAD_COUNTS[l];
 	};
 	var rep;
 	if (POST_FILTERS.feed_id == undefined || POST_FILTERS.feed_id == "") {
@@ -195,6 +205,7 @@ var refresh_shared_unread_counts = function() {
 	};
 	reset_unread_or_all_width();
 	$("#shared_unread_count").text("(" + total_count + ")");
+	$("title").text("Readertron (" + title_count + ")");
 };
 
 var notch_unread_for_feed_id = function(feed_id, n) {
