@@ -2,7 +2,9 @@ class Feed < ActiveRecord::Base
   has_many :subscriptions, :dependent => :destroy
   has_many :users, :through => :subscriptions
   has_many :posts, :dependent => :destroy
-  
+
+  # TODO: When a user subscribes, don't just use a "find_or_create_by_feed_url".
+  # Also search on title / url after a quick one-off fetch, to see.
   after_save :get_favicon
   before_destroy :remove_favicon
   
@@ -47,24 +49,27 @@ class Feed < ActiveRecord::Base
     where("#{field} like '%#{string}%'")
   end
 
-  # def self.refresh(batch_size=10)
-  #   find_in_batches(batch_size: batch_size) do |feeds|
-  #     feed_things = feeds.reject {|f| f.shared?}.map {|f| f.cached_feedzirra || f.feed_url}
-  #     virgin_feeds, updatable_feeds = feed_things.partition {|f| f.is_a?(String)}
-  # 
-  #     Feedzirra::Feed.update(updatable_feeds).each do |feed_url, feedzirra|
-  #       if feed = find_by_feed_url(feed_url)
-  #         feed.refresh(feedzirra)
-  #       end
-  #     end
-  #     
-  #     Feedzirra::Feed.fetch_and_parse(virgin_feeds).each do |feed_url, feedzirra|
-  #       if feed = find_by_feed_url(feed_url)
-  #         feed.refresh(feedzirra)
-  #       end
-  #     end
-  #   end
-  # end
+  def self.refresh
+    t = Time.now
+    posts_count = Post.count
+    find_in_batches do |feeds|
+      feed_things = feeds.reject {|f| f.shared?}.map {|f| f.cached_feedzirra || f.feed_url}
+      virgin_feeds, updatable_feeds = feed_things.partition {|f| f.is_a?(String)}
+  
+      Feedzirra::Feed.update(updatable_feeds, max_redirects: 5, timeout: 10).each do |feedzirra|
+        if feed = find_by_feed_url(feedzirra.feed_url)
+          feed.refresh(feedzirra)
+        end
+      end
+      
+      Feedzirra::Feed.fetch_and_parse(virgin_feeds, max_redirects: 5, timeout: 10).each do |feed_url, feedzirra|
+        if feed = find_by_feed_url(feed_url)
+          feed.refresh(feedzirra)
+        end
+      end
+    end
+    Report.create(report_type: "Feed.refresh", content: {time: Time.now - t, posts: Post.count - posts_count})
+  end
   
   def cached_feedzirra
     Rails.cache.read("feedzirra-#{id}")
@@ -78,9 +83,9 @@ class Feed < ActiveRecord::Base
     t = Time.now
     if feedzirra.nil?
       if cached_feedzirra.present?
-        feedzirra = Feedzirra::Feed.update(cached_feedzirra)
+        feedzirra = Feedzirra::Feed.update(cached_feedzirra, max_redirects: 5, timeout: 10)
       else
-        feedzirra = Feedzirra::Feed.fetch_and_parse(feed_url)
+        feedzirra = Feedzirra::Feed.fetch_and_parse(feed_url, max_redirects: 5, timeout: 10)
       end
     end
     return "Fetch failed" if (feedzirra.is_a?(Fixnum) || feedzirra.nil?)
