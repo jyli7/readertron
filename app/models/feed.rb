@@ -47,57 +47,71 @@ class Feed < ActiveRecord::Base
     where("#{field} like '%#{string}%'")
   end
 
-  def self.refresh(batch_size=50)
-    failed_feeds = []
-    successful_feeds = {}
-    Feed.find_in_batches(batch_size: batch_size) do |feeds|
-      Feedzirra::Feed.fetch_and_parse(feeds.reject {|f| f.shared?}.map(&:feed_url), timeout: 30).each do |feed_url, feedzirra|
-        if feedzirra.is_a?(Fixnum) || feedzirra.nil? # Fetch failed.
-          failed_feeds << feed_url
-          next
-        end
-
-        if (feed = Feed.find_by_feed_url(feed_url))
-          old_count = feed.posts.count
-          feed.refresh(feedzirra)
-          successful_feeds[feed_url] = feed.posts.count - old_count
-        else
-          feed = Feed.fuzzy_find(:feed_url, URI.parse(feed_url).host).first
-          feed.update_attributes(feed_url: feed_url) if feed.present?
-        end
-      end
-    end
-    Report.create(report_type: "Feed.refresh results", content: {failures: failed_feeds, successes: successful_feeds})
+  # def self.refresh(batch_size=10)
+  #   find_in_batches(batch_size: batch_size) do |feeds|
+  #     feed_things = feeds.reject {|f| f.shared?}.map {|f| f.cached_feedzirra || f.feed_url}
+  #     virgin_feeds, updatable_feeds = feed_things.partition {|f| f.is_a?(String)}
+  # 
+  #     Feedzirra::Feed.update(updatable_feeds).each do |feed_url, feedzirra|
+  #       if feed = find_by_feed_url(feed_url)
+  #         feed.refresh(feedzirra)
+  #       end
+  #     end
+  #     
+  #     Feedzirra::Feed.fetch_and_parse(virgin_feeds).each do |feed_url, feedzirra|
+  #       if feed = find_by_feed_url(feed_url)
+  #         feed.refresh(feedzirra)
+  #       end
+  #     end
+  #   end
+  # end
+  
+  def cached_feedzirra
+    Rails.cache.read("feedzirra-#{id}")
   end
   
-  def refresh(feedzirra=Feedzirra::Feed.fetch_and_parse(self.feed_url))
-    hydrate(feedzirra)
+  def cache_feedzirra(feedzirra)
+    Rails.cache.write("feedzirra-#{id}", feedzirra)
+  end
+  
+  def refresh(feedzirra=nil)
+    t = Time.now
+    if feedzirra.nil?
+      if cached_feedzirra.present?
+        feedzirra = Feedzirra::Feed.update(cached_feedzirra)
+      else
+        feedzirra = Feedzirra::Feed.fetch_and_parse(feed_url)
+      end
+    end
+    return "Fetch failed" if (feedzirra.is_a?(Fixnum) || feedzirra.nil?)
+
+    entries = (ne = feedzirra.new_entries).empty? ? feedzirra.entries : ne
+    cutoff = (latest_post ? latest_post.published : nil)
     
-    feedzirra.entries.each do |entry| # Going backwards through time.
-      attrs = {
+    entries.each do |entry|
+      break if entry.published && cutoff && (entry.published < cutoff)
+      posts.create({
         title: entry.title, 
         author: entry.author,
         url: entry.url,
         content: (entry.content || entry.summary), 
         published: entry.published
-      }
-      if entry.published && (entry.published < self.latest)# && post = Post.find_by_url(entry.url)
-        break # This should speed things up quite a bit.
-        #post.refresh(attrs)
-      else
-        posts.create(attrs)
-      end
+      })
     end
-
-    self.update_attributes(last_modified: feedzirra.last_modified)
+    
+    update(feedzirra)
+    puts "-" * 80
+    puts "Time: #{Time.now - t}"
+    puts "-" * 80
   end
   
-  def hydrate(feedzirra)
-    update_attributes(title: feedzirra.title, url: feedzirra.url)
+  def update(feedzirra)
+    update_attributes(title: feedzirra.title, url: feedzirra.url, etag: feedzirra.etag, last_modified: feedzirra.last_modified)
+    cache_feedzirra(feedzirra)
   end
   
-  def latest
-    last_modified || Date.parse("Aug. 7th, 1987")
+  def latest_post
+    posts.order("published ASC").last
   end
   
   def get_favicon(force=false)
