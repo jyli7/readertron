@@ -105,7 +105,7 @@ class Feed < ActiveRecord::Base
       })
     end
     
-    update(feedzirra, cutoff)
+    rehydrate(feedzirra, cutoff)
     puts "-" * 80
     puts "Time: #{Time.now - t}"
     puts "-" * 80
@@ -115,7 +115,7 @@ class Feed < ActiveRecord::Base
     puts "#" * 80
   end
   
-  def update(feedzirra, cutoff)
+  def rehydrate(feedzirra, cutoff)
     update_attributes(title: feedzirra.title, url: feedzirra.url, last_modified: cutoff)
     cache_feedzirra(feedzirra)
   end
