@@ -146,11 +146,6 @@ class Feed < ActiveRecord::Base
             bad.reload.subscriptions.each { |subscription| good.subscriptions << subscription }
             bad.reload.destroy
           end
-          good.reload.subscriptions.each do |sub|
-            good.reload.posts.each do |p|
-              sub.user.unreads.create(post: p)
-            end
-          end
         end
         marked_titles[dupe.title] = true
       end
