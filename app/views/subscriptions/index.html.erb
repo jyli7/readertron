@@ -5,21 +5,21 @@
 
 	<h2>2. Follow your friends</h2>
 	You are already subscribed to the following shared feeds. Check or uncheck as you like:
+	<%= form_tag("/subscriptions/shared_feeds", :method => "post") do %>
 	<table id="shared-subscriptions">
 		<tr>
 			<td>
-				<%= form_tag("/subscriptions/shared_feeds", :method => "post") do %>
 					<% Feed.where(shared: true).where("id != #{current_user.feed.id}").each do |feed| %>
 						<%= hidden_field_tag("feeds[#{feed.id}]", 0) %>
 						<%= check_box_tag("feeds[#{feed.id}]", 1, current_user.is_subscribed_to?(feed)) %> <%= feed.title %><br/>
 					<% end %>
-				<% end %>
 			</td>
 			<td>
 				<%= submit_tag("Save changes") %>
 			</td>
 		</tr>
 	</table>
+	<% end %>
 	
 	<h2>Add a subscription quickly:</h2>
 		<%= form_tag("/subscriptions/create", :method => "post") do %>
