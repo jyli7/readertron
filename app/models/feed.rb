@@ -133,22 +133,26 @@ class Feed < ActiveRecord::Base
   end
   
   def self.resolve_duplicates
+    marked_titles = {}
     duplicated_feeds = unshared.select {|f| find_all_by_title(f.title).length > 1}.compact
     duplicated_feeds.each do |dupe|
-      ActiveRecord::Base.transaction do
-        copies = find_all_by_title(dupe.title).map(&:id)
-        good = find(copies.first)
-        copies[1..-1].each do |bad_id|
-          bad = find(bad_id)
-          bad.posts.each {|post| good.posts << post}
-          bad.reload.subscriptions.each { |subscription| good.subscriptions << subscription }
-          bad.reload.destroy
-        end
-        good.reload.subscriptions.each do |sub|
-          good.reload.posts.each do |p|
-            sub.user.unreads.create(post: p)
+      if marked_titles[dupe.title].nil?
+        ActiveRecord::Base.transaction do
+          copies = find_all_by_title(dupe.title).map(&:id)
+          good = find(copies.first)
+          copies[1..-1].each do |bad_id|
+            bad = find(bad_id)
+            bad.posts.each {|post| good.posts << post}
+            bad.reload.subscriptions.each { |subscription| good.subscriptions << subscription }
+            bad.reload.destroy
+          end
+          good.reload.subscriptions.each do |sub|
+            good.reload.posts.each do |p|
+              sub.user.unreads.create(post: p)
+            end
           end
         end
+        marked_titles[dupe.title] = true
       end
     end
   end
