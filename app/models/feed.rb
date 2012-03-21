@@ -50,26 +50,43 @@ class Feed < ActiveRecord::Base
   end
 
   def self.refresh
-    t = Time.now
+    t, failed_updates, failed_fetches, fallback_failed_updates, fallback_failed_fetches = Time.now, [], [], [], []
     posts_count = Post.count
-    find_in_batches do |feeds|
-      feed_things = feeds.reject {|f| f.shared?}.map {|f| f.cached_feedzirra || f.feed_url}
-      virgin_feeds, updatable_feeds = feed_things.partition {|f| f.is_a?(String)}
-  
-      Feedzirra::Feed.update(updatable_feeds, max_redirects: 5, timeout: 10).each do |feedzirra|
-        next if feedzirra.is_a?(Fixnum) || feedzirra.nil?
-        if feed = find_by_feed_url(feedzirra.feed_url)
-          feed.refresh(feedzirra)
+    feed_things = unshared.map {|f| (f.cached_feedzirra && f.cached_feedzirra.feed_url) ? f.cached_feedzirra : f.feed_url}
+    virgin_feeds, updatable_feeds = feed_things.partition {|f| f.is_a?(String)}
+    
+    Feedzirra::Feed.update(updatable_feeds, max_redirects: 5, timeout: 10,
+      on_success: lambda {|fz| if feed = find_by_feed_url(fz.feed_url) then feed.refresh(fz) end},
+      on_failure: lambda do |fz, response_code, c, d|
+        failed_updates << [fz.feed_url, response_code]
+        begin
+          fz2 = Feedzirra::Feed.parse(Feedzirra::Feed.fetch_raw(fz.feed_url))
+          if feed = find_by_feed_url(fz.feed_url) then feed.refresh(fz2) end
+        rescue Exception => e
+          fallback_failed_updates << [fz.feed_url, "Fallback failure: #{e}"]
         end
       end
-      
-      Feedzirra::Feed.fetch_and_parse(virgin_feeds, max_redirects: 5, timeout: 10).each do |feed_url, feedzirra|
-        if feed = find_by_feed_url(feed_url)
-          feed.refresh(feedzirra)
+    )
+    Feedzirra::Feed.fetch_and_parse(virgin_feeds, max_redirects: 5, timeout: 10,
+      on_success: lambda {|feed_url, fz| if feed = find_by_feed_url(feed_url) then feed.refresh(fz) end},
+      on_failure: lambda do |feed_url, response_code, response_header, response_body|
+        failed_fetches << [feed_url, response_code]
+        begin
+          fz2 = Feedzirra::Feed.parse(Feedzirra::Feed.fetch_raw(feed_url))
+          if feed = find_by_feed_url(feed_url) then feed.refresh(fz2) end
+        rescue Exception => e
+          fallback_failed_fetches << [feed_url, "Fallback failure: #{e}"]
         end
       end
-    end
-    Report.create(report_type: "Feed.refresh", content: {time: Time.now - t, posts: Post.count - posts_count})
+    )
+    Report.create(report_type: "Feed.refresh", content: {
+      time: Time.now - t,
+      posts: Post.count - posts_count,
+      failed_updates: failed_updates, 
+      fallback_failed_updates: fallback_failed_updates,
+      failed_fetches: failed_fetches,
+      fallback_failed_fetches: fallback_failed_fetches
+    })
   end
   
   def cached_feedzirra
@@ -84,9 +101,27 @@ class Feed < ActiveRecord::Base
     t = Time.now
     if feedzirra.nil?
       if cached_feedzirra.present?
-        feedzirra = Feedzirra::Feed.update(cached_feedzirra, max_redirects: 5, timeout: 10)
+        Feedzirra::Feed.update(cached_feedzirra, max_redirects: 5, timeout: 10,
+          on_success: lambda {|fz| feedzirra = fz},
+          on_failure: lambda do |fz, response_code, c, d|
+            begin
+              feedzirra = Feedzirra::Feed.parse(Feedzirra::Feed.fetch_raw(fz.feed_url))
+            rescue Exception => e
+              puts "Fallback failed: #{e}"
+            end
+          end
+        )
       else
-        feedzirra = Feedzirra::Feed.fetch_and_parse(feed_url, max_redirects: 5, timeout: 10)
+         Feedzirra::Feed.fetch_and_parse(feed_url, max_redirects: 5, timeout: 10,
+          on_success: lambda {|feed_url, fz| feedzirra = fz},
+          on_failure: lambda do |feed_url, response_code, response_header, response_body|
+            begin
+              feedzirra = Feedzirra::Feed.parse(Feedzirra::Feed.fetch_raw(feed_url))
+            rescue Exception => e
+              puts "Fallback failed: #{e}"
+            end
+          end
+        )
       end
     end
     return "Fetch failed" if (feedzirra.is_a?(Fixnum) || feedzirra.nil?)
