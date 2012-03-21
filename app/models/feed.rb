@@ -99,10 +99,14 @@ class Feed < ActiveRecord::Base
       })
     end
     
-    update(feedzirra)
+    update(feedzrirra)
     puts "-" * 80
     puts "Time: #{Time.now - t}"
     puts "-" * 80
+  rescue Exception => e
+    puts "#" * 80
+    puts "EXCEPTION: #{e}"
+    puts "#" * 80
   end
   
   def update(feedzirra)
