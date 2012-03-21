@@ -106,7 +106,7 @@ class Feed < ActiveRecord::Base
   end
   
   def update(feedzirra)
-    update_attributes(title: feedzirra.title, url: feedzirra.url, etag: feedzirra.etag, last_modified: feedzirra.last_modified)
+    update_attributes(title: feedzirra.title, url: feedzirra.url, last_modified: feedzirra.last_modified)
     cache_feedzirra(feedzirra)
   end
   
