@@ -1,9 +1,29 @@
-- settings link for subscription management.
-	- gear: goes to /subscriptions (not /subscriptions?first_time_through)
+- faster feed fetching. consider feedzirra docs, etc., to tune shit.
+	- take advantage of feedzirra's feed objects. (Serialize them? Yeah, use a text "feedzirra" column on the Feed model.)
+		- http://groups.google.com/group/feedzirra/browse_thread/thread/6eb16d9a6d4d168e
+		- http://snippets.aktagon.com/snippets/379-How-to-do-an-HTTP-conditional-GET-with-Feedzirra-update-an-existing-feed-
+	- try putting it on another box.
+	- let's profile feeds to make sure we're getting shit for new ones, fetching for all of them, pruning true failures, retrying on spurious failures, etc.
+	- http://asciicasts.com/episodes/168-feed-parsing
+	- is there a limit to the number of entries we can get?
+	- look at the hivemined source?
+	- feed fetching can be a little smarter, not looking at feeds with super old posts, or looking at them less frequently.
+	- after_create refresh feeds
+
+- KOTTKE feed?
+- Bactra.org feed?
+- deduplicating feeds!
+
+- settings link gets overwritten
+- "c" comment hotkey
+- chip had problem with bookmarklet?
+- comment on a post sends e-mail to yourself?
+- blue current bar becomes gray with read.
 - close the "share with note" thing right after you click it, and broadcast the message then, too.
 - also broadcast on regular shares.
 - update your share count when you share something.
 - polling for shared counts every 30s or so.
+- subscribe to friends' feeds that you might like (that you don't already have).
 
 - sharing YouTube videos via the bookmarklet.
 - first post being marked as read. (silber)
@@ -12,7 +32,9 @@
 - scroll trigger still not smart enough?
 - timestamps on posts are in the wrong time zone?
 
-- feed fetching can be a little smarter, not looking at feeds with super old posts, or looking at them less frequently.
+- abstract out an API
+
+- prevent you from leaving the page if you've got "Unsaved changes" (i.e., a pending AJAX request that's not a poll)
 
 - nginx speed configs
 - actually using .count when counts are what we need

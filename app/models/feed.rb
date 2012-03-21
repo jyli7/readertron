@@ -57,6 +57,7 @@ class Feed < ActiveRecord::Base
       virgin_feeds, updatable_feeds = feed_things.partition {|f| f.is_a?(String)}
   
       Feedzirra::Feed.update(updatable_feeds, max_redirects: 5, timeout: 10).each do |feedzirra|
+        next if feedzirra.is_a?(Fixnum) || feedzirra.nil?
         if feed = find_by_feed_url(feedzirra.feed_url)
           feed.refresh(feedzirra)
         end
