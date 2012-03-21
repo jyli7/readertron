@@ -3,6 +3,7 @@ class Subscription < ActiveRecord::Base
   belongs_to :feed
   
   after_create :generate_unreads
+  before_destroy :remove_unreads
   
   validates_uniqueness_of :user_id, :scope => :feed_id
   
@@ -18,5 +19,9 @@ class Subscription < ActiveRecord::Base
     feed.posts.order("published DESC").first(10).each do |post|
       user.unreads.create(post: post)
     end
+  end
+  
+  def remove_unreads
+    user.unreads.for_feed(feed.id).destroy_all
   end
 end
