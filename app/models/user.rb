@@ -79,10 +79,10 @@ class User < ActiveRecord::Base
   end
   
   def unread_hash
-     feeds.unshared.inject({}) {|hash, f| hash[f.id] = unreads.for_feed(f.id).count; hash}
+     feeds.unshared.inject({}) {|hash, f| hash[f.id] = unreads.for_feed(f.id).count(1); hash}
    end
 
    def shared_unread_hash
-     feeds.shared.inject({}) {|hash, f| hash[f.id] = unreads.for_feed(f.id).count; hash}
+     feeds.shared.inject({}) {|hash, f| hash[f.id] = unreads.for_feed(f.id).count(1); hash}
    end
 end

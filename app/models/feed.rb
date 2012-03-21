@@ -67,7 +67,7 @@ class Feed < ActiveRecord::Base
 
   def self.refresh
     t, failed_updates, failed_fetches, fallback_failed_updates, fallback_failed_fetches = Time.now, [], [], [], []
-    posts_count = Post.count
+    posts_count = Post.count(1)
     feed_things = unshared.map {|f| (f.cached_feedzirra && f.cached_feedzirra.feed_url) ? f.cached_feedzirra : f.feed_url}
     virgin_feeds, updatable_feeds = feed_things.partition {|f| f.is_a?(String)}
     
@@ -97,7 +97,7 @@ class Feed < ActiveRecord::Base
     )
     Report.create(report_type: "Feed.refresh", content: {
       time: Time.now - t,
-      posts: Post.count - posts_count,
+      posts: Post.count(1) - posts_count,
       failed_updates: failed_updates, 
       fallback_failed_updates: fallback_failed_updates,
       failed_fetches: failed_fetches,
