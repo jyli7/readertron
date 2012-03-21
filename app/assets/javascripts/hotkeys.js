@@ -21,6 +21,10 @@ $(document).ready(function() {
 		$(document).bind('keydown', 'n', function(e) {
 			$(".entry.current").toggle("span.share-with-note", "share-with-note-inactive", set_shared_with_note_status); return false;
 		});
+		
+		$(document).bind('keydown', 'c', function(e) {
+			$(".entry.current .comments .add-comment-link").click(); return false;
+		});
 
 		$(document).bind('keydown', 'o', function(e) {
 			if ($(".entry.current").length > 0) {
