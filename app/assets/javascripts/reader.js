@@ -70,7 +70,11 @@ $(document).ready(function() {
 		});		
 		refresh_unread_counts();
 		refresh_shared_unread_counts();
-	}
+	};
+	
+	$("#logo").click(function() {
+		window.location = "/";
+	});
 });
 
 var placeholderStack = [];
