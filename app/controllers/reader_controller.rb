@@ -130,8 +130,7 @@ class ReaderController < ApplicationController
   def email_comment
     post = Post.find(params[:subject][/\(post_id: (\d+)\)/, 1])
     user = User.find_by_email(params[:from])
-    content = Mail.new(params[:message]).html_part.body.to_s.split('<br><div class="gmail_quote">').first
-    post.comments.create(user: user, content: content)
+    post.comments.create(user: user, content: params[:html].split('<br><div class="gmail_quote">').first)
     render :text => "OK", :status => 200
   end
 end
