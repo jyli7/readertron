@@ -7,7 +7,7 @@ class Feed < ActiveRecord::Base
   before_destroy :remove_favicon
   
   validates_presence_of :feed_url
-  validates_uniqueness_of :feed_url
+  validates_uniqueness_of :feed_url, unless: ->(feed) { feed.shared? }
 
   module OPML
     class Outline

@@ -63,8 +63,10 @@ class User < ActiveRecord::Base
   end
   
   def subscribe_to_all_shared_feeds
-    Feed.where(shared: true).where("id != '#{feed.id}'").each do |feed|
-      subscriptions.create(feed: feed)
+    if feed
+      Feed.where(shared: true).where("id != '#{feed.id}'").each do |feed|
+        subscriptions.create(feed: feed)
+      end
     end
   end
   
