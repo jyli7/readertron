@@ -126,4 +126,11 @@ class ReaderController < ApplicationController
       format.js
     end
   end
+  
+  def email_comment
+    post = Post.find(params[:subject][/\(post_id: (\d+)\)/, 1])
+    user = User.find_by_email(params[:from])
+    post.comments.create(user: user, content: params[:html].split("------REPLY ABOVE THIS LINE------").first)
+    render text: "OK"
+  end
 end
