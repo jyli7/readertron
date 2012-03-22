@@ -1,12 +1,10 @@
 - let's profile feeds to make sure we're getting shit for new ones (think jsomers.tumblr.com), fetching for all of them, pruning true failures, retrying on spurious failures, etc.
 
 - chip had problem with bookmarklet?
-- "c" comment hotkey
 - unsharing bookmarklet posts
 	- validate against duplicate bookmarklet posts?
 - "My Shared Items" feed generally
 
-- comment on a post sends e-mail to yourself?
 - blue current bar becomes gray with read.
 - close the "share with note" thing right after you click it, and broadcast the message then, too.
 - also broadcast on regular shares.
