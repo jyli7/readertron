@@ -1,6 +1,6 @@
 class ReaderController < ApplicationController
-  before_filter :authenticate_user!, except: [:create_post, :bookmarklet]
-  protect_from_forgery :except => [:create_post, :bookmarklet]
+  before_filter :authenticate_user!, except: [:create_post, :bookmarklet, :email_comment]
+  protect_from_forgery :except => [:create_post, :bookmarklet, :email_comment]
   
   def index
     @regular_subscriptions = current_user.regular_subscriptions
@@ -130,7 +130,7 @@ class ReaderController < ApplicationController
   def email_comment
     post = Post.find(params[:subject][/\(post_id: (\d+)\)/, 1])
     user = User.find_by_email(params[:from])
-    post.comments.create(user: user, content: params[:html].split("------REPLY ABOVE THIS LINE------").first)
-    render text: "OK"
+    post.comments.create(user: user, content: params[:html])
+    render :text => "OK", :status => 200
   end
 end
