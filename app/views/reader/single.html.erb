@@ -1,0 +1,13 @@
+<div id="single">
+	<div id="logo" style="position: absolute; top: 10px; left: 30px;"><span>readertron</span><img src="/assets/rss-bot-small.png"/></div>
+
+	<div id="explanatory-note">
+		<p>This is the view of a single post with none of the other shit loaded&mdash;specifically so that it loads faster.</p>
+		<p>Comments on the post still work.</p>
+		<p><a href="/">Click here</a> to load the rest of the interface.</p>
+	</div>
+
+	<div id="right-pane">
+		<%= render :partial => "share", locals: {entry: @entry, index: 0, unreadable: false} %>
+	</div>
+</div>

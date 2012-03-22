@@ -1,3 +1,5 @@
+<% unreadable = true if local_assigns[:unreadable].nil? %>
+
 <div class="entry <%= entry.unread_for_user?(current_user) ? "unread" : "read" %> shared" style="height: auto;" id="entry-<%= index %>" post_id="<%= entry.id %>" feed_id="<%= entry.feed.id %>">
 	<div class="card card-common">
 		<div class="card-content">
@@ -61,12 +63,14 @@
 				<% end %>
 			</div>
 		</div>
-
+		
+		<% if unreadable %>
 		<div class="card-actions card-bottom <%= entry.unread_for_user?(current_user) ? "unread" : "" %>">
 			<div class="entry-actions">
 				<span class="read-state-not-kept-unread read-state link unselectable" title="Keep unread">Keep unread</span>
 				<wbr>
 			</div>
 		</div>
+		<% end %>
 	</div>
 </div>

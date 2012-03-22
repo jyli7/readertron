@@ -6,12 +6,17 @@ class ReaderController < ApplicationController
     @regular_subscriptions = current_user.regular_subscriptions
     @shared_subscriptions = current_user.shared_subscriptions
     if params[:post_id].present?
-      @entries = [Post.find(params[:post_id])]
+      redirect_to "/reader/posts/#{params[:post_id]}"
     else
       @entries = current_user.unreads(:include => :posts).order("published ASC").limit(10).map(&:post)
     end
     @unread_counts = current_user.unread_hash
     @shared_unread_counts = current_user.shared_unread_hash
+  end
+  
+  def posts
+    @entry = Post.find(params[:id])
+    render "single"
   end
   
   def entries
