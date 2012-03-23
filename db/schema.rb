@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120321222506) do
+ActiveRecord::Schema.define(:version => 20120323030118) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(:version => 20120321222506) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "feeds", :force => true do |t|
     t.string   "title"
@@ -31,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20120321222506) do
     t.boolean  "shared",        :default => false
     t.string   "etag"
   end
+
+  add_index "feeds", ["shared"], :name => "index_feeds_on_shared"
 
   create_table "posts", :force => true do |t|
     t.integer  "feed_id"
@@ -47,6 +52,9 @@ ActiveRecord::Schema.define(:version => 20120321222506) do
     t.text     "note"
   end
 
+  add_index "posts", ["feed_id"], :name => "index_posts_on_feed_id"
+  add_index "posts", ["shared"], :name => "index_posts_on_shared"
+
   create_table "reports", :force => true do |t|
     t.string   "report_type"
     t.text     "content"
@@ -61,6 +69,9 @@ ActiveRecord::Schema.define(:version => 20120321222506) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "subscriptions", ["feed_id"], :name => "index_subscriptions_on_feed_id"
+  add_index "subscriptions", ["user_id"], :name => "index_subscriptions_on_user_id"
+
   create_table "unreads", :force => true do |t|
     t.integer  "user_id"
     t.integer  "post_id"
@@ -68,6 +79,9 @@ ActiveRecord::Schema.define(:version => 20120321222506) do
     t.datetime "updated_at", :null => false
     t.datetime "published"
   end
+
+  add_index "unreads", ["post_id"], :name => "index_unreads_on_post_id"
+  add_index "unreads", ["user_id"], :name => "index_unreads_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

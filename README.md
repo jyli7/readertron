@@ -47,7 +47,6 @@ Readertron is an attempt to revive the old "social" Google Reader -- see particu
 
 ### Performance, Ops
 - Fix the logging situation. Maybe use Airbrake?
-- Put indexes on foreign keys for God's sake. (http://robots.thoughtbot.com/post/163627511/a-grand-piano-for-your-violin)
 - Semantic joins, things like "subscribers," and AM's idea of dumping scopes on the associations themselves.
 - A queue to send e-mails after comments, rather than doing it inline.
 - Database backups.
