@@ -59,7 +59,11 @@ class Post < ActiveRecord::Base
         return posts.first(10)
       else
         post_ids = Rails.cache.read("#{user.id}_#{feed_id}_#{date_sort}")
-        posts = Post.find(Array.wrap(post_ids[page * 10..(page * 10) + 9]))
+        if post_ids
+          posts = Post.find(Array.wrap(post_ids[page * 10..(page * 10) + 9]))
+        else
+          posts = []
+        end
         return posts
       end
     else
