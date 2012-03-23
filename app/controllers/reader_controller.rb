@@ -19,6 +19,11 @@ class ReaderController < ApplicationController
     render "single"
   end
   
+  def mine
+    @shares = current_user.feed.posts.revchron.limit(10)
+    render "mine"
+  end
+  
   def entries
     @entries = Post.for_options(current_user, params[:date_sort], params[:items_filter], @page = params[:page].to_i, params[:feed_id])
     if feed = Feed.find_by_id(@feed_id = params[:feed_id])

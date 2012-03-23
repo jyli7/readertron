@@ -25,12 +25,11 @@ $(document).ready(function() {
 	})
 	
 	$("#subscriptions h3").click(function() {
-		SETTINGS.feed_id = $(this).attr("feed_id");
 		if ($(this).attr("id") == "my-shared-items") {
-			$("#revchron").click();
-			SETTINGS.items_filter = "all";
-			$("#unread-or-all .menu-button-caption").text("All items");
+			window.location = "/reader/mine";
+			return false;
 		};
+		SETTINGS.feed_id = $(this).attr("feed_id");
 		update_items_filter_control_counts();
 		$("#subscriptions li").removeClass("selected");
 		$("#subscriptions h3").removeClass("selected");
@@ -152,8 +151,6 @@ var update_items_filter_control_counts = function() {
 	var selector = "";
 	if (SETTINGS.feed_id == "shared") {
 		selector = "#shared-unread-count";
-	} else if (SETTINGS.feed_id == MY_FEED_ID) {
-		selector = "#my-unread-count";
 	} else if (SETTINGS.feed_id == "" || typeof(SETTINGS.feed_id) === "undefined") {
 		selector = "#total-unread-count";
 	} else {

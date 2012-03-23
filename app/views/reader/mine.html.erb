@@ -1,0 +1,26 @@
+<%= render partial: "globals", locals: {feed_id: current_user.feed.id, items_filter: "all"} %>
+
+<div id="single">
+	<div id="logo" style="position: absolute; top: 10px; left: 30px;"><span>readertron</span><img src="/assets/rss-bot-small.png"/></div>
+
+	<div id="explanatory-note">
+		<p>This is a view of your shared items with none of the controls loaded&mdash;specifically so that they load faster, and because there's not much that you can <em>do</em> on one of your own shared items, except comment.</p>
+		<p>Comments on the post still work.</p>
+		<p><a href="/">Click here</a> to go back to the rest of the interface.</p>
+	</div>
+
+	<div id="right-pane">
+		<div id="entries">
+		<% @shares.each do |share| %>
+			<%= render :partial => "share", locals: {entry: share, index: 0, unreadable: false} %>
+		<% end %>
+		</div>
+	</div>
+</div>
+
+<div id="end-of-the-line" style="display: none;">
+	You have no more items!
+</div>
+<div id="entries-loader" style="display: none;">
+	<img src="/assets/ajax-loader.gif"/>
+</div>

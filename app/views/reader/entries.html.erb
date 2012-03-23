@@ -1,6 +1,9 @@
 <% if @entries.present? %>
 	<% @entries.each_with_index do |entry, index| %>
-		<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: (index + @page * 10) %>
+		<% locals = {entry: entry, index: (index + @page * 10)} %>
+		<% locals = (entry.feed == current_user.feed ? locals.merge({unreadable: false}) : locals) %>
+		
+		<%= render :partial => (entry.shared? ? "share" : "entry"), :locals => locals %>
 	<% end %>
 <% else %>
 	<div id="no-entries-msg">

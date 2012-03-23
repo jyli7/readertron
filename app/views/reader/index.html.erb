@@ -25,10 +25,6 @@
 		<div id="subscriptions">
 			<h3 feed_id="<%= current_user.feed.id %>" id="my-shared-items">
 				<a href="#">My Shared Items</a>
-				<% u = current_user.unreads.for_feed(current_user.feed.id).count(1)%>
-				<span class="unread_count" id="my-unread-count" style="<%= u > 0 ? '' : 'display: none;' %>">
-					(<%= u %>)
-				</span>
 			</h3>
 			<h3 id="shared-items-link" feed_id="shared">
 				<a href="#">Other Shared Items</a>
@@ -59,15 +55,11 @@
 		<div id="entries">
 		<% if @entries.present? %>
 			<% @entries.each_with_index do |entry, index| %>
-				<%= render (entry.shared? ? "share" : "entry"), entry: entry, index: index %>
+				<%= render "entry", entry: entry, index: index %>
 			<% end %>
 		<% else %>
 			<div id="no-entries-msg">
-				<% if @feed_name.present? %>
-					<h2>"<%= @feed_name %>" has no unread items.</h2>
-				<% else %>
-					<h2>You have no unread items.</h2>
-				<% end %>
+				<h2>You have no unread items.</h2>
 				<span class="link view-all-items">View all items</span>
 			</div>
 		<% end %>

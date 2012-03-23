@@ -83,10 +83,6 @@ Readertron is an attempt to revive the old "social" Google Reader -- see particu
 - The David Brooks feed and images creeping in.
 
 ### Reader UX
-- "My Shared Items" feed.
-	- Hide the "mark as read" thing.
-	- Open with "all" filter.
-	- Update your share count when you share something.
 - De-duplicate shared posts and those posts in the regular feed.
 - Look at shared items by feed, or vice versa.
 

@@ -1,8 +1,11 @@
+<% feed_id = "" if local_assigns[:feed_id].nil? %>
+<% items_filter = "unread" if local_assigns[:items_filter].nil? %>
+
 <script type="text/javascript">
 	var SETTINGS = {
 		date_sort: "chron",
-		items_filter: "unread",
-		feed_id: "",
+		items_filter: "<%= items_filter %>",
+		feed_id: "<%= feed_id %>",
 		page: 0
 	};
 	

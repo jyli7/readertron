@@ -35,7 +35,7 @@ $(document).ready(function() {
 				$(".entry:first").set_as_current_entry(false);
 			} else if ($(".entry.current + .entry").length > 0 && ($(".entry.current + .entry").offset().top - $(window).scrollTop() < 100) && $(window).scrollTop() > lastScrollTop) {
 				$(".entry.current + .entry").set_as_current_entry(false);
-			} else if ($(".entry.current").prev(".entry").length > 0 && ($(window).scrollTop() - $(".entry.current").prev(".entry").find(".read-state").offset().top < -50) && $(window).scrollTop() < lastScrollTop) {
+			} else if ($(".entry.current").prev(".entry").length > 0 && ($(window).scrollTop() - ($(".entry.current").prev(".entry").find(".read-state").offset() || $(".entry.current").prev(".entry").find(".add-comment-link").offset()).top < -50) && $(window).scrollTop() < lastScrollTop) {
 				$(".entry.current").prev(".entry").set_as_current_entry(false);
 			};
 			lastScrollTop = $(window).scrollTop();
