@@ -1,5 +1,3 @@
-## Hopper
-
 ## Readertron
 
 Readertron is an attempt to revive the old "social" Google Reader -- see particularly my [lament](#lament) below -- and a fun experiment in building useful software.
@@ -61,8 +59,9 @@ Readertron is an attempt to revive the old "social" Google Reader -- see particu
 - Sharing YouTube videos via the bookmarklet.
 
 ### UI, UX, Style
-- Don't rely on Javascript to load unread counts and style.
+- j & k & c & o on the /mine page.
 - The first post is being marked as read. (Silber)
+- Linkify URLs in comments and share-notes.
 - The overlap of the reading area onto the subscriptions pane.
 - "1 new items."
 - Meta page input box widths on firefox.
