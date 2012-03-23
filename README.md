@@ -1,5 +1,4 @@
 ## Hopper
-- Refactor feed.rb.
 
 ## Readertron
 
@@ -53,7 +52,6 @@ Readertron is an attempt to revive the old "social" Google Reader -- see particu
 - /entries less than 1s.
 - Nginx speed tweaks.
 	- PCRE or whatever for compressing assets.
-- More memory? Not consuming so much memory with feed fetch caching.
 - :include and such on joins and lookups (Subscriptions and Feeds, for instance).
 
 ### Bookmarklet
