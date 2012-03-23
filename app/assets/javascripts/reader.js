@@ -61,7 +61,7 @@ $(document).ready(function() {
 	
 	if ($("#entries").length > 0) {
 		$(document).scroll(function() {
-			if (scrollFetchFlag && ($("#entries").height() - $(window).scrollTop() < 700)) {
+			if (scrollFetchFlag && ($("#entries").height() - $(window).scrollTop() < 2700)) {
 				SETTINGS.page = SETTINGS.page + 1;
 				scrollFetchFlag = false;
 				append_entries();
