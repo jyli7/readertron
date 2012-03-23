@@ -15,3 +15,5 @@
 /tmp
 /app/assets/images/favicons/*
 /public/assets/*
+.rvmrc
+*.DS_Store
