@@ -1,4 +1,9 @@
-<div class="entry <%= entry.unread_for_user?(current_user) ? "unread" : "read" %>" style="height: auto;" id="entry-<%= index %>" post_id="<%= entry.id %>" feed_id="<%= entry.feed.id %>">
+<div class="entry <%= entry.unread_for_user?(current_user) ? "unread" : "read" %>"
+	 style="height: auto;" id="entry-<%= index %>"
+	 post_id="<%= entry.id %>"
+	 feed_id="<%= entry.feed.id %>"
+	 unread_selectors="feed-<%= entry.feed.id %>-unread-count total-unread-count"
+>
 	<div class="card card-common">
 		<div class="card-content">
 			<div class="entry-container">

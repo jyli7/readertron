@@ -1,0 +1,46 @@
+<div id="controls">
+	<div role="button" id="viewer-refresh" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;">
+		<img src="/assets/refresh.png" alt="" class="jfk-button-img">
+	</div>
+	
+	<div id="unread-or-all" class="jfk-button jfk-button-standard">
+		<div class="menu-button-caption"><span id="new-items-count-visible" class="do-not-hide items-filter-control-count"><%= @unread_count %></span> new items</div>
+		<div class="menu-button-dropdown">&nbsp;</div>
+	</div>
+	<div id="unread-or-all-menu" style="-webkit-user-select: none; left: 89px; top: 8px; display: none;">
+		<div class="item" id="feed-all-items-filter" style="-webkit-user-select: none; ">
+			<div style="-webkit-user-select: none;">All items</div>
+		</div>
+		<div class="item" id="feed-unread-items-filter" style="-webkit-user-select: none;">
+			<div style="-webkit-user-select: none;"><span id="new-items-count-hidden" class="do-not-hide items-filter-control-count"><%= @unread_count %></span> new items</div>
+		</div>
+	</div>
+	
+	<div role="button" id="mark-all-as-read" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;">Mark all as read</div>
+	
+	<div id="revchron" class="jfk-button jfk-button-standard jfk-button-unchecked">
+		<div>Newest first</div>
+	</div>
+	
+	<div id="chron" class="jfk-button jfk-button-standard jfk-button-checked">
+		<div>Oldest first</div>
+	</div>
+	
+	<div id="quickpost-button">Quickpost</div>
+	
+	<div id="settings-button" class="jfk-button jfk-button-standard">
+		<div class="menu-button-caption"><img src="/assets/gear.png" alt="" class="jfk-button-img"></div>
+		<div class="menu-button-dropdown">&nbsp;</div>
+	</div>
+	
+	<div id="settings-menu" style="-webkit-user-select: none; left: 589px; top: 8px; display: none;">
+		<div class="item" id="subscriptions-management-link" style="-webkit-user-select: none; ">
+			<div style="-webkit-user-select: none;">Manage subscriptions</div>
+		</div>
+		<div class="item" id="user-settings-link" style="-webkit-user-select: none;">
+			<div style="-webkit-user-select: none;">User settings</div>
+		</div>
+	</div>
+	
+	<div id="logo"><span>readertron</span><img src="/assets/rss-bot-small.png"/></div>
+</div>

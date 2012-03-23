@@ -1,16 +1,4 @@
-<script type="text/javascript">
-	var POST_FILTERS = {
-		date_sort: "chron",
-		items_filter: "unread",
-		feed_id: "",
-		page: 0
-	};
-	
-	var UNREAD_COUNTS = <%= raw(@unread_counts.to_json) %>;
-	var SHARED_UNREAD_COUNTS = <%= raw(@shared_unread_counts.to_json) %>;
-	
-	var INSTAPAPER = {username: "<%= current_user.instapaper_username %>", password: "<%= current_user.instapaper_password %>"}
-</script>
+<%= render "globals" %>
 
 <div class="message-area-container" id="loading-area-container" style="display: none;">
 	<div class="jfk-butterBar jfk-butterBar-shown jfk-butterBar-info" id="loading-area">Loading...</div>
@@ -35,16 +23,30 @@
 <div id="panes">
 	<div id="left-pane">
 		<div id="subscriptions">
-			<h3 feed_id="<%= current_user.feed.id %>" id="my-shared-items"><a href="#">My Shared Items</a></h3>
-			<h3 id="shared-items-link" feed_id="shared"><a href="#">Other Shared Items</a> <span id="shared_unread_count">(<%= @shared_unread_counts.values.sum %>)</span></h3>
+			<h3 feed_id="<%= current_user.feed.id %>" id="my-shared-items">
+				<a href="#">My Shared Items</a>
+				<% u = current_user.unreads.for_feed(current_user.feed.id).count(1)%>
+				<span class="unread_count" id="my-unread-count" style="<%= u > 0 ? '' : 'display: none;' %>">
+					(<%= u %>)
+				</span>
+			</h3>
+			<h3 id="shared-items-link" feed_id="shared">
+				<a href="#">Other Shared Items</a>
+				<% u = @shared_unread_count %>
+				<span class="unread_count" id="shared-unread-count" style="<%= u > 0 ? '' : 'display: none;' %>">(<%= u %>)</span>
+			</h3>
+				<ul>
+					<% @shared.each do |subscription| %>
+						<%= render "subscription", subscription: subscription %>
+					<% end %>
+				</ul>
+			<h3>
+				<a id="all-items-link" href="#">All Items</a>
+				<% u = @unread_count %>
+				<span class="unread_count" id="total-unread-count" style="<%= u > 0 ? '' : 'display: none;' %>">(<%= u %>)</span>
+			</h3>
 			<ul>
-				<% @shared_subscriptions.each do |subscription| %>
-					<%= render "subscription", subscription: subscription %>
-				<% end %>
-			</ul>
-			<h3><a id="all-items-link" href="#">All Items</a> <span id="total_unread_count">(<%= @unread_counts.values.sum %>)</span></h3>
-			<ul>
-			<% @regular_subscriptions.each do |subscription| %>
+			<% @unshared.each do |subscription| %>
 				<%= render "subscription", subscription: subscription %>
 			<% end %>
 			</ul>
@@ -52,52 +54,7 @@
 	</div>
 
 	<div id="right-pane">
-		<div id="controls">
-			<div role="button" id="viewer-refresh" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;">
-				<img src="/assets/refresh.png" alt="" class="jfk-button-img">
-			</div>
-			
-			<div id="unread-or-all" class="jfk-button jfk-button-standard">
-				<div class="menu-button-caption"><span id="new-items-count-visible"></span> new items</div>
-				<div class="menu-button-dropdown">&nbsp;</div>
-			</div>
-			<div id="unread-or-all-menu" style="-webkit-user-select: none; left: 89px; top: 8px; display: none;">
-				<div class="item" id="feed-all-items-filter" style="-webkit-user-select: none; ">
-					<div style="-webkit-user-select: none;">All items</div>
-				</div>
-				<div class="item" id="feed-unread-items-filter" style="-webkit-user-select: none;">
-					<div style="-webkit-user-select: none;"><span id="new-items-count-hidden"></span> new items</div>
-				</div>
-			</div>
-			
-			<div role="button" id="mark-all-as-read" class="jfk-button jfk-button-standard" tabindex="0" title="Refresh" style="-webkit-user-select: none;">Mark all as read</div>
-			
-			<div id="revchron" class="jfk-button jfk-button-standard jfk-button-unchecked">
-				<div>Newest first</div>
-			</div>
-			
-			<div id="chron" class="jfk-button jfk-button-standard jfk-button-checked">
-				<div>Oldest first</div>
-			</div>
-			
-			<div id="quickpost-button">Quickpost</div>
-			
-			<div id="settings-button" class="jfk-button jfk-button-standard">
-				<div class="menu-button-caption"><img src="/assets/gear.png" alt="" class="jfk-button-img"></div>
-				<div class="menu-button-dropdown">&nbsp;</div>
-			</div>
-			
-			<div id="settings-menu" style="-webkit-user-select: none; left: 589px; top: 8px; display: none;">
-				<div class="item" id="subscriptions-management-link" style="-webkit-user-select: none; ">
-					<div style="-webkit-user-select: none;">Manage subscriptions</div>
-				</div>
-				<div class="item" id="user-settings-link" style="-webkit-user-select: none;">
-					<div style="-webkit-user-select: none;">User settings</div>
-				</div>
-			</div>
-			
-			<div id="logo"><span>readertron</span><img src="/assets/rss-bot-small.png"/></div>
-		</div>
+		<%= render "controls" %>
 
 		<div id="entries">
 		<% if @entries.present? %>

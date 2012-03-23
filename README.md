@@ -1,3 +1,6 @@
+## Hopper
+- Refactor feed.rb.
+
 ## Readertron
 
 Readertron is an attempt to revive the old "social" Google Reader -- see particularly my [lament](#lament) below -- and a fun experiment in building useful software.
@@ -38,7 +41,6 @@ Readertron is an attempt to revive the old "social" Google Reader -- see particu
 	- 400s of content using relative URLs / strip harmful or disruptive content.
 
 ### Refactoring
-- Refactor regular vs. shared count maintenance code.
 - Abstract out an API.
 - Backbone, mustache templates for the front end?
 - CSS -> SASS, and reusing rules.

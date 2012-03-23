@@ -8,14 +8,10 @@ $(document).ready(function() {
 	});
 
 	$("#viewer-refresh").click(function() {
-		POST_FILTERS.page = 0;
+		SETTINGS.page = 0;
 		fetch_entries();
 		return false;
 	});
-	
-	if ($("#entries").length > 0) {
-		reset_unread_or_all_width();	
-	};
 	
 	$("#unread-or-all").mouseover(function() {
 		$(this).removeClass("jfk-button-standard").addClass("jfk-button-hover");
@@ -34,18 +30,18 @@ $(document).ready(function() {
 	});
 	
 	$('#feed-all-items-filter').click(function() {
-		POST_FILTERS.page = 0;
-		POST_FILTERS.items_filter = "all";
+		SETTINGS.page = 0;
+		SETTINGS.items_filter = "all";
 		$("#unread-or-all .menu-button-caption").text("All items");
-		reset_unread_or_all_width();
+		update_items_filter_control_counts();
 		fetch_entries();
 	});
 	
 	$("#feed-unread-items-filter").click(function() {
-		POST_FILTERS.items_filter = "unread";
-		POST_FILTERS.page = 0;
+		SETTINGS.items_filter = "unread";
+		SETTINGS.page = 0;
 		$("#unread-or-all .menu-button-caption").html("<span id='new-items-count-visible'>" + $("#new-items-count-hidden").text() + "</span> new items")
-		reset_unread_or_all_width();
+		update_items_filter_control_counts();
 		fetch_entries();
 	});
 	
@@ -60,8 +56,8 @@ $(document).ready(function() {
 	$("#revchron").click(function() {
 		$("#chron").removeClass("jfk-button-checked").addClass("jfk-button-unchecked");
 		$(this).removeClass("jfk-button-unchecked").addClass("jfk-button-checked");
-		POST_FILTERS.page = 0;
-		POST_FILTERS.date_sort = "revchron";
+		SETTINGS.page = 0;
+		SETTINGS.date_sort = "revchron";
 		fetch_entries();
 	});
 	
@@ -76,8 +72,8 @@ $(document).ready(function() {
 	$("#chron").click(function() {
 		$("#revchron").removeClass("jfk-button-checked").addClass("jfk-button-unchecked");
 		$(this).removeClass("jfk-button-unchecked").addClass("jfk-button-checked");
-		POST_FILTERS.page = 0;
-		POST_FILTERS.date_sort = "chron";
+		SETTINGS.page = 0;
+		SETTINGS.date_sort = "chron";
 		fetch_entries();
 	});
 	
@@ -90,21 +86,10 @@ $(document).ready(function() {
 	});
 
 	$("#mark-all-as-read").click(function() {
-		if (SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id] != undefined) {
-			SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id] = 0
-		} else if (UNREAD_COUNTS[POST_FILTERS.feed_id] != undefined) {
-			UNREAD_COUNTS[POST_FILTERS.feed_id] = 0
-		} else if (POST_FILTERS.feed_id == "shared") {
-			for (k in SHARED_UNREAD_COUNTS) {
-				SHARED_UNREAD_COUNTS[k] = 0;
-			};
-		} else if (POST_FILTERS.feed_id == "" || POST_FILTERS.feed_id == undefined) {
-			for (k in UNREAD_COUNTS) {
-				UNREAD_COUNTS[k] = 0;
-			};
-		};
-		$.post("/reader/mark_all_as_read", {feed_id: POST_FILTERS.feed_id}, function(ret) {
-			POST_FILTERS.page = 0;
+		$("#feed-" + SETTINGS.feed_id + "-unread-count").zero();
+		
+		$.post("/reader/mark_all_as_read", {feed_id: SETTINGS.feed_id}, function(ret) {
+			SETTINGS.page = 0;
 			fetch_entries();
 			broadcast("Marked all entries as read.")
 		});
@@ -162,7 +147,3 @@ $(document).ready(function() {
 	});
 	
 });
-
-var reset_unread_or_all_width = function() {
-	$("#unread-or-all .menu-button-dropdown").css("left", ($("#unread-or-all .menu-button-caption").width() + 5) + "px");
-}

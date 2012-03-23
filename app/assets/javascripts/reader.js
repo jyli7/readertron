@@ -6,8 +6,9 @@ $(document).ready(function() {
 	});
 	
 	$("#subscriptions li").click(function() {
-		POST_FILTERS.feed_id = $(this).split_id();
-		POST_FILTERS.page = 0;
+		SETTINGS.feed_id = $(this).split_id();
+		SETTINGS.page = 0;
+		update_items_filter_control_counts();
 		fetch_entries();
 		$("#subscriptions li, #subscriptions h3").removeClass("selected");
 		$(this).addClass("selected");
@@ -24,18 +25,17 @@ $(document).ready(function() {
 	})
 	
 	$("#subscriptions h3").click(function() {
-		POST_FILTERS.feed_id = $(this).attr("feed_id");
+		SETTINGS.feed_id = $(this).attr("feed_id");
 		if ($(this).attr("id") == "my-shared-items") {
 			$("#revchron").click();
-			POST_FILTERS.date_sort = "revchron";
-			POST_FILTERS.items_filter = "all";
+			SETTINGS.items_filter = "all";
 			$("#unread-or-all .menu-button-caption").text("All items");
-			reset_unread_or_all_width();
 		};
+		update_items_filter_control_counts();
 		$("#subscriptions li").removeClass("selected");
 		$("#subscriptions h3").removeClass("selected");
 		$(this).addClass("selected");
-		POST_FILTERS.page = 0;
+		SETTINGS.page = 0;
 		fetch_entries();
 		return false;
 	});
@@ -54,8 +54,8 @@ $(document).ready(function() {
 	});
 	
 	$(".view-all-items").live("click", function() {
-		POST_FILTERS.page = 0;
-		POST_FILTERS.items_filter = "all";
+		SETTINGS.page = 0;
+		SETTINGS.items_filter = "all";
 		$("#unread-or-all .menu-button-caption").text("All items");
 		fetch_entries();
 	});
@@ -63,13 +63,12 @@ $(document).ready(function() {
 	if ($("#entries").length > 0) {
 		$(document).scroll(function() {
 			if (scrollFetchFlag && ($("#entries").height() - $(window).scrollTop() < 700)) {
-				POST_FILTERS.page = POST_FILTERS.page + 1;
+				SETTINGS.page = SETTINGS.page + 1;
 				scrollFetchFlag = false;
 				append_entries();
 			};
-		});		
-		refresh_unread_counts();
-		refresh_shared_unread_counts();
+		});
+		update_items_filter_control_counts();	
 	};
 	
 	$("#logo").click(function() {
@@ -98,7 +97,16 @@ $.fn.replace_int = function(n) {
 };
 
 $.fn.notch = function(n) {
-	this.replace_int(this.get_int() + n);
+	var new_n = this.get_int() + n;
+	this.replace_int(new_n);
+	(new_n == 0) ? this.hide().parent().removeClass("unread") : this.show().parent().addClass("unread");
+	update_items_filter_control_counts();
+};
+
+$.fn.zero = function() {
+	this.replace_int(0);
+	this.hide().parent().removeClass("unread");
+	update_items_filter_control_counts();
 };
 
 var next_post = function(offset) {
@@ -117,9 +125,7 @@ var next_post = function(offset) {
 var fetch_entries = function() {
 	$("#entries").empty();
 	$("#loading-area-container").show();
-	refresh_unread_counts();
-	refresh_shared_unread_counts();
-	$.get("/reader/entries", POST_FILTERS, function(ret) {
+	$.get("/reader/entries", SETTINGS, function(ret) {
 		scrollFetchFlag = true;
 		$("#entries").html(ret);
 		$("#loading-area-container").hide();
@@ -129,7 +135,7 @@ var fetch_entries = function() {
 
 var append_entries = function() {
 	$("#entries").append($("#entries-loader").clone().show());
-	$.get("/reader/entries", POST_FILTERS, function(ret) {
+	$.get("/reader/entries", SETTINGS, function(ret) {
 		if (ret.indexOf("no-entries-msg") != -1) {
 			$("#entries #entries-loader").remove();
 			$("#entries").append($("#end-of-the-line").clone().show());
@@ -137,89 +143,24 @@ var append_entries = function() {
 		} else {
 			$("#entries").append(ret);
 			$("#entries #entries-loader").remove();
-			refresh_unread_counts();
-			refresh_shared_unread_counts();
 			scrollFetchFlag = true;			
 		}
 	});
 };
 
-var refresh_unread_counts = function() {
-	var total_count = 0;
-	var title_count = 0;
-	for (var k in UNREAD_COUNTS) {
-		var old_count = $("#subscription-" + k).find(".unread_count").get_int();
-		var new_count = UNREAD_COUNTS[k];
-		total_count += new_count;
-		title_count += new_count;
-		if (new_count > 0) {
-			$("#subscription-" + k).addClass("unread").find(".unread_count").text("(" + new_count + ")");
-		} else {
-			$("#subscription-" + k).removeClass("unread").find(".unread_count").text("");
-		};
-	};
-	for (var l in SHARED_UNREAD_COUNTS) {
-		title_count += SHARED_UNREAD_COUNTS[l];
-	};
-	var rep;
-	if (POST_FILTERS.feed_id == undefined || POST_FILTERS.feed_id == "") {
-		rep = total_count;
-	} else if (UNREAD_COUNTS[POST_FILTERS.feed_id] == undefined) {
-		rep = SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id];
+var update_items_filter_control_counts = function() {
+	var selector = "";
+	if (SETTINGS.feed_id == "shared") {
+		selector = "#shared-unread-count";
+	} else if (SETTINGS.feed_id == MY_FEED_ID) {
+		selector = "#my-unread-count";
+	} else if (SETTINGS.feed_id == "" || typeof(SETTINGS.feed_id) === "undefined") {
+		selector = "#total-unread-count";
 	} else {
-		rep = UNREAD_COUNTS[POST_FILTERS.feed_id];
+		selector = "#feed-" + SETTINGS.feed_id + "-unread-count";
 	};
-	$("#new-items-count-hidden").text(rep);
-	$("#new-items-count-visible").text(rep);
-	reset_unread_or_all_width();
-	$("#total_unread_count").text("(" + total_count + ")");
-	$("title").text("Readertron (" + title_count + ")");
-};
-
-var refresh_shared_unread_counts = function() {
-	var total_count = 0;
-	var title_count = 0;
-	for (var k in SHARED_UNREAD_COUNTS) {
-		var old_count = $("#subscription-" + k).find(".unread_count").get_int();
-		var new_count = SHARED_UNREAD_COUNTS[k];
-		total_count += new_count;
-		title_count += new_count;
-		if (new_count > 0) {
-			$("#subscription-" + k).addClass("unread").find(".unread_count").text("(" + new_count + ")");
-		} else {
-			$("#subscription-" + k).removeClass("unread").find(".unread_count").text("");
-		};
-	};
-	for (var l in UNREAD_COUNTS) {
-		title_count += UNREAD_COUNTS[l];
-	};
-	var rep;
-	if (POST_FILTERS.feed_id == undefined || POST_FILTERS.feed_id == "") {
-		rep = null;
-	} else if (POST_FILTERS.feed_id == "shared") {
-		rep = total_count;
-	} else if (SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id] == undefined) {
-		rep = UNREAD_COUNTS[POST_FILTERS.feed_id];
-	} else {
-		rep = SHARED_UNREAD_COUNTS[POST_FILTERS.feed_id];
-	};
-	if (rep != null) {
-		$("#new-items-count-hidden").text(rep);
-		$("#new-items-count-visible").text(rep);
-	};
-	reset_unread_or_all_width();
-	$("#shared_unread_count").text("(" + total_count + ")");
-	$("title").text("Readertron (" + title_count + ")");
-};
-
-var notch_unread_for_feed_id = function(feed_id, n) {
-	UNREAD_COUNTS[parseInt(feed_id)] = UNREAD_COUNTS[parseInt(feed_id)] + n;
-	refresh_unread_counts();
-};
-
-var shared_notch_unread_for_feed_id = function(feed_id, n) {
-	SHARED_UNREAD_COUNTS[parseInt(feed_id)] = SHARED_UNREAD_COUNTS[parseInt(feed_id)] + n;
-	refresh_shared_unread_counts();
+	$(".items-filter-control-count").replace_int($(selector).get_int());
+	$("#unread-or-all .menu-button-dropdown").css("left", ($("#unread-or-all .menu-button-caption").width() + 5) + "px")
 };
 
 var broadcast = function(msg) {

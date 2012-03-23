@@ -1,4 +1,10 @@
-<li id="subscription-<%= subscription.feed.id %>">
-	<img src="<%= feed_favicon(subscription.feed.id) %>"/> <%= truncate(subscription.feed.title || subscription.feed.feed_url, length: 27) %>
-	<span class="unread_count"></span>
+<% u = @unread_counts[subscription.feed.id] %>
+
+<li id="subscription-<%= subscription.feed.id %>" class="<%= u > 0 ? 'unread' : ''%>">
+	<img src="<%= feed_favicon(subscription.feed.id) %>"/>
+	<%= truncate(subscription.feed.title || subscription.feed.feed_url, length: 27) %>
+	
+	<span class="unread_count" id="feed-<%= subscription.feed.id %>-unread-count" style="<%= u > 0 ? '' : 'display: none;' %>">
+		(<%= u %>)
+	</span>
 </li>

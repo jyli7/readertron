@@ -78,13 +78,16 @@ class User < ActiveRecord::Base
     if name_changed? && feed = Feed.where("feed_url = '#shared' AND title = '#{name_was}'").first
       feed.update_attributes(title: name)
     end
+  end  
+  
+  def unread_counts
+    hash, shared_count = {}, 0
+    feeds.unshared.each {|f| hash[f.id] = unreads.for_feed(f.id).count(1)}
+    feeds.shared.each {|f| ct = unreads.for_feed(f.id).count(1); hash[f.id] = ct; shared_count += ct}
+    [hash, shared_count]
   end
   
-  def unread_hash
-     feeds.unshared.inject({}) {|hash, f| hash[f.id] = unreads.for_feed(f.id).count(1); hash}
-   end
-
-   def shared_unread_hash
-     feeds.shared.inject({}) {|hash, f| hash[f.id] = unreads.for_feed(f.id).count(1); hash}
-   end
+  def shared_unread_count_total
+    feeds.shared.map {|f| unreads.for_feed(f.id).count(1) }.sum
+  end
 end

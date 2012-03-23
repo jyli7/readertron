@@ -3,15 +3,15 @@ class ReaderController < ApplicationController
   protect_from_forgery :except => [:create_post, :bookmarklet, :email_comment]
   
   def index
-    @regular_subscriptions = current_user.regular_subscriptions
-    @shared_subscriptions = current_user.shared_subscriptions
-    if params[:post_id].present?
-      redirect_to "/reader/posts/#{params[:post_id]}"
-    else
-      @entries = current_user.unreads(:include => :posts).order("published ASC").limit(10).map(&:post)
-    end
-    @unread_counts = current_user.unread_hash
-    @shared_unread_counts = current_user.shared_unread_hash
+    redirect_to "/reader/posts/#{params[:post_id]}" if params[:post_id].present?
+    @shared, @unshared = current_user.subscriptions(:include => :feeds).partition {|s| s.feed.shared?}
+    
+    @entries = current_user.unreads(:include => :posts).order("published ASC").limit(10).map(&:post)
+    
+    @unread_counts, @shared_unread_count = current_user.unread_counts
+
+    @title = "(#{@unread_count = @unread_counts.values.sum})"
+    @shared_unread_count = current_user.shared_unread_count_total
   end
   
   def posts
