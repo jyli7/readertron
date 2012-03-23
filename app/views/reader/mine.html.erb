@@ -11,8 +11,8 @@
 
 	<div id="right-pane">
 		<div id="entries">
-		<% @shares.each do |share| %>
-			<%= render :partial => "share", locals: {entry: share, index: 0, unreadable: false} %>
+		<% @shares.each_with_index do |share, i| %>
+			<%= render :partial => "share", locals: {entry: share, index: i, unreadable: false} %>
 		<% end %>
 		</div>
 	</div>
