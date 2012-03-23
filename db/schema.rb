@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20120323030118) do
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
     t.boolean  "shared",        :default => false
-    t.string   "etag"
   end
 
   add_index "feeds", ["shared"], :name => "index_feeds_on_shared"
