@@ -28,6 +28,10 @@ class Post < ActiveRecord::Base
     order("published DESC")
   end
   
+  def self.revshared
+    order("created_at DESC")
+  end
+  
   def self.unread_for_user(user)
     joins("JOIN unreads ON posts.id = unreads.post_id").where("unreads.user_id = #{user.id}")
   end
@@ -38,7 +42,16 @@ class Post < ActiveRecord::Base
     else
       posts = unshared.for_user(user)
     end
-    posts = (date_sort == "chron" ? posts.chron : posts.revchron)
+    
+    posts = case date_sort
+    when "chron"
+      posts.chron
+    when "revchron"
+      posts.revchron
+    when "revshared"
+      posts.revshared
+    end
+
     if items_filter == "unread"
       if page == 0
         posts = posts.unread_for_user(user)

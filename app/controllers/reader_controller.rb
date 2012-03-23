@@ -20,7 +20,7 @@ class ReaderController < ApplicationController
   end
   
   def mine
-    @shares = current_user.feed.posts.revchron.limit(10)
+    @shares = current_user.feed.posts.revshared.limit(10)
     render "mine"
   end
   
@@ -49,7 +49,7 @@ class ReaderController < ApplicationController
   def post_share
     post = Post.find(params[:post_id])
     unless (share = current_user.feed.posts.find_by_original_post_id(params[:post_id]))
-      current_user.feed.posts.create(post.attributes.merge(shared: true, original_post_id: post.id))
+      current_user.feed.posts.create(post.attributes.merge(shared: true, original_post_id: post.id, created_at: Time.now))
     end
     render text: "OK"
   end
@@ -63,7 +63,7 @@ class ReaderController < ApplicationController
   def share_with_note
    post = Post.find(params[:post_id])
     unless (share = current_user.feed.posts.find_by_original_post_id(params[:post_id]))
-      current_user.feed.posts.create(post.attributes.merge(shared: true, original_post_id: post.id, note: params[:note_content]))
+      current_user.feed.posts.create(post.attributes.merge(shared: true, original_post_id: post.id, note: params[:note_content], created_at: Time.now))
     end
     render text: "OK"
   end
