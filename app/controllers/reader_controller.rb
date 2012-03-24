@@ -141,7 +141,7 @@ class ReaderController < ApplicationController
     Report.create(report_type: "cloudmailin", content: {html: params[:html]})
     post = Post.find(params[:subject][/\(post_id: (\d+)\)/, 1])
     user = User.find_by_email(params[:from])
-    content = params[:html].split('<div class="gmail_quote">').first.chomp.chomp.chomp("<br>")
+    content = params[:html].split('<div class="gmail_quote">').first.gsub("\r", "").gsub("\n", "").gsub(/(\<br\>)*$/, "").gsub(/(\<div\>)*$/, "")
     post.comments.create(user: user, content: content)
     render :text => "OK", :status => 200
   end

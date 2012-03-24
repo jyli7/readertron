@@ -7,7 +7,7 @@
 				<a href="#" class="comment-edit-link">Edit</a> | <a href="#" class="comment-delete-link">Delete</a>
 			</span>
 			<%= form_tag("/reader/edit_comment", :method => "post", :style => "display: none;") do %>
-			  <%= text_area_tag(:comment_content, comment.content) %>
+			  <%= text_area_tag(:comment_content, strip_tags(comment.content.gsub("<br>", "\n\n"))) %>
 			  <div class="after-actions">
 			    <%= submit_tag("Save") %>
 			    <a href="#" class="cancel-comment-edit">Cancel</a>
