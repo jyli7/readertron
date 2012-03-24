@@ -108,7 +108,7 @@ $.fn.notch = function(n, simple) {
 };
 
 $.fn.zero = function() {
-	this.replace_int(0);
+	this.notch_unreads(-1 * $("#feed-" + SETTINGS.feed_id + "-unread-count").get_int());
 	this.hide().parent().removeClass("unread");
 	update_items_filter_control_counts();
 };

@@ -86,7 +86,7 @@ $(document).ready(function() {
 	});
 
 	$("#mark-all-as-read").click(function() {
-		$("#feed-" + SETTINGS.feed_id + "-unread-count").zero();
+		$(".entry:first").zero();
 		
 		$.post("/reader/mark_all_as_read", {feed_id: SETTINGS.feed_id}, function(ret) {
 			SETTINGS.page = 0;
