@@ -10,4 +10,7 @@
 	<div id="right-pane">
 		<%= render :partial => "share", locals: {entry: @entry, index: 0, unreadable: false} %>
 	</div>
+	<div id="entries-loader" style="display: none;">
+		<img src="/assets/ajax-loader.gif"/>
+	</div>
 </div>

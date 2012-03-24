@@ -95,11 +95,16 @@ $.fn.replace_int = function(n) {
 	this.text(this.text().replace(/[0-9]+/, n));
 };
 
-$.fn.notch = function(n) {
+$.fn.notch = function(n, simple) {
+	if (typeof(simple) == "undefined") { simple = false };
 	var new_n = this.get_int() + n;
 	this.replace_int(new_n);
-	(new_n == 0) ? this.hide().parent().removeClass("unread") : this.show().parent().addClass("unread");
-	update_items_filter_control_counts();
+	if (simple) {
+		return null;
+	} else {
+		(new_n == 0) ? this.hide().parent().removeClass("unread") : this.show().parent().addClass("unread");
+		update_items_filter_control_counts();
+	};
 };
 
 $.fn.zero = function() {

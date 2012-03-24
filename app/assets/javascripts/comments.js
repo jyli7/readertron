@@ -21,7 +21,7 @@ $(document).ready(function() {
 	$(".comments .comment-delete-link").live("click", function() {
 		var $comment = $(this).closest(".comment");
 		$.post("/reader/delete_comment", {comment_id: $comment.attr("comment_id")}, function(ret) {
-			$comment.closest(".comments").find(".comments-count").notch(-1);
+			$comment.closest(".comments").find(".comments-count").notch(-1, true);
 			$comment.remove();
 		});
 		return false;
@@ -63,10 +63,11 @@ var add_comment = function(entry) {
 	var post_id = $(entry).attr("post_id");
 	$(entry).find(".comment-add-form form").hide();
 	$(entry).find(".comments .add-comment-link").show();
-	$(entry).find(".comments-count").notch(+1);
+	$(entry).find(".comments-count").notch(+1, true);
 	$(entry).find(".comments-container").append($("#entries-loader").clone().show());
 	$.post("/reader/create_comment", {post_id: post_id, comment_content: comment_content}, function(ret) {
-		$(entry).find(".comments-container").append(ret);
-		$(entry).find(".comments-container #entries-loader").remove();
+			$(entry).find(".comments-container").append(ret);
+			$(entry).find(".comments-container #entries-loader").remove();
 	});
+	return false;
 };
