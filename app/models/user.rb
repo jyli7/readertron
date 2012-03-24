@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :unreads, dependent: :destroy
   has_many :comments, dependent: :destroy
   
-  after_create :make_shared_feed_and_subscribe_others_to_it
+  after_create :make_shared_feed
   after_create :subscribe_to_all_shared_feeds
   after_create :make_share_token
   after_save :update_corresponding_feed_name
@@ -43,11 +43,8 @@ class User < ActiveRecord::Base
     subscriptions.joins("JOIN feeds ON subscriptions.feed_id = feeds.id").where("feeds.shared = ?", true)
   end
   
-  def make_shared_feed_and_subscribe_others_to_it
+  def make_shared_feed
     feed = Feed.create(title: name, feed_url: "#shared", shared: true)
-    User.where("id != #{id}").each do |user|
-      user.subscriptions.create(feed: feed)
-    end
   end
   
   def feed
