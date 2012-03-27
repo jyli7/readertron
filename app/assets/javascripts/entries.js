@@ -29,6 +29,39 @@ $(document).ready(function() {
 		return false;
 	});
 	
+	$(".edit-note-link").live("click", function() {
+		$(this).closest(".entry-note").find("form").show();
+		$(this).closest(".entry-note").find(".note-content").hide();
+		$(this).closest(".note-controls").hide();
+	});
+	
+	$(".cancel-note-edit").live("click", function() {
+		$(this).closest(".entry-note").find("form").hide();
+		$(this).closest(".entry-note").find(".note-content").show();
+		$(this).closest(".entry-note").find(".note-controls").show();
+	});
+	
+	$(".entry-note input[type=submit]").live("click", function() {
+		var that = this;
+		$.post("/reader/edit_note", {
+			post_id: $(this).closest(".entry").attr("post_id"), 
+			content: $(this).closest(".entry-note").find("textarea").val()
+		}, function(ret) {
+			$(that).closest(".entry-note").replaceWith(ret);
+		});
+		return false;
+	});
+	
+	$(".delete-note-link").live("click", function() {
+		var okay = confirm("Are you sure?");
+		if (okay) {
+			var that = this;
+			$.post("/reader/delete_note", {post_id: $(this).closest(".entry").attr("post_id")}, function(ret) {
+				$(that).closest(".entry-note").remove();
+			})
+		}
+	});
+	
 	if ($("#entries").length > 0) {
 		$(document).scroll(function() {
 			if ($(".entry.current").length == 0 && $(window).scrollTop() > lastScrollTop) {

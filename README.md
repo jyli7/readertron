@@ -5,7 +5,6 @@ Readertron is an attempt to revive the old "social" Google Reader -- see particu
 ## Todos
 
 ### Core / New Features
-- Editing notes
 - Editing Quickposts
 - Previewing Quickposts
 - Polling for shared counts every 30s or so, and flashing on new content.

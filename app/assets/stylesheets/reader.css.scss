@@ -940,3 +940,19 @@ table#current-subscriptions a.subscriptions-page-feed-link {
 	width: 220px;
 	font-family: 'Inika';
 }
+
+.note-controls {
+	float: right;
+}
+.entry-note form textarea {
+	width: 650px;
+	height: 50px;
+	margin-left: 40px;
+	font-family: Monaco, courier;
+	padding: 5px;
+	font-size: 13px;
+}
+
+.after-note-edit-actions {
+	margin-left: 40px;
+}

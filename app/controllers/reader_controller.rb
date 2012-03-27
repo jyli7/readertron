@@ -117,6 +117,18 @@ class ReaderController < ApplicationController
     render text: "OK"
   end
   
+  def edit_note
+    entry = Post.find(params[:post_id])
+    entry.update_attributes!({note: params[:content]})
+    render partial: "reader/entry_note", :locals => {entry: entry}
+  end
+  
+  def delete_note
+    entry = Post.find(params[:post_id])
+    entry.update_attributes!({note: nil})
+    render text: "OK"
+  end
+  
   def quickpost
     p = current_user.feed.posts.create(
       content: params[:content],

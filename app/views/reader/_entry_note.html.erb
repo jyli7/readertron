@@ -1,0 +1,17 @@
+<% if entry.note.present? %>
+<div class="entry-note">
+	<% if entry.feed.title == current_user.name %>
+		<div class="note-controls">
+			<a href="#" class="edit-note-link">Edit</a> | <a href="#" class="delete-note-link">Delete</a>
+		</div>
+		<%= form_tag("/reader/edit_note", :method => "post", :style => "display: none;") do %>
+		  <%= text_area_tag(:entry_note, entry.note) %>
+		  <div class="after-note-edit-actions">
+		    <%= submit_tag("Save changes") %>
+		    <a href="#" class="cancel-note-edit">Cancel</a>
+		  </div>
+		<% end %>
+	<% end %>
+	<div class="note-content"><%= markdown("<strong>#{entry.feed.title}:</strong> #{entry.note}") %></div>
+</div>
+<% end %>
