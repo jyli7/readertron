@@ -6,7 +6,7 @@ class ReaderController < ApplicationController
     redirect_to "/reader/posts/#{params[:post_id]}" if params[:post_id].present?
     @shared, @unshared = current_user.subscriptions(:include => :feeds).partition {|s| s.feed.shared?}
     
-    @entries = current_user.unreads(:include => :posts).order("published ASC").limit(10).map(&:post)
+    @entries = current_user.unreads(:include => :posts).unshared.order("published ASC").limit(10).map(&:post)
     
     @unread_counts, @shared_unread_count = current_user.unread_counts
 
