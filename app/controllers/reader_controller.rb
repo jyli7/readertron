@@ -12,6 +12,7 @@ class ReaderController < ApplicationController
 
     @title = "(#{@unread_count = @unread_counts.values.sum})"
     @shared_unread_count = current_user.shared_unread_count_total
+    @regular_unread_count = @unread_count - @shared_unread_count
   end
   
   def posts

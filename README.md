@@ -59,6 +59,7 @@ Readertron is an attempt to revive the old "social" Google Reader -- see particu
 
 ### UI, UX, Style
 - j & k & c & o on the /mine page.
+- Drew's n posts in "All Items" when he has no subscriptions.
 - The first post is being marked as read. (Silber)
 - Linkify URLs in comments and share-notes.
 - The overlap of the reading area onto the subscriptions pane.
