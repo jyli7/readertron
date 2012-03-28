@@ -1,0 +1,15 @@
+<table class="admin">
+	<th>Fetched at</th>
+	<th>Fetch time</th>
+	<th>New posts</th>
+	<th>Problem feeds</th>
+	<th>Especial problem feeds</th>
+<% @fetches.each do |f| %>
+	<tr>
+		<td><%= f.created_at.strftime("%b #{f.created_at.day}, %Y %I:%M %p") %></td>
+		<td><%= distance_of_time_in_words(f[:content][:time]) %></td>
+		<td><%= f[:content][:posts] %></td>
+		<td><%= f[:content][:failed_fetches].length %></td>
+		<td><%= f[:content][:fallback_failed_fetches].length %></td>
+	</tr>
+<% end %>

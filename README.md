@@ -89,9 +89,6 @@ Readertron is an attempt to revive the old "social" Google Reader -- see particu
 - Rescue out of of the controller action, send a report with AdminMailer.
 - 500 out and instruct CloudMailin to reply to sender.
 
-### Stats, Reporting, Admininstration
-- Generating e-mail reports (AdminMailer) from Report objects, and/or making an admin page.
-
 <a name="lament"/>
 ## Google Reader Lost: A Lament
 

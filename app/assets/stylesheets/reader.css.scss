@@ -956,3 +956,22 @@ table#current-subscriptions a.subscriptions-page-feed-link {
 .after-note-edit-actions {
 	margin-left: 40px;
 }
+
+table.admin {
+	width: 850px;
+	font-family: 'Inika', cursive;
+	font-size: 13px;
+	text-align: center;
+}
+
+table.admin th {
+	font-weight: normal;
+	font-family: 'Inika';
+	font-size: 15px;
+	text-transform: uppercase;
+}
+
+table.bordered td {
+	border-top: 1px solid #eee;
+	margin: 0px;
+}

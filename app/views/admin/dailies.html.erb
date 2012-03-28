@@ -1,0 +1,38 @@
+<% @dailies.each do |daily| %>
+	<h2><%= daily.created_at.strftime("%b #{daily.created_at.day}, %Y") %></h2>
+	<table class="admin">
+		<th>Feeds</th>
+		<th>Posts</th>
+		<th>Unreads</th>
+		<th>Comments</th>
+		<th>Shares</th>
+		<tr>
+			<td><%= daily[:content][:feed_count] %></td>
+			<td><%= daily[:content][:post_count] %></td>
+			<td><%= daily[:content][:unread_count] %></td>
+			<td><%= daily[:content][:comment_count] %></td>
+			<td><%= daily[:content][:share_count] %></td>
+		</tr>
+	</table>
+	<br/><br/>
+	<table class="admin bordered">
+		<th>User</th>
+		<th>Subscriptions</th>
+		<th>Unreads</th>
+		<th>Bookmarklets</th>
+		<th>Quickposts</th>
+		<th>Shares</th>
+		<th>Comments</th>
+		<% daily[:content][:users].each do |user_name, stats| %>
+		<tr>
+			<td><%= user_name %></td>
+			<td><%= stats[:subscriptions] %></td>
+			<td><%= stats[:unread_count] %></td>
+			<td><%= stats[:bookmarklets_today] %></td>
+			<td><%= stats[:quickposts_today] %></td>
+			<td><%= stats[:shares_today] %></td>
+			<td><%= stats[:comments_today] %></td>
+		</tr>
+		<% end %>
+	</table>
+<% end %>
