@@ -93,6 +93,7 @@ $.fn.get_int = function() {
 
 $.fn.replace_int = function(n) {
 	this.text(this.text().replace(/[0-9]+/, n));
+	return this;
 };
 
 $.fn.notch = function(n, simple) {

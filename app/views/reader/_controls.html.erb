@@ -4,7 +4,7 @@
 	</div>
 	
 	<div id="unread-or-all" class="jfk-button jfk-button-standard">
-		<div class="menu-button-caption"><span id="new-items-count-visible" class="do-not-hide items-filter-control-count"><%= @unread_count %></span> new items</div>
+		<div class="menu-button-caption"><span id="new-items-count-visible" class="do-not-hide items-filter-control-count"><%= @regular_unread_count %></span> new items</div>
 		<div class="menu-button-dropdown">&nbsp;</div>
 	</div>
 	<div id="unread-or-all-menu" style="-webkit-user-select: none; left: 89px; top: 8px; display: none;">
@@ -12,7 +12,7 @@
 			<div style="-webkit-user-select: none;">All items</div>
 		</div>
 		<div class="item" id="feed-unread-items-filter" style="-webkit-user-select: none;">
-			<div style="-webkit-user-select: none;"><span id="new-items-count-hidden" class="do-not-hide items-filter-control-count"><%= @unread_count %></span> new items</div>
+			<div style="-webkit-user-select: none;"><span id="new-items-count-hidden" class="do-not-hide items-filter-control-count"><%= @regular_unread_count %></span> new items</div>
 		</div>
 	</div>
 	
